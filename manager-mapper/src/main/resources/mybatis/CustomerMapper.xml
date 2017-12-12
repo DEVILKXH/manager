@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manager.mapper.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.manager.entity.Customer" >
+    <id column="UUID" property="uuid" jdbcType="VARCHAR" />
+    <result column="CUS_NAME" property="cusName" jdbcType="VARCHAR" />
+    <result column="CUS_BIRTHDAY" property="cusBirthday" jdbcType="DATE" />
+    <result column="CUS_PHONE" property="cusPhone" jdbcType="VARCHAR" />
+    <result column="CUS_STATUS" property="cusStatus" jdbcType="VARCHAR" />
+    <result column="CUS_ADDRESS" property="cusAddress" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    UUID, CUS_NAME, CUS_BIRTHDAY, CUS_PHONE, CUS_STATUS, CUS_ADDRESS, USER_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.manager.entity.CustomerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from customer
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.manager.entity.CustomerExample" >
+    delete from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.manager.entity.Customer" >
+    <selectKey resultType="java.lang.String" keyProperty="uuid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into customer (CUS_NAME, CUS_BIRTHDAY, CUS_PHONE, 
+      CUS_STATUS, CUS_ADDRESS, USER_ID
+      )
+    values (#{cusName,jdbcType=VARCHAR}, #{cusBirthday,jdbcType=DATE}, #{cusPhone,jdbcType=VARCHAR}, 
+      #{cusStatus,jdbcType=VARCHAR}, #{cusAddress,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.manager.entity.Customer" >
+    <selectKey resultType="java.lang.String" keyProperty="uuid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cusName != null" >
+        CUS_NAME,
+      </if>
+      <if test="cusBirthday != null" >
+        CUS_BIRTHDAY,
+      </if>
+      <if test="cusPhone != null" >
+        CUS_PHONE,
+      </if>
+      <if test="cusStatus != null" >
+        CUS_STATUS,
+      </if>
+      <if test="cusAddress != null" >
+        CUS_ADDRESS,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cusName != null" >
+        #{cusName,jdbcType=VARCHAR},
+      </if>
+      <if test="cusBirthday != null" >
+        #{cusBirthday,jdbcType=DATE},
+      </if>
+      <if test="cusPhone != null" >
+        #{cusPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cusStatus != null" >
+        #{cusStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cusAddress != null" >
+        #{cusAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.manager.entity.CustomerExample" resultType="java.lang.Integer" >
+    select count(*) from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update customer
+    <set >
+      <if test="record.uuid != null" >
+        UUID = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cusName != null" >
+        CUS_NAME = #{record.cusName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cusBirthday != null" >
+        CUS_BIRTHDAY = #{record.cusBirthday,jdbcType=DATE},
+      </if>
+      <if test="record.cusPhone != null" >
+        CUS_PHONE = #{record.cusPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cusStatus != null" >
+        CUS_STATUS = #{record.cusStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cusAddress != null" >
+        CUS_ADDRESS = #{record.cusAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update customer
+    set UUID = #{record.uuid,jdbcType=VARCHAR},
+      CUS_NAME = #{record.cusName,jdbcType=VARCHAR},
+      CUS_BIRTHDAY = #{record.cusBirthday,jdbcType=DATE},
+      CUS_PHONE = #{record.cusPhone,jdbcType=VARCHAR},
+      CUS_STATUS = #{record.cusStatus,jdbcType=VARCHAR},
+      CUS_ADDRESS = #{record.cusAddress,jdbcType=VARCHAR},
+      USER_ID = #{record.userId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.manager.entity.Customer" >
+    update customer
+    <set >
+      <if test="cusName != null" >
+        CUS_NAME = #{cusName,jdbcType=VARCHAR},
+      </if>
+      <if test="cusBirthday != null" >
+        CUS_BIRTHDAY = #{cusBirthday,jdbcType=DATE},
+      </if>
+      <if test="cusPhone != null" >
+        CUS_PHONE = #{cusPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cusStatus != null" >
+        CUS_STATUS = #{cusStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cusAddress != null" >
+        CUS_ADDRESS = #{cusAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.manager.entity.Customer" >
+    update customer
+    set CUS_NAME = #{cusName,jdbcType=VARCHAR},
+      CUS_BIRTHDAY = #{cusBirthday,jdbcType=DATE},
+      CUS_PHONE = #{cusPhone,jdbcType=VARCHAR},
+      CUS_STATUS = #{cusStatus,jdbcType=VARCHAR},
+      CUS_ADDRESS = #{cusAddress,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR}
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
