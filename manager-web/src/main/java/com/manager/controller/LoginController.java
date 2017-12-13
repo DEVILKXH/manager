@@ -26,7 +26,6 @@ public class LoginController {
 	@RequestMapping("/select.do")
 	@ResponseBody
 	public User getUser(String uuid){
-		UserExample example = new UserExample();
 		return userService.selectByPrimaryKey(uuid);
 	}
 	
