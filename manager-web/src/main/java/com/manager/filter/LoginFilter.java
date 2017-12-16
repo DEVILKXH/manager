@@ -37,7 +37,7 @@ public class LoginFilter implements Filter{
 				url += ("?" + request.getQueryString());
 			}
 			session.setAttribute("url", url);
-			response.sendRedirect("/music-web/login.do");
+			response.sendRedirect("/manager-web/login.do");
 		}else{
 			chain.doFilter(req, res);
 		}

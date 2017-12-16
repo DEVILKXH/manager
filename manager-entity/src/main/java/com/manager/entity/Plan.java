@@ -2,8 +2,9 @@ package com.manager.entity;
 
 import java.util.Date;
 
-public class Plan {
-    private String uuid;
+import com.manager.base.entity.BaseEntity;
+
+public class Plan extends BaseEntity{
 
     private String title;
 
@@ -14,14 +15,6 @@ public class Plan {
     private String type;
 
     private String content;
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid == null ? null : uuid.trim();
-    }
 
     public String getTitle() {
         return title;

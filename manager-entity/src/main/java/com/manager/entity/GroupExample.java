@@ -114,52 +114,52 @@ public class GroupExample {
             return (Criteria) this;
         }
 
-        public Criteria andUuidEqualTo(Integer value) {
+        public Criteria andUuidEqualTo(String value) {
             addCriterion("UUID =", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andUuidNotEqualTo(Integer value) {
+        public Criteria andUuidNotEqualTo(String value) {
             addCriterion("UUID <>", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andUuidGreaterThan(Integer value) {
+        public Criteria andUuidGreaterThan(String value) {
             addCriterion("UUID >", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andUuidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUuidGreaterThanOrEqualTo(String value) {
             addCriterion("UUID >=", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andUuidLessThan(Integer value) {
+        public Criteria andUuidLessThan(String value) {
             addCriterion("UUID <", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andUuidLessThanOrEqualTo(Integer value) {
+        public Criteria andUuidLessThanOrEqualTo(String value) {
             addCriterion("UUID <=", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andUuidIn(List<Integer> values) {
+        public Criteria andUuidIn(List<String> values) {
             addCriterion("UUID in", values, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andUuidNotIn(List<Integer> values) {
+        public Criteria andUuidNotIn(List<String> values) {
             addCriterion("UUID not in", values, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andUuidBetween(Integer value1, Integer value2) {
+        public Criteria andUuidBetween(String value1, String value2) {
             addCriterion("UUID between", value1, value2, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andUuidNotBetween(Integer value1, Integer value2) {
+        public Criteria andUuidNotBetween(String value1, String value2) {
             addCriterion("UUID not between", value1, value2, "uuid");
             return (Criteria) this;
         }

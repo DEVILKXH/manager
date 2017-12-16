@@ -1,19 +1,12 @@
 package com.manager.entity;
 
-public class GroupCustomer {
-    private String uuid;
+import com.manager.base.entity.BaseEntity;
+
+public class GroupCustomer extends BaseEntity{
 
     private String groupId;
 
     private String customerId;
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid == null ? null : uuid.trim();
-    }
 
     public String getGroupId() {
         return groupId;

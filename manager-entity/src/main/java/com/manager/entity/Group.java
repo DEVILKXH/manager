@@ -1,21 +1,14 @@
 package com.manager.entity;
 
-public class Group {
-    private Integer uuid;
+import com.manager.base.entity.BaseEntity;
+
+public class Group extends BaseEntity{
 
     private String groupName;
 
     private String groupCode;
 
     private Integer parentGroupId;
-
-    public Integer getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(Integer uuid) {
-        this.uuid = uuid;
-    }
 
     public String getGroupName() {
         return groupName;

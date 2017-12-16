@@ -2,10 +2,11 @@ package com.manager.entity;
 
 import java.util.Date;
 
-public class Customer {
-    private String uuid;
+import com.manager.base.entity.BaseEntity;
 
-    private String cusName;
+public class Customer extends BaseEntity{
+ 
+	private String cusName;
 
     private Date cusBirthday;
 
@@ -16,14 +17,6 @@ public class Customer {
     private String cusAddress;
 
     private String userId;
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid == null ? null : uuid.trim();
-    }
 
     public String getCusName() {
         return cusName;

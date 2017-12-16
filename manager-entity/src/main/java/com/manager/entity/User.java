@@ -2,9 +2,9 @@ package com.manager.entity;
 
 import java.util.Date;
 
-public class User {
-    private String uuid;
+import com.manager.base.entity.BaseEntity;
 
+public class User extends BaseEntity{
     private String userName;
 
     private String password;
@@ -22,14 +22,6 @@ public class User {
     private String userRank;
 
     private String parentUserId;
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid == null ? null : uuid.trim();
-    }
 
     public String getUserName() {
         return userName;
