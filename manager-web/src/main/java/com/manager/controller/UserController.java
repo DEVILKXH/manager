@@ -5,15 +5,17 @@
  */
 package com.manager.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.manager.entity.Customer;
 import com.manager.entity.User;
 import com.manager.entity.UserExample;
 import com.manager.entity.UserExample.Criteria;
-import com.manager.inner.dto.AjaxResult;
 import com.manager.inner.util.StringUtil;
 import com.manager.service.UserService;
 
@@ -31,9 +33,8 @@ public class UserController extends BaseController<UserService,UserExample,User>
 	
 	@RequestMapping(value = "/getCustomerByUserId.do")
 	@ResponseBody
-	public AjaxResult<User> getCustomerByUserId(User user){
-		
-		return null;
+	public List<Customer> getCustomerByUserId(User user){
+		return userService.getCustomerByUserId(user);
 	}
 	
 	@Override
