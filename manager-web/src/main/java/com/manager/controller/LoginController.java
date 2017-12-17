@@ -81,8 +81,8 @@ public class LoginController{
 	
 	@RequestMapping(value = "/register.do")
 	@ResponseBody
-	public AjaxResult<String> register(User user,String password2,HttpServletRequest request,HttpSession session){
-		AjaxResult<String> result = new AjaxResult<String>();
+	public AjaxResult<User> register(User user,String password2,HttpServletRequest request,HttpSession session){
+		AjaxResult<User> result = new AjaxResult<User>();
 		if(StringUtil.isNull(user.getUserName()) || StringUtil.isNull(user.getPassword()) || StringUtil.isNull(password2)){
 			result.setStatus("404");
 			result.setMessage("帐号或密码不能为空");
@@ -106,10 +106,25 @@ public class LoginController{
 			result.setMessage("两次密码不一样");
 			return result;
 		}
+		example.createCriteria().andUserNameEqualTo(user.getUserName());
+		List<User> list = userService.selectByExample(example);
+		if(null != list && list.size() > 0){
+			result.setStatus("500");
+			result.setMessage("该用户名已存在");
+			return result;
+		}
 		user.setUuid(UUID.randomUUID().toString());
-		userService.insertSelective(user);
+		int flag = userService.insertSelective(user);
+		if(flag == 0){
+			result.setStatus("500");
+			result.setMessage("插入失败");
+		}else{
+			result.setStatus("200");
+			result.setMessage("插入成功");
+			result.setObject(userService.selectByPrimaryKey(user.getUuid()));
+		}
 		userUtil.addLoginLog(request, session, user);
 		userUtil.setUser(session, user);
-		return null;
+		return result;
 	}
 }

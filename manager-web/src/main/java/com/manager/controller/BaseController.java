@@ -45,10 +45,10 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 		int flag = service.insertSelective(record);
 		if(flag == 0){
 			ajax.setStatus("500");
-			ajax.setMessage("新增失败");
+			ajax.setMessage("插入失败");
 		}else{
 			ajax.setStatus("200");
-			ajax.setMessage("新增成功");
+			ajax.setMessage("插入成功");
 			ajax.setObject(service.selectByPrimaryKey(baseEntity.getUuid()));
 		}
 		return ajax;
@@ -75,10 +75,10 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 		int flag = service.insert(record);
 		if(flag == 0){
 			ajax.setStatus("500");
-			ajax.setMessage("新增失败");
+			ajax.setMessage("插入失败");
 		}else{
 			ajax.setStatus("200");
-			ajax.setMessage("新增成功");
+			ajax.setMessage("插入成功");
 			ajax.setObject(service.selectByPrimaryKey(baseEntity.getUuid()));
 		}
 		return ajax;
