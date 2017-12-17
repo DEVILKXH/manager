@@ -6,6 +6,7 @@
 package com.manager.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,15 +21,68 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	@Autowired
 	private S service;
 	
+	@RequestMapping(value = "/insertSelective.do")
+	@ResponseBody
+	public AjaxResult<E> insertSelective(E record){
+		BaseEntity baseEntity = (BaseEntity)record;
+		baseEntity.setUuid(UUID.randomUUID().toString());
+		AjaxResult<E> ajax = new AjaxResult<E>();
+		int flag = service.insertSelective(record);
+		if(flag == 0){
+			ajax.setStatus("500");
+			ajax.setMessage("新增失败");
+		}else{
+			ajax.setStatus("200");
+			ajax.setMessage("新增成功");
+			ajax.setObject(service.selectByPrimaryKey(baseEntity.getUuid()));
+		}
+		return ajax;
+	}
+	
+	@RequestMapping(value = "/insert.do")
+	@ResponseBody
+	public AjaxResult<E> insert(E record){
+		BaseEntity baseEntity = (BaseEntity)record;
+		baseEntity.setUuid(UUID.randomUUID().toString());
+		AjaxResult<E> ajax = new AjaxResult<E>();
+		int flag = service.insert(record);
+		if(flag == 0){
+			ajax.setStatus("500");
+			ajax.setMessage("新增失败");
+		}else{
+			ajax.setStatus("200");
+			ajax.setMessage("新增成功");
+			ajax.setObject(service.selectByPrimaryKey(baseEntity.getUuid()));
+		}
+		return ajax;
+	}
+	
 	@RequestMapping(value = "/selectOne.do")
 	@ResponseBody
-	public E selectOne(E E){
-		T example =  getExample(E);
-		List<E> Es = service.selectByExample(example);
-		if(null == Es || Es.size() == 0 ){
+	public E selectOne(E record){
+		T example =  getExample(record);
+		List<E> records = service.selectByExample(example);
+		if(null == records || records.size() == 0 ){
 			return null;
 		}
-		return Es.get(0);
+		return records.get(0);
+	}
+	
+	@RequestMapping(value = "/updateSelective.do")
+	@ResponseBody
+	public AjaxResult<E> updateSelective(E record){
+		BaseEntity baseEntity = (BaseEntity) record;
+		AjaxResult<E> ajax = new AjaxResult<E>();
+		int flag = service.updateByPrimaryKeySelective(record);
+		if(flag == 0){
+			ajax.setStatus("500");
+			ajax.setMessage("更新失败");
+		}else{
+			ajax.setStatus("200");
+			ajax.setMessage("更新成功");
+			ajax.setObject(service.selectByPrimaryKey(baseEntity.getUuid()));
+		}
+		return ajax;
 	}
 	
 	@RequestMapping(value = "/update.do")
