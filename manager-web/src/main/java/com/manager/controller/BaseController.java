@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.manager.base.entity.BaseEntity;
+import com.manager.entity.User;
+import com.manager.entity.UserExample;
 import com.manager.inner.base.service.BaseService;
 import com.manager.inner.dto.AjaxResult;
+import com.manager.service.UserService;
 
 public class BaseController<S extends BaseService<T,E>, T, E> {
 	
@@ -24,9 +27,21 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	@RequestMapping(value = "/insertSelective.do")
 	@ResponseBody
 	public AjaxResult<E> insertSelective(E record){
+		AjaxResult<E> ajax = new AjaxResult<E>();
+		if(record.getClass()  == User.class){
+			User user = (User)record;
+			UserExample example = new UserExample();
+			example.createCriteria().andUserNameEqualTo(user.getUserName());
+			UserService userService = (UserService) service;
+			List<User> list = userService.selectByExample(example);
+			if(null != list && list.size() > 0){
+				ajax.setStatus("500");
+				ajax.setMessage("该用户名已存在");
+				return ajax;
+			}
+		}
 		BaseEntity baseEntity = (BaseEntity)record;
 		baseEntity.setUuid(UUID.randomUUID().toString());
-		AjaxResult<E> ajax = new AjaxResult<E>();
 		int flag = service.insertSelective(record);
 		if(flag == 0){
 			ajax.setStatus("500");
@@ -42,9 +57,21 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	@RequestMapping(value = "/insert.do")
 	@ResponseBody
 	public AjaxResult<E> insert(E record){
+		AjaxResult<E> ajax = new AjaxResult<E>();
+		if(record.getClass()  == User.class){
+			User user = (User)record;
+			UserExample example = new UserExample();
+			example.createCriteria().andUserNameEqualTo(user.getUserName());
+			UserService userService = (UserService) service;
+			List<User> list = userService.selectByExample(example);
+			if(null != list && list.size() > 0){
+				ajax.setStatus("500");
+				ajax.setMessage("该用户名已存在");
+				return ajax;
+			}
+		}
 		BaseEntity baseEntity = (BaseEntity)record;
 		baseEntity.setUuid(UUID.randomUUID().toString());
-		AjaxResult<E> ajax = new AjaxResult<E>();
 		int flag = service.insert(record);
 		if(flag == 0){
 			ajax.setStatus("500");

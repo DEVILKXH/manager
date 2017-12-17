@@ -106,24 +106,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.manager.entity.User" >
-    <selectKey resultType="java.lang.String" keyProperty="uuid" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into user (USER_NAME, PASSWORD, USER_SINGAL, 
+    insert into user (UUID,USER_NAME, PASSWORD, USER_SINGAL, 
       USER_BIRTHDAY, USER_PHONE, USER_STATUS, 
       USER_ADDRESS, USER_RANK, PARENT_USER_ID
       )
-    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userSingal,jdbcType=VARCHAR}, 
+    values (#{uuid},#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userSingal,jdbcType=VARCHAR}, 
       #{userBirthday,jdbcType=DATE}, #{userPhone,jdbcType=VARCHAR}, #{userStatus,jdbcType=VARCHAR}, 
       #{userAddress,jdbcType=VARCHAR}, #{userRank,jdbcType=VARCHAR}, #{parentUserId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.manager.entity.User" >
-    <selectKey resultType="java.lang.String" keyProperty="uuid" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        UUID,
+      </if>
       <if test="userName != null" >
         USER_NAME,
       </if>
@@ -153,6 +150,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
