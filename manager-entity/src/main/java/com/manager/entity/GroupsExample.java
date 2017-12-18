@@ -3,14 +3,14 @@ package com.manager.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupExample {
+public class GroupsExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public GroupExample() {
+    public GroupsExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -141,6 +141,16 @@ public class GroupExample {
 
         public Criteria andUuidLessThanOrEqualTo(String value) {
             addCriterion("UUID <=", value, "uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUuidLike(String value) {
+            addCriterion("UUID like", value, "uuid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUuidNotLike(String value) {
+            addCriterion("UUID not like", value, "uuid");
             return (Criteria) this;
         }
 
@@ -314,52 +324,52 @@ public class GroupExample {
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdEqualTo(Integer value) {
+        public Criteria andParentGroupIdEqualTo(String value) {
             addCriterion("PARENT_GROUP_ID =", value, "parentGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdNotEqualTo(Integer value) {
+        public Criteria andParentGroupIdNotEqualTo(String value) {
             addCriterion("PARENT_GROUP_ID <>", value, "parentGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdGreaterThan(Integer value) {
+        public Criteria andParentGroupIdGreaterThan(String value) {
             addCriterion("PARENT_GROUP_ID >", value, "parentGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andParentGroupIdGreaterThanOrEqualTo(String value) {
             addCriterion("PARENT_GROUP_ID >=", value, "parentGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdLessThan(Integer value) {
+        public Criteria andParentGroupIdLessThan(String value) {
             addCriterion("PARENT_GROUP_ID <", value, "parentGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdLessThanOrEqualTo(Integer value) {
+        public Criteria andParentGroupIdLessThanOrEqualTo(String value) {
             addCriterion("PARENT_GROUP_ID <=", value, "parentGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdIn(List<Integer> values) {
+        public Criteria andParentGroupIdIn(List<String> values) {
             addCriterion("PARENT_GROUP_ID in", values, "parentGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdNotIn(List<Integer> values) {
+        public Criteria andParentGroupIdNotIn(List<String> values) {
             addCriterion("PARENT_GROUP_ID not in", values, "parentGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdBetween(Integer value1, Integer value2) {
+        public Criteria andParentGroupIdBetween(String value1, String value2) {
             addCriterion("PARENT_GROUP_ID between", value1, value2, "parentGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andParentGroupIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andParentGroupIdNotBetween(String value1, String value2) {
             addCriterion("PARENT_GROUP_ID not between", value1, value2, "parentGroupId");
             return (Criteria) this;
         }

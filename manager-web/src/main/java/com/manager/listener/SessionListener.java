@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.manager.entity.SysLoginLog;
-import com.manager.inner.util.StringUtil;
 import com.manager.service.SysLoginLogService;
+import com.manager.utils.StringUtil;
 
 
 @Component

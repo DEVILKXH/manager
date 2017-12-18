@@ -611,6 +611,76 @@ public class CustomerExample {
             addCriterion("USER_ID not between", value1, value2, "userId");
             return (Criteria) this;
         }
+
+        public Criteria andGroupIdIsNull() {
+            addCriterion("GROUP_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdIsNotNull() {
+            addCriterion("GROUP_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdEqualTo(String value) {
+            addCriterion("GROUP_ID =", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdNotEqualTo(String value) {
+            addCriterion("GROUP_ID <>", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdGreaterThan(String value) {
+            addCriterion("GROUP_ID >", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdGreaterThanOrEqualTo(String value) {
+            addCriterion("GROUP_ID >=", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdLessThan(String value) {
+            addCriterion("GROUP_ID <", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdLessThanOrEqualTo(String value) {
+            addCriterion("GROUP_ID <=", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdLike(String value) {
+            addCriterion("GROUP_ID like", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdNotLike(String value) {
+            addCriterion("GROUP_ID not like", value, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdIn(List<String> values) {
+            addCriterion("GROUP_ID in", values, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdNotIn(List<String> values) {
+            addCriterion("GROUP_ID not in", values, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdBetween(String value1, String value2) {
+            addCriterion("GROUP_ID between", value1, value2, "groupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupIdNotBetween(String value1, String value2) {
+            addCriterion("GROUP_ID not between", value1, value2, "groupId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

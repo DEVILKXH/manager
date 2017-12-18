@@ -1,6 +1,8 @@
 package com.manager.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,18 +14,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.manager.entity.Customer;
+import com.manager.entity.Groups;
 import com.manager.entity.User;
 import com.manager.entity.UserExample;
 import com.manager.inner.dto.AjaxResult;
-import com.manager.inner.util.StringUtil;
+import com.manager.service.CustomerService;
+import com.manager.service.GroupService;
 import com.manager.service.UserService;
 import com.manager.util.UserUtil;
+import com.manager.utils.StringUtil;
 
 @Controller
 public class LoginController{
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private GroupService groupService;
+	
+	@Autowired
+	private CustomerService customerService;
 	
 	@Autowired
 	private UserUtil userUtil;
@@ -126,5 +138,59 @@ public class LoginController{
 		userUtil.addLoginLog(request, session, user);
 		userUtil.setUser(session, user);
 		return result;
+	}
+	
+	@RequestMapping(value = "/init.do")
+	@ResponseBody
+	public AjaxResult<String> init(){
+		AjaxResult<String> result = new AjaxResult<String>();
+		//user
+		List<User> users = new ArrayList<User>();
+		for(int i = 0; i < 100; i++){
+			User user = new User();
+			user.setUuid(UUID.randomUUID().toString());
+			user.setUserName(getRandom());
+			user.setPassword("123456");
+			userService.insertSelective(user);
+			users.add(user);
+		}
+		
+		//Group
+		List<Groups> groups = new ArrayList<Groups>();
+		for(int i = 0; i < 10; i++){
+			Groups group = new Groups();
+			group.setUuid(UUID.randomUUID().toString());
+			group.setGroupName(getRandom());
+			groupService.insertSelective(group);
+			groups.add(group);
+		}
+		
+		//Group
+		for(int i = 0; i < 1000; i++){
+			Customer customer = new Customer();
+			customer.setUuid(UUID.randomUUID().toString());
+			customer.setCusName(getRandom());
+			Random random = new Random();
+			int index = random.nextInt(99);
+			int _index = index % 10;
+			customer.setUserId(users.get(index).getUuid());
+			customer.setGroupId(groups.get(_index).getUuid());
+			customerService.insertSelective(customer);
+		}
+		result.setStatus("200");
+		result.setMessage("初始化数据成功");
+		return result;
+	}
+
+	private String getRandom() {
+		String str = "QWERTYUIOPASDFGHJKLZXCVBNM";
+		char []rand = new char[6];
+		Random random = new Random();
+		for(int i = 0; i < rand.length; i++){
+			int index = random.nextInt(25);
+			char c = str.charAt(index);
+			rand[i] = c;
+		}
+		return String.valueOf(rand);
 	}
 }

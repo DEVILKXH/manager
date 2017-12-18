@@ -1,9 +1,14 @@
 package com.manager.service;
 
-import com.manager.entity.Group;
-import com.manager.entity.GroupExample;
+import java.util.List;
+
+import com.manager.entity.Customer;
+import com.manager.entity.Groups;
+import com.manager.entity.GroupsExample;
 import com.manager.inner.base.service.BaseService;
 
-public interface GroupService extends BaseService<GroupExample,Group>{
-    
+public interface GroupService extends BaseService<GroupsExample,Groups>{
+	public List<Groups> getGroupList(Groups group);
+	
+	public List<Customer> getCustomerByGroupId(Groups group);
 }

@@ -26,5 +26,5 @@ public class BaseEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

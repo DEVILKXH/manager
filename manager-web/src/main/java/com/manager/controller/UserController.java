@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.manager.entity.Customer;
 import com.manager.entity.User;
 import com.manager.entity.UserExample;
-import com.manager.entity.UserExample.Criteria;
-import com.manager.inner.util.StringUtil;
 import com.manager.service.UserService;
 
 @Controller
@@ -37,34 +35,14 @@ public class UserController extends BaseController<UserService,UserExample,User>
 		return userService.getCustomerByUserId(user);
 	}
 	
+	@RequestMapping(value = "/getUserList.do")
+	@ResponseBody
+	public List<User> getUserList(User user){
+		return userService.getUser(user);
+	}
+	
 	@Override
 	public UserExample getExample(User user){
-		UserExample example = new UserExample();
-		Criteria criteria = example.createCriteria();
-		if(StringUtil.isNotNull(user.getUuid())){
-			criteria.andUuidEqualTo(user.getUuid());
-		}
-		if(StringUtil.isNotNull(user.getUserName())){
-			criteria.andUserNameEqualTo(user.getUserName());
-		}
-		if(StringUtil.isNotNull(user.getUserStatus())){
-			criteria.andUserStatusEqualTo(user.getUserStatus());
-		}
-		if(StringUtil.isNotNull(user.getUserSingal())){
-			criteria.andUserSingalEqualTo(user.getUserSingal());
-		}
-		if(StringUtil.isNotNull(user.getUserRank())){
-			criteria.andUserRankEqualTo(user.getUserRank());
-		}
-		if(StringUtil.isNotNull(user.getUserPhone())){
-			criteria.andUserPhoneEqualTo(user.getUserPhone());
-		}
-		if(StringUtil.isNotNull(user.getUserAddress())){
-			criteria.andUserAddressEqualTo(user.getUserAddress());
-		}
-		if(StringUtil.isNotNull(user.getParentUserId())){
-			criteria.andParentUserIdEqualTo(user.getParentUserId());
-		}
-		return example;
+		return user.getExample();
 	}
 }

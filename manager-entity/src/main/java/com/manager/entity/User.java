@@ -1,8 +1,12 @@
 package com.manager.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.manager.base.entity.BaseEntity;
+import com.manager.entity.UserExample.Criteria;
+import com.manager.utils.StringUtil;
 
 public class User extends BaseEntity{
     private String userName;
@@ -22,7 +26,13 @@ public class User extends BaseEntity{
     private String userRank;
 
     private String parentUserId;
+    
+    private List<Customer> cus;
 
+    public User(){
+    	this.cus = new ArrayList<Customer>();
+    }
+    
     public String getUserName() {
         return userName;
     }
@@ -94,4 +104,46 @@ public class User extends BaseEntity{
     public void setParentUserId(String parentUserId) {
         this.parentUserId = parentUserId == null ? null : parentUserId.trim();
     }
+
+	public List<Customer> getCus() {
+		return cus;
+	}
+
+	public void setCus(List<Customer> cus) {
+		this.cus = cus == null ? new ArrayList<Customer>(): cus;
+	}
+    
+	public void addCustomer(Customer customer){
+		this.cus.add(customer);
+	}
+	
+	public UserExample getExample(){
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		if(StringUtil.isNotNull(this.getUuid())){
+			criteria.andUuidEqualTo(this.getUuid());
+		}
+		if(StringUtil.isNotNull(this.userName)){
+			criteria.andUserNameEqualTo(this.userName);
+		}
+		if(StringUtil.isNotNull(this.userStatus)){
+			criteria.andUserStatusEqualTo(this.userStatus);
+		}
+		if(StringUtil.isNotNull(this.userSingal)){
+			criteria.andUserSingalEqualTo(this.userSingal);
+		}
+		if(StringUtil.isNotNull(this.userRank)){
+			criteria.andUserRankEqualTo(this.userRank);
+		}
+		if(StringUtil.isNotNull(this.userPhone)){
+			criteria.andUserPhoneEqualTo(this.userPhone);
+		}
+		if(StringUtil.isNotNull(this.userAddress)){
+			criteria.andUserAddressEqualTo(this.userAddress);
+		}
+		if(StringUtil.isNotNull(this.parentUserId)){
+			criteria.andParentUserIdEqualTo(this.parentUserId);
+		}
+		return example;
+	}
 }

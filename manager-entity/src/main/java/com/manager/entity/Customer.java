@@ -5,8 +5,8 @@ import java.util.Date;
 import com.manager.base.entity.BaseEntity;
 
 public class Customer extends BaseEntity{
- 
-	private String cusName;
+
+    private String cusName;
 
     private Date cusBirthday;
 
@@ -17,6 +17,8 @@ public class Customer extends BaseEntity{
     private String cusAddress;
 
     private String userId;
+
+    private String groupId;
 
     public String getCusName() {
         return cusName;
@@ -64,5 +66,13 @@ public class Customer extends BaseEntity{
 
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId == null ? null : groupId.trim();
     }
 }

@@ -9,4 +9,6 @@ import com.manager.inner.base.service.BaseService;
 
 public interface UserService extends BaseService<UserExample,User>{
 	public List<Customer> getCustomerByUserId(User user);
+	
+	public List<User> getUser(User user);
 }
