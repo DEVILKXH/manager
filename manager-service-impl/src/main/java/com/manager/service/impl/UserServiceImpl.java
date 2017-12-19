@@ -13,6 +13,8 @@ import com.manager.entity.CustomerExample;
 import com.manager.entity.User;
 import com.manager.entity.UserExample;
 import com.manager.inner.base.serviceimpl.BaseServiceImpl;
+import com.manager.inner.dto.Page;
+import com.manager.inner.util.PageUtil;
 import com.manager.mapper.CustomerMapper;
 import com.manager.mapper.UserMapper;
 import com.manager.service.UserService;
@@ -71,6 +73,42 @@ public class UserServiceImpl extends BaseServiceImpl<UserExample, User,UserMappe
 			}
 		}
 		return users;
+	}
+
+	@Override
+	public Page<User> getUserPage(User user,Page<User> page) {
+		page.setStartAndEnd();
+		List<User> list = userMapper.getUserPage(user, page);
+		int count = userMapper.countByExample(user.getExample());
+		page.setList(list);
+		page.setCount(count);
+		page.setPageResultCount(count);
+		PageUtil.getInterval(page);
+		return page;
+	}
+
+	@Override
+	public Page<User> getUserPageWithCustomer(User user, Page<User> page) {
+		Page<User> _page = getUserPage(user, page);
+		List<User> users = _page.getList();
+		List<String> userIds = new ArrayList<String>();
+		Map<String,User> map = new HashMap<String,User>();
+		for(User _user: users){
+			userIds.add(_user.getUuid());
+			map.put(_user.getUuid(), _user);
+		}
+		CustomerExample example = new CustomerExample();
+		example.createCriteria().andUserIdIn(userIds);
+		List<Customer> customers = customerMapper.selectByExample(example);
+		if(null != customers && customers.size() > 0){
+			for(Customer cus: customers){
+				String id = cus.getUserId();
+				if(map.containsKey(id)){
+					map.get(id).addCustomer(cus);
+				}
+			}
+		}
+		return _page;
 	}
 
 }

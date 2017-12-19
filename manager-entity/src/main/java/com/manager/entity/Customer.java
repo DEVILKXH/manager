@@ -3,6 +3,8 @@ package com.manager.entity;
 import java.util.Date;
 
 import com.manager.base.entity.BaseEntity;
+import com.manager.entity.CustomerExample.Criteria;
+import com.manager.utils.StringUtil;
 
 public class Customer extends BaseEntity{
 
@@ -74,5 +76,32 @@ public class Customer extends BaseEntity{
 
     public void setGroupId(String groupId) {
         this.groupId = groupId == null ? null : groupId.trim();
+    }
+    
+    public CustomerExample getExample(){
+    	CustomerExample example = new CustomerExample();
+    	Criteria criteria =  example.createCriteria();
+    	if(StringUtil.isNotNull(this.getUuid())){
+    		criteria.andUuidEqualTo(this.getUuid());
+    	}
+    	if(StringUtil.isNotNull(this.cusAddress)){
+    		criteria.andCusAddressEqualTo(this.cusAddress);
+    	}
+    	if(StringUtil.isNotNull(this.cusName)){
+    		criteria.andCusNameEqualTo(this.cusName);
+    	}
+    	if(StringUtil.isNotNull(this.cusPhone)){
+    		criteria.andCusPhoneEqualTo(this.cusPhone);
+    	}
+    	if(StringUtil.isNotNull(this.cusStatus)){
+    		criteria.andCusStatusEqualTo(this.cusStatus);
+    	}
+    	if(StringUtil.isNotNull(this.groupId)){
+    		criteria.andGroupIdEqualTo(this.groupId);
+    	}
+    	if(StringUtil.isNotNull(this.userId)){
+    		criteria.andUserIdEqualTo(this.userId);
+    	}
+    	return example;
     }
 }

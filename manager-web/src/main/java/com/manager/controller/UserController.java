@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.manager.entity.Customer;
 import com.manager.entity.User;
 import com.manager.entity.UserExample;
+import com.manager.inner.dto.Page;
 import com.manager.service.UserService;
 
 @Controller
@@ -39,6 +40,18 @@ public class UserController extends BaseController<UserService,UserExample,User>
 	@ResponseBody
 	public List<User> getUserList(User user){
 		return userService.getUser(user);
+	}
+	
+	@RequestMapping(value = "/getUserPage.do")
+	@ResponseBody
+	public Page<User> getUserPage(User user,Page<User> page){
+		return userService.getUserPage(user, page);
+	}
+	
+	@RequestMapping(value = "/getUserPageWithCustomer.do")
+	@ResponseBody
+	public Page<User> getUserPageWithCustomer(User user,Page<User> page){
+		return userService.getUserPageWithCustomer(user, page);
 	}
 	
 	@Override
