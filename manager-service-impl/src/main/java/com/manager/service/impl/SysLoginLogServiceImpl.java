@@ -15,7 +15,7 @@ import com.manager.entity.SysLoginLogExample;
 import com.manager.mapper.SysLoginLogMapper;
 import com.manager.service.SysLoginLogService;
 
-@Service
+@Service("sysLoginLogService")
 public class SysLoginLogServiceImpl implements SysLoginLogService{
 
 	@Autowired
