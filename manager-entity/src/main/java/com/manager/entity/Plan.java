@@ -3,6 +3,8 @@ package com.manager.entity;
 import java.util.Date;
 
 import com.manager.base.entity.BaseEntity;
+import com.manager.entity.PlanExample.Criteria;
+import com.manager.utils.StringUtil;
 
 public class Plan extends BaseEntity{
 
@@ -54,5 +56,29 @@ public class Plan extends BaseEntity{
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+    
+    public PlanExample getExample(){
+    	PlanExample example = new PlanExample();
+    	Criteria criteria = example.createCriteria();
+    	if(StringUtil.isNotNull(this.getUuid())){
+    		criteria.andUuidEqualTo(this.getUuid());
+    	}
+    	if(StringUtil.isNotNull(this.content)){
+    		criteria.andContentEqualTo(this.content);
+    	}
+    	if(StringUtil.isNotNull(this.title)){
+    		criteria.andTitleEqualTo(this.title);
+    	}
+    	if(StringUtil.isNotNull(this.userId)){
+    		criteria.andContentEqualTo(this.userId);
+    	}
+    	if(null != this.createTime){
+    		criteria.andCreateTimeEqualTo(this.createTime);
+    	}
+    	if(StringUtil.isNotNull(this.type)){
+    		criteria.andTypeEqualTo(this.type);
+    	}
+    	return example;
     }
 }

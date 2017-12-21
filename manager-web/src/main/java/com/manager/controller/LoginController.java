@@ -1,6 +1,7 @@
 package com.manager.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.manager.entity.Customer;
 import com.manager.entity.Groups;
+import com.manager.entity.Plan;
 import com.manager.entity.User;
 import com.manager.entity.UserExample;
 import com.manager.inner.dto.AjaxResult;
 import com.manager.service.CustomerService;
 import com.manager.service.GroupService;
+import com.manager.service.PlanService;
 import com.manager.service.UserService;
 import com.manager.util.UserUtil;
 import com.manager.utils.StringUtil;
@@ -36,6 +39,9 @@ public class LoginController{
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private PlanService planService;
 	
 	@Autowired
 	private UserUtil userUtil;
@@ -166,7 +172,7 @@ public class LoginController{
 		}
 		
 		//Group
-		for(int i = 0; i < 1000; i++){
+		for(int i = 0; i < 500; i++){
 			Customer customer = new Customer();
 			customer.setUuid(UUID.randomUUID().toString());
 			customer.setCusName(getRandom());
@@ -176,6 +182,20 @@ public class LoginController{
 			customer.setUserId(users.get(index).getUuid());
 			customer.setGroupId(groups.get(_index).getUuid());
 			customerService.insertSelective(customer);
+		}
+		
+		for(int i = 0; i < 100; i++){
+			Plan plan = new Plan();
+			plan.setUuid(UUID.randomUUID().toString());
+			plan.setTitle(getRandom());
+			plan.setCreateTime(new Date());
+			Random random = new Random();
+			int index = random.nextInt(99);
+			int _index = index % 2;
+			plan.setType(_index == 0?"log":"plan");
+			plan.setContent(getRandom() + " " + getRandom() + " " + getRandom() + " " + getRandom() + " " + getRandom());
+			plan.setUserId(users.get(index).getUuid());
+			planService.insertSelective(plan);
 		}
 		result.setStatus("200");
 		result.setMessage("初始化数据成功");
