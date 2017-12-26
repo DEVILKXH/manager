@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.manager.inner.util.StringUtil;
+import com.manager.utils.StringUtil;
 
 
 public class UrlFilter implements Filter{

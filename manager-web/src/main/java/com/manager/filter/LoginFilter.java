@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.manager.entity.User;
-import com.manager.inner.util.StringUtil;
+import com.manager.utils.StringUtil;
 
 
 public class LoginFilter implements Filter{
@@ -41,7 +41,7 @@ public class LoginFilter implements Filter{
 		}else{
 			chain.doFilter(req, res);
 		}
-		//chain.doFilter(req, res);
+//		chain.doFilter(req, res);
 	}
 
 	@Override
