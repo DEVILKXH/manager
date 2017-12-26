@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.manager.base.entity.BaseEntity;
@@ -24,7 +25,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	@Autowired
 	private S service;
 	
-	@RequestMapping(value = "/insertSelective.do")
+	@RequestMapping(value = "/insertSelective.do",method={RequestMethod.POST})
 	@ResponseBody
 	public AjaxResult<E> insertSelective(E record){
 		AjaxResult<E> ajax = new AjaxResult<E>();
@@ -54,7 +55,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 		return ajax;
 	}
 	
-	@RequestMapping(value = "/insert.do")
+	@RequestMapping(value = "/insert.do",method={RequestMethod.POST})
 	@ResponseBody
 	public AjaxResult<E> insert(E record){
 		AjaxResult<E> ajax = new AjaxResult<E>();
@@ -84,7 +85,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 		return ajax;
 	}
 	
-	@RequestMapping(value = "/selectOne.do")
+	@RequestMapping(value = "/selectOne.do",method={RequestMethod.POST})
 	@ResponseBody
 	public E selectOne(E record){
 		T example =  getExample(record);
@@ -95,7 +96,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 		return records.get(0);
 	}
 	
-	@RequestMapping(value = "/updateSelective.do")
+	@RequestMapping(value = "/updateSelective.do",method={RequestMethod.POST})
 	@ResponseBody
 	public AjaxResult<E> updateSelective(E record){
 		BaseEntity baseEntity = (BaseEntity) record;
@@ -112,7 +113,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 		return ajax;
 	}
 	
-	@RequestMapping(value = "/update.do")
+	@RequestMapping(value = "/update.do",method={RequestMethod.POST})
 	@ResponseBody
 	public AjaxResult<E> update(E record){
 		BaseEntity baseEntity = (BaseEntity) record;
@@ -129,7 +130,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 		return ajax;
 	}
 	
-	@RequestMapping(value = "/delete.do")
+	@RequestMapping(value = "/delete.do",method={RequestMethod.POST})
 	@ResponseBody
 	public AjaxResult<E> delete(E record){
 		AjaxResult<E> ajax = new AjaxResult<E>();

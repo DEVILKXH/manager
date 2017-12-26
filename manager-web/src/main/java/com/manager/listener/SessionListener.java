@@ -28,7 +28,7 @@ public class SessionListener implements HttpSessionListener{
 		HttpSession session = se.getSession();
 		ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext());
 //		applicationContext.getBean(arg0)
-		SysLoginLogService sysLoginLogService = (SysLoginLogService) applicationContext.getBean("SysLoginLogService");
+		SysLoginLogService sysLoginLogService = (SysLoginLogService) applicationContext.getBean("sysLoginLogService");
 		String logId = (String) session.getAttribute("logId");
 		if(StringUtil.isNotNull(logId)){
 			SysLoginLog log = sysLoginLogService.selectByPrimaryKey(logId);

@@ -105,6 +105,77 @@ public class PlanExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andContentIsNull() {
+            addCriterion("CONTENT is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIsNotNull() {
+            addCriterion("CONTENT is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentEqualTo(String value) {
+            addCriterion("CONTENT =", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotEqualTo(String value) {
+            addCriterion("CONTENT <>", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThan(String value) {
+            addCriterion("CONTENT >", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThanOrEqualTo(String value) {
+            addCriterion("CONTENT >=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThan(String value) {
+            addCriterion("CONTENT <", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThanOrEqualTo(String value) {
+            addCriterion("CONTENT <=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLike(String value) {
+            addCriterion("CONTENT like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotLike(String value) {
+            addCriterion("CONTENT not like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIn(List<String> values) {
+            addCriterion("CONTENT in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotIn(List<String> values) {
+            addCriterion("CONTENT not in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentBetween(String value1, String value2) {
+            addCriterion("CONTENT between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotBetween(String value1, String value2) {
+            addCriterion("CONTENT not between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        
         public Criteria andUuidIsNull() {
             addCriterion("UUID is null");
             return (Criteria) this;
@@ -174,7 +245,8 @@ public class PlanExample {
             addCriterion("UUID not between", value1, value2, "uuid");
             return (Criteria) this;
         }
-
+        
+        
         public Criteria andTitleIsNull() {
             addCriterion("TITLE is null");
             return (Criteria) this;
