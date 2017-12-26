@@ -80,7 +80,7 @@ public class DocumentUtil {
 	public static <T> Document entityToDocument(T t){
 		Document document = new Document();
 		try {
-			Class c = t.getClass();
+			Class<?> c = t.getClass();
 			Field []fields = c.getDeclaredFields();
 			for(Field field: fields){
 				String fieldName = field.getName();
