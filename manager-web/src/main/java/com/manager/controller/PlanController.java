@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,7 +26,7 @@ public class PlanController extends BaseController<PlanService, PlanExample, Pla
 
 	@RequestMapping(value = "/getPlanPage.do")
 	@ResponseBody
-	public Page<Plan> getPlanPage(Plan plan, Page<Plan> page,String createTime2){
+	public Page<Plan> getPlanPage(@RequestBody Plan plan, @RequestBody Page<Plan> page,String createTime2){
 		if(StringUtil.isNotNull(createTime2)){
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date date = new Date();
@@ -41,7 +42,7 @@ public class PlanController extends BaseController<PlanService, PlanExample, Pla
 	
 	@RequestMapping(value = "/getList.do")
 	@ResponseBody
-	public List<Plan> getList(Plan plan,String createTime2){
+	public List<Plan> getList(@RequestBody Plan plan,@RequestBody String createTime2){
 		if(StringUtil.isNotNull(createTime2)){
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date date = new Date();

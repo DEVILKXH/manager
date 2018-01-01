@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,31 +41,31 @@ public class UserController extends BaseController<UserService,UserExample,User>
 	
 	@RequestMapping(value = "/getCustomerByUserId.do")
 	@ResponseBody
-	public List<Customer> getCustomerByUserId(User user){
+	public List<Customer> getCustomerByUserId(@RequestBody User user){
 		return userService.getCustomerByUserId(user);
 	}
 	
 	@RequestMapping(value = "/getUserList.do")
 	@ResponseBody
-	public List<User> getUserList(User user){
+	public List<User> getUserList(@RequestBody User user){
 		return userService.getUser(user);
 	}
 	
 	@RequestMapping(value = "/getUserPage.do")
 	@ResponseBody
-	public Page<User> getUserPage(User user,Page<User> page){
+	public Page<User> getUserPage(@RequestBody User user,@RequestBody Page<User> page){
 		return userService.getUserPage(user, page);
 	}
 	
 	@RequestMapping(value = "/getUserPageWithCustomer.do")
 	@ResponseBody
-	public Page<User> getUserPageWithCustomer(User user,Page<User> page){
+	public Page<User> getUserPageWithCustomer(@RequestBody User user,@RequestBody Page<User> page){
 		return userService.getUserPageWithCustomer(user, page);
 	}
 	
 	@RequestMapping(value = "/getUserTree.do")
 	@ResponseBody
-	public List<TreeNode> getUserTree(User user) throws Exception{
+	public List<TreeNode> getUserTree(@RequestBody User user) throws Exception{
 		List<User> users = userService.selectByExample(user.getExample());
 		if(null == users || users.isEmpty()){
 			return new ArrayList<TreeNode>();

@@ -227,7 +227,7 @@ public class StringUtil {
 	 *            多个参数分隔
 	 * @return 哈希表，key值为query的参数名，value为一个String[]，为参数对应的
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Map getParameterMap(String query, String splitStr) {
 		Map rtnVal = new HashMap();
 		if (isNull(query))
@@ -513,6 +513,7 @@ public class StringUtil {
 		return buf.toString();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static String join(Iterable iterable, String separator) {
 		if (iterable == null) {
 			return null;
@@ -520,6 +521,7 @@ public class StringUtil {
 		return join(iterable.iterator(), separator);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static String join(Iterator iterator, String separator) {
 		if (iterator == null) {
 			return null;

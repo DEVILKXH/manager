@@ -10,13 +10,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.manager.entity.User;
-import com.manager.utils.StringUtil;
-
-
-public class LoginFilter implements Filter{
+public class OriginFilter implements Filter{
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -29,19 +24,15 @@ public class LoginFilter implements Filter{
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)res;
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		if(null == user){
-			String url = request.getContextPath() + request.getServletPath();
-			if(StringUtil.isNotNull(request.getQueryString())){
-				url += ("?" + request.getQueryString());
-			}
-			session.setAttribute("url", url);
-			response.sendRedirect("/manager-web/login.do");
-		}else{
-			chain.doFilter(request, response);
-		}
-//		chain.doFilter(req, res);
+		response.setContentType("text/html;charset=UTF-8");  
+		response.setHeader("Access-Control-Allow-Origin", "*");  
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");  
+		response.setHeader("Access-Control-Max-Age", "0");  
+	    response.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");  
+	    response.setHeader("Access-Control-Allow-Credentials", "true");  
+	    response.setHeader("XDomainRequestAllowed","1");
+	    
+		chain.doFilter(request, response);
 	}
 
 	@Override

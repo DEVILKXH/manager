@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.manager.entity.Customer;
@@ -37,6 +37,8 @@ public class LoginController{
 	@Autowired
 	private GroupService groupService;
 	
+	
+	
 	@Autowired
 	private CustomerService customerService;
 	
@@ -60,9 +62,9 @@ public class LoginController{
 		return "login";
 	}
 	
-	@RequestMapping(value = "/doLogin.do",method={RequestMethod.POST})
+	@RequestMapping(value = "/doLogin.do")
 	@ResponseBody
-	public AjaxResult<User> doLogin(User user,HttpServletRequest request,HttpSession session){
+	public AjaxResult<User> doLogin(@RequestBody User user,HttpServletRequest request,HttpSession session){
 		AjaxResult<User> result = new AjaxResult<User>();
 		if(StringUtil.isNull(user.getUserName()) || StringUtil.isNull(user.getPassword())){
 			result.setStatus("404");
@@ -82,6 +84,7 @@ public class LoginController{
 		if(password.equals(user.getPassword())){
 			result.setStatus("200");
 			result.setMessage("登录成功");
+			result.setObject(_user);
 			session.setAttribute("user", _user);
 			userUtil.setUser(session, user);
 		}else{
@@ -99,7 +102,7 @@ public class LoginController{
 	
 	@RequestMapping(value = "/register.do")
 	@ResponseBody
-	public AjaxResult<User> register(User user,String password2,HttpServletRequest request,HttpSession session){
+	public AjaxResult<User> register(@RequestBody User user,String password2,HttpServletRequest request,HttpSession session){
 		AjaxResult<User> result = new AjaxResult<User>();
 		if(StringUtil.isNull(user.getUserName()) || StringUtil.isNull(user.getPassword()) || StringUtil.isNull(password2)){
 			result.setStatus("404");

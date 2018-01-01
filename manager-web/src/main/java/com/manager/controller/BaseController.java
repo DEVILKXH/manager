@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +28,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	
 	@RequestMapping(value = "/insertSelective.do",method={RequestMethod.POST})
 	@ResponseBody
-	public AjaxResult<E> insertSelective(E record){
+	public AjaxResult<E> insertSelective(@RequestBody E record){
 		AjaxResult<E> ajax = new AjaxResult<E>();
 		if(record.getClass()  == User.class){
 			User user = (User)record;
@@ -57,7 +58,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	
 	@RequestMapping(value = "/insert.do",method={RequestMethod.POST})
 	@ResponseBody
-	public AjaxResult<E> insert(E record){
+	public AjaxResult<E> insert(@RequestBody E record){
 		AjaxResult<E> ajax = new AjaxResult<E>();
 		if(record.getClass()  == User.class){
 			User user = (User)record;
@@ -87,7 +88,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	
 	@RequestMapping(value = "/selectOne.do",method={RequestMethod.POST})
 	@ResponseBody
-	public E selectOne(E record){
+	public E selectOne(@RequestBody E record){
 		T example =  getExample(record);
 		List<E> records = service.selectByExample(example);
 		if(null == records || records.size() == 0 ){
@@ -98,7 +99,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	
 	@RequestMapping(value = "/updateSelective.do",method={RequestMethod.POST})
 	@ResponseBody
-	public AjaxResult<E> updateSelective(E record){
+	public AjaxResult<E> updateSelective(@RequestBody E record){
 		BaseEntity baseEntity = (BaseEntity) record;
 		AjaxResult<E> ajax = new AjaxResult<E>();
 		int flag = service.updateByPrimaryKeySelective(record);
@@ -115,7 +116,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	
 	@RequestMapping(value = "/update.do",method={RequestMethod.POST})
 	@ResponseBody
-	public AjaxResult<E> update(E record){
+	public AjaxResult<E> update(@RequestBody E record){
 		BaseEntity baseEntity = (BaseEntity) record;
 		AjaxResult<E> ajax = new AjaxResult<E>();
 		int flag = service.updateByPrimaryKey(record);
@@ -132,7 +133,7 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	
 	@RequestMapping(value = "/delete.do",method={RequestMethod.POST})
 	@ResponseBody
-	public AjaxResult<E> delete(E record){
+	public AjaxResult<E> delete(@RequestBody E record){
 		AjaxResult<E> ajax = new AjaxResult<E>();
 		BaseEntity baseEntity = (BaseEntity) record;
 		int flag = service.deleteByPrimaryKey(baseEntity.getUuid());
