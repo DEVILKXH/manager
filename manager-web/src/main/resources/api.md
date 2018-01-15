@@ -1,3 +1,56 @@
+## 字段设置
+- 用户模块
+```json
+{
+	"uuid": "id",
+	"userName" :  "用户名",
+	"password": "(密码)",
+	"userSingal": "(签名)",
+	"userBirthday": "(生日)",
+	"userPhone": "(联系方式)",
+	"userStatus" : "(状态working/worked)"
+	"userAddress": "(地址)",
+	"userRank": "(职级1-13)",
+	"parentUserId" : "(上级)"
+}
+```
+
+- 客户模块
+```json
+{
+	"uuid":"(id)",
+	"cusName":"(客户名称)",
+	"cusBirthday":"(生日)",
+	"cusPhone":"(联系方式)",
+	"cusStatus":"(状态disabled/enabled/pending)",
+	"cusAddress":"(地址)",
+	"userId":"(用户ID)",
+	"groupId":"(分组ID)"
+}
+```
+
+- 分组模块
+```json
+{
+	"uuid": "(ID)",
+	"groupName": "(分组名称)",
+    	"groupCode": "(分组编号)",
+    	"parentGroupId": "(上级分组)"
+}
+```
+
+- 计划/日志模块
+```json
+{
+	"uuid": "(ID)",
+	"title": "(标题)",
+	"createTime": "(创建时间)",
+	"userId": "(用户ID)",
+	"type": "(类型log/plan)",
+	"content": "(内容)"
+}
+```
+
 ## 登录
 - PATH： /manager-web/doLogin.do
 - 方法： POST
