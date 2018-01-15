@@ -8,7 +8,7 @@
 	"userSingal": "(签名)",
 	"userBirthday": "(生日)",
 	"userPhone": "(联系方式)",
-	"userStatus" : "(状态working/worked)"
+	"userStatus": "(状态working/worked)"
 	"userAddress": "(地址)",
 	"userRank": "(职级1-13)",
 	"parentUserId" : "(上级)"
