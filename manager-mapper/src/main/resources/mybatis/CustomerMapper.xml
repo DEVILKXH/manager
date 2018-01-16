@@ -10,6 +10,7 @@
 		<result column="CUS_ADDRESS" property="cusAddress" jdbcType="VARCHAR" />
 		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
 		<result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
+		<result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Example_Where_Clause" >
 		<where >
@@ -75,36 +76,86 @@
 	
 	<select id="getCustomerPage" resultMap="BaseResultMap">
 		select 
-		<include refid="Base_Column_List" />
-		from customer
+		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, 
+		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.GROUP_NAME
+		from customer a
+		left join groups b on a.group_id = b.uuid
 		<trim prefix="where" prefixOverrides="and | or" >
 			<if test="customer.uuid != null" >
-       and uuid = #{customer.uuid,jdbcType=VARCHAR}
+       and a.uuid = #{customer.uuid,jdbcType=VARCHAR}
 			</if>
 			<if test="customer.cusName != null" >
-       and cus_name = #{customer.cusName,jdbcType=VARCHAR}
+       and a.cus_name = #{customer.cusName,jdbcType=VARCHAR}
 			</if>
 			<if test="customer.cusBirthday != null" >
-        and cus_birthday = #{customer.cusBirthday,jdbcType=DATE}
+        and a.cus_birthday = #{customer.cusBirthday,jdbcType=DATE}
 			</if>
 			<if test="customer.cusPhone != null" >
-       and cus_phone =  #{customer.cusPhone,jdbcType=VARCHAR}
+       and a.cus_phone =  #{customer.cusPhone,jdbcType=VARCHAR}
 			</if>
 			<if test="customer.cusStatus != null" >
-       and cus_status =  #{customer.cusStatus,jdbcType=VARCHAR}
+       and a.cus_status =  #{customer.cusStatus,jdbcType=VARCHAR}
 			</if>
 			<if test="customer.cusAddress != null" >
-       and cus_address = #{customer.cusAddress,jdbcType=VARCHAR}
+       and a.cus_address = #{customer.cusAddress,jdbcType=VARCHAR}
 			</if>
 			<if test="customer.userId != null" >
-       and user_id = #{customer.userId,jdbcType=VARCHAR}
+       and a.user_id = #{customer.userId,jdbcType=VARCHAR}
 			</if>
 			<if test="customer.groupId != null" >
-       and group_id = #{customer.groupId,jdbcType=VARCHAR} 
+       and a.group_id = #{customer.groupId,jdbcType=VARCHAR} 
 			</if>
 		</trim>
 		limit #{page.start} , #{page.end}
 	</select>
+	
+	<select id="getCustomerList" resultMap="BaseResultMap">
+		select 
+		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, 
+		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.group_name
+		from customer a
+		left join groups b on a.group_id = b.uuid
+		<trim prefix="where" prefixOverrides="and | or" >
+			<if test="uuid != null" >
+       and a.uuid = #{uuid,jdbcType=VARCHAR}
+			</if>
+			<if test="cusName != null" >
+       and a.cus_name = #{cusName,jdbcType=VARCHAR}
+			</if>
+			<if test="cusBirthday != null" >
+        and a.cus_birthday = #{cusBirthday,jdbcType=DATE}
+			</if>
+			<if test="cusPhone != null" >
+       and a.cus_phone =  #{cusPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="cusStatus != null" >
+       and a.cus_status =  #{cusStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="cusAddress != null" >
+       and a.cus_address = #{cusAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="userId != null" >
+       and a.user_id = #{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="groupId != null" >
+       and a.group_id = #{groupId,jdbcType=VARCHAR} 
+			</if>
+		</trim>
+	</select>
+	
+	<select id="getCustomerListByInId" resultMap="BaseResultMap">
+		select 
+		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, 
+		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.group_name
+		from customer a
+		left join groups b on a.group_id = b.uuid
+		where user_id in
+		<foreach item="userId" index="index" collection="list" open="(" separator="," close=")">  
+		  #{userId}  
+		</foreach> 
+	</select>
+	
+	
 	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.manager.entity.CustomerExample" >
     select
 		<if test="distinct" >

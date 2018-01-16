@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.manager.entity.Customer;
-import com.manager.entity.CustomerExample;
 import com.manager.entity.User;
 import com.manager.entity.UserExample;
 import com.manager.inner.base.serviceimpl.BaseServiceImpl;
@@ -41,7 +40,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserExample, User,UserMappe
 			for(User _user: users){
 				map.put(_user.getUuid(), _user);
 			}
-			List<Customer> cuss = customerMapper.selectByExample(new CustomerExample());
+			List<Customer> cuss = customerMapper.getCustomerList(new Customer());
 			for(Customer cus: cuss){
 				String id = cus.getUserId();
 				if(map.containsKey(id)){
@@ -63,7 +62,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserExample, User,UserMappe
 		for(User _user: users){
 			map.put(_user.getUuid(), _user);
 		}
-		List<Customer> customers = customerMapper.selectByExample(new CustomerExample());
+		List<Customer> customers = customerMapper.getCustomerList(new Customer());
 		if(null != customers && customers.size() > 0){
 			for(Customer cus: customers){
 				String id = cus.getUserId();
@@ -97,9 +96,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserExample, User,UserMappe
 			userIds.add(_user.getUuid());
 			map.put(_user.getUuid(), _user);
 		}
-		CustomerExample example = new CustomerExample();
-		example.createCriteria().andUserIdIn(userIds);
-		List<Customer> customers = customerMapper.selectByExample(example);
+		List<Customer> customers = customerMapper.getCustomerListByInId(userIds);
 		if(null != customers && customers.size() > 0){
 			for(Customer cus: customers){
 				String id = cus.getUserId();

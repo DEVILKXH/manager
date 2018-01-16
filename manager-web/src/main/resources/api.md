@@ -1050,6 +1050,50 @@
 }
 ```
 
+## 获取客户信息
+- PATH: /manager-web/m/customer/getCustomerList.do
+- 方法: GET
+- 说明: 插入客户
+- 请求内容
+```json
+{
+	"uuid": "",
+    "cusName": "",
+    "cusBirthday": "",
+    "cusPhone": "",
+    "cusStatus": "",
+    "cusAddress": "",
+    "userId": "",
+    "groupId": ""
+}
+```
+- 返回值: 
+```json
+[
+    {
+        "uuid": "",
+        "name": "",
+        "cusName": "",
+        "cusBirthday": "",
+        "cusPhone": "",
+        "cusStatus": "",
+        "cusAddress": "",
+        "userId": "",
+        "groupId": ""
+    },{
+        "uuid": "",
+        "name": "",
+        "cusName": "",
+        "cusBirthday": "",
+        "cusPhone": "",
+        "cusStatus": "",
+        "cusAddress": "",
+        "userId": "",
+        "groupId": ""
+    }
+]
+```
+
 # 工作计划/日志模块
 
 ## 新建计划/日志(动态)

@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.manager.entity.Customer;
-import com.manager.entity.CustomerExample;
 import com.manager.entity.Groups;
 import com.manager.entity.GroupsExample;
 import com.manager.inner.base.serviceimpl.BaseServiceImpl;
@@ -42,7 +41,7 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupsExample, Groups, Gro
 		for(Groups g: groups){
 			map.put(g.getUuid(), g);
 		}
-		List<Customer> gcs = customerMapper.selectByExample(new CustomerExample()); 
+		List<Customer> gcs = customerMapper.getCustomerList(new Customer()); 
 		if(null != gcs && gcs.size() > 0){
 			for(Customer customer: gcs){
 				String id = customer.getGroupId();
@@ -66,7 +65,7 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupsExample, Groups, Gro
 			map.put(g.getUuid(), g);
 		}
 		List<Customer> customers = new ArrayList<Customer>();
-		List<Customer> gcs = customerMapper.selectByExample(new CustomerExample()); 
+		List<Customer> gcs = customerMapper.getCustomerList(new Customer()); 
 		if(null != gcs && gcs.size() > 0){
 			for(Customer customer: gcs){
 				String id = customer.getGroupId();

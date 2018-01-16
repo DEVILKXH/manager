@@ -21,6 +21,8 @@ public class Customer extends BaseEntity{
     private String userId;
 
     private String groupId;
+    
+    private String groupName;
 
     public String getCusName() {
         return cusName;
@@ -74,7 +76,16 @@ public class Customer extends BaseEntity{
         return groupId;
     }
 
-    public void setGroupId(String groupId) {
+    
+    public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public void setGroupId(String groupId) {
         this.groupId = groupId == null ? null : groupId.trim();
     }
     

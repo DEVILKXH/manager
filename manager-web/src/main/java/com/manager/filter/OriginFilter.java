@@ -24,7 +24,6 @@ public class OriginFilter implements Filter{
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)res;
-		response.setContentType("text/html;charset=UTF-8");  
 		response.setHeader("Access-Control-Allow-Origin", "*");  
 		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");  
 		response.setHeader("Access-Control-Max-Age", "0");  

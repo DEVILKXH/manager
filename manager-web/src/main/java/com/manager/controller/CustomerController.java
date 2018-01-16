@@ -1,8 +1,9 @@
 package com.manager.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,7 +21,13 @@ public class CustomerController extends BaseController<CustomerService, Customer
 	
 	@RequestMapping(value = "/getCustomerPage.do")
 	@ResponseBody
-	public Page<Customer> getCustomerPage(@RequestBody Customer customer,@RequestBody Page<Customer> page){
+	public Page<Customer> getCustomerPage(Customer customer,Page<Customer> page){
 		return customerService.getCustomerPage(customer, page);
+	}
+	
+	@RequestMapping(value = "/getCustomerList.do")
+	@ResponseBody
+	public List<Customer> getCustomerList(Customer customer){
+		return customerService.getCustomerList(customer);
 	}
 }

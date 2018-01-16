@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,20 +34,20 @@ public class GroupController extends BaseController<GroupService,GroupsExample,G
 
 	@RequestMapping(value = "/getGroupList.do")
 	@ResponseBody
-	public List<Groups> getGroupList(@RequestBody Groups group){
+	public List<Groups> getGroupList( Groups group){
 		return groupService.getGroupList(group);
 	}
 	
 	@RequestMapping(value = "/getCustomerByGroupId.do")
 	@ResponseBody
-	public List<Customer> getCustomerByGroupId(@RequestBody Groups group){
+	public List<Customer> getCustomerByGroupId(Groups group){
 		return groupService.getCustomerByGroupId(group);
 	}
 	
 
 	@RequestMapping(value = "/getGroupTree.do")
 	@ResponseBody
-	public List<TreeNode> getGroupTree(@RequestBody Groups group) throws Exception{
+	public List<TreeNode> getGroupTree(Groups group) throws Exception{
 		List<Groups> groups = groupService.selectByExample(group.getExample());
 		if(null == groups || groups.isEmpty()){
 			return new ArrayList<TreeNode>();

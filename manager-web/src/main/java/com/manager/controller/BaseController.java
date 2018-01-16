@@ -131,9 +131,9 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 		return ajax;
 	}
 	
-	@RequestMapping(value = "/delete.do",method={RequestMethod.POST})
+	@RequestMapping(value = "/delete.do",method={RequestMethod.GET})
 	@ResponseBody
-	public AjaxResult<E> delete(@RequestBody E record){
+	public AjaxResult<E> delete(E record){
 		AjaxResult<E> ajax = new AjaxResult<E>();
 		BaseEntity baseEntity = (BaseEntity) record;
 		int flag = service.deleteByPrimaryKey(baseEntity.getUuid());

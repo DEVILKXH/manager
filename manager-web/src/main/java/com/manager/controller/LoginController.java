@@ -37,8 +37,6 @@ public class LoginController{
 	@Autowired
 	private GroupService groupService;
 	
-	
-	
 	@Autowired
 	private CustomerService customerService;
 	
@@ -64,8 +62,9 @@ public class LoginController{
 	
 	@RequestMapping(value = "/doLogin.do")
 	@ResponseBody
-	public AjaxResult<User> doLogin(@RequestBody User user,HttpServletRequest request,HttpSession session){
+	public AjaxResult<User> doLogin(@RequestBody User user,HttpServletRequest request){
 		AjaxResult<User> result = new AjaxResult<User>();
+		HttpSession session = request.getSession();
 		if(StringUtil.isNull(user.getUserName()) || StringUtil.isNull(user.getPassword())){
 			result.setStatus("404");
 			result.setMessage("帐号或密码不能为空");
@@ -86,7 +85,7 @@ public class LoginController{
 			result.setMessage("登录成功");
 			result.setObject(_user);
 			session.setAttribute("user", _user);
-			userUtil.setUser(session, user);
+//			userUtil.setUser(session,_user);
 		}else{
 			result.setStatus("500");
 			result.setMessage("账号或密码错误");
@@ -102,7 +101,8 @@ public class LoginController{
 	
 	@RequestMapping(value = "/register.do")
 	@ResponseBody
-	public AjaxResult<User> register(@RequestBody User user,String password2,HttpServletRequest request,HttpSession session){
+	public AjaxResult<User> register(@RequestBody User user,HttpServletRequest request,HttpSession session){
+		String password2 = user.getPassword2();
 		AjaxResult<User> result = new AjaxResult<User>();
 		if(StringUtil.isNull(user.getUserName()) || StringUtil.isNull(user.getPassword()) || StringUtil.isNull(password2)){
 			result.setStatus("404");
@@ -155,35 +155,46 @@ public class LoginController{
 		AjaxResult<String> result = new AjaxResult<String>();
 		//user
 		List<User> users = new ArrayList<User>();
-		for(int i = 0; i < 100; i++){
+//		String []userName = {"杨炎","杨总","火火","啦啦啦","炎炎"};
+		String []userCode = {"yangyan","yangzong","huohuo","lalala","yanyan"};
+		String []rank = {"1","3","5","7","9"};
+		for(int i = 0; i < 5; i++){
 			User user = new User();
 			user.setUuid(UUID.randomUUID().toString());
-			user.setUserName(getRandom());
+			user.setUserName(userCode[i]);
+			user.setUserRank(rank[i]);
 			user.setPassword("123456");
+			user.setUserStatus("working");
 			userService.insertSelective(user);
 			users.add(user);
 		}
-		
+		String []_group = {"分组1","分组2","分组3","分组4","分组5","分组6","分组7","分组8","分组9","分组10"};
+		String []_groupCode = {"group1","group2","group3","group4","group5","group6","group7","group8","group9","group10"};
 		//Group
 		List<Groups> groups = new ArrayList<Groups>();
 		for(int i = 0; i < 10; i++){
 			Groups group = new Groups();
 			group.setUuid(UUID.randomUUID().toString());
-			group.setGroupName(getRandom());
+			group.setGroupName(_group[i]);
+			group.setGroupCode(_groupCode[i]);
 			groupService.insertSelective(group);
 			groups.add(group);
 		}
 		
+		String []cusName = {"客户1","客户2","客户3","客户4","客户5","客户6","客户7","客户8","客户9","客户10","客户11","客户12","客户13","客户14","客户15","客户16","客户17","客户18","客户19","客户20"};
+		String []cusStatus = {"disable","enable","pending"};
 		//Group
-		for(int i = 0; i < 500; i++){
+		for(int i = 0; i < 20; i++){
 			Customer customer = new Customer();
 			customer.setUuid(UUID.randomUUID().toString());
-			customer.setCusName(getRandom());
+			customer.setCusName(cusName[i]);
 			Random random = new Random();
-			int index = random.nextInt(99);
-			int _index = index % 10;
+			int index = random.nextInt(4);
+			int _index = random.nextInt(9);
 			customer.setUserId(users.get(index).getUuid());
 			customer.setGroupId(groups.get(_index).getUuid());
+			int status = random.nextInt(2);
+			customer.setCusStatus(cusStatus[status]);
 			customerService.insertSelective(customer);
 		}
 		

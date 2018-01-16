@@ -36,4 +36,9 @@ public class CustomerServiceImpl extends BaseServiceImpl<CustomerExample, Custom
 		return page;
 	}
 
+	@Override
+	public List<Customer> getCustomerList(Customer customer) {
+		return customerMapper.getCustomerList(customer);
+	}
+
 }

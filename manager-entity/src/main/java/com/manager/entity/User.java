@@ -27,6 +27,8 @@ public class User extends BaseEntity{
 
     private String parentUserId;
     
+    private String password2;
+    
     private List<Customer> cus;
 
     public User(){
@@ -116,7 +118,14 @@ public class User extends BaseEntity{
 	public void addCustomer(Customer customer){
 		this.cus.add(customer);
 	}
-	
+
+	public String getPassword2() {
+		return password2;
+	}
+
+	public void setPassword2(String password2) {
+		this.password2 = password2;
+	}
 	public UserExample getExample(){
 		UserExample example = new UserExample();
 		Criteria criteria = example.createCriteria();
@@ -146,4 +155,5 @@ public class User extends BaseEntity{
 		}
 		return example;
 	}
+	
 }

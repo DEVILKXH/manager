@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.alibaba.fastjson.JSON;
 import com.manager.entity.User;
+import com.manager.inner.dto.AjaxResult;
 import com.manager.utils.StringUtil;
 
 
@@ -31,16 +33,20 @@ public class LoginFilter implements Filter{
 		HttpServletResponse response = (HttpServletResponse)res;
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		if(null == user){
-			String url = request.getContextPath() + request.getServletPath();
-			if(StringUtil.isNotNull(request.getQueryString())){
-				url += ("?" + request.getQueryString());
-			}
-			session.setAttribute("url", url);
-			response.sendRedirect("/manager-web/login.do");
-		}else{
+//		if(null == user){
+//			String url = request.getContextPath() + request.getServletPath();
+//			if(StringUtil.isNotNull(request.getQueryString())){
+//				url += ("?" + request.getQueryString());
+//			}
+//			session.setAttribute("url", url);
+//			AjaxResult<String> ajax = new AjaxResult<String>();
+//			ajax.setStatus("404");
+//			ajax.setMessage("请先登录");
+//			response.getWriter().print(JSON.toJSONString(ajax));
+////			response.sendRedirect("/manager-web/login.do");
+//		}else{
 			chain.doFilter(request, response);
-		}
+//		}
 //		chain.doFilter(req, res);
 	}
 
