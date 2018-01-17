@@ -32,4 +32,8 @@ public class PlanServiceImpl extends BaseServiceImpl<PlanExample, Plan, BaseMapp
 		return page;
 	}
 
+	@Override
+	public List<Plan> getPlanList(Plan plan) {
+		return planMapper.getPlanList(plan);
+	}
 }

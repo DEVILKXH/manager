@@ -33,7 +33,7 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupsExample, Groups, Gro
 	@Override
 	public List<Groups> getGroupList(Groups group) {
 		GroupsExample example = group.getExample();
-		List<Groups> groups = groupMapper.selectByExample(example);
+		List<Groups> groups = groupMapper.selectByExampleWithBLOBs(example);
 		if(null == groups || groups.size() == 0){
 			return new ArrayList<Groups>();
 		}
@@ -56,7 +56,7 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupsExample, Groups, Gro
 	@Override
 	public List<Customer> getCustomerByGroupId(Groups group) {
 		GroupsExample example = group.getExample();
-		List<Groups> groups = groupMapper.selectByExample(example);
+		List<Groups> groups = groupMapper.selectByExampleWithBLOBs(example);
 		if(null == groups || groups.size() == 0){
 			return new ArrayList<Customer>();
 		}

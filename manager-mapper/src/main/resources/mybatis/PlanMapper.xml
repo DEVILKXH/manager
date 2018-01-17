@@ -6,6 +6,7 @@
 		<result column="TITLE" property="title" jdbcType="VARCHAR" />
 		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
 		<result column="TYPE" property="type" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.manager.entity.Plan" extends="BaseResultMap" >
@@ -96,7 +97,8 @@
 		<if test="distinct" >
       distinct
 		</if>
-		<include refid="Base_Column_List" />
+		<include refid="Base_Column_List" />,
+		<include refid="Blob_Column_List" />
     from plan
 		<if test="_parameter != null" >
 			<include refid="Example_Where_Clause" />
@@ -107,33 +109,61 @@
 	</select>
 	<select id="getPlanPage" resultMap="BaseResultMap">
   	 select 
-		<include refid="Base_Column_List" />
-    ,
-		<include refid="Blob_Column_List" />
-    from plan
+		a.UUID, a.TITLE, a.CREATE_TIME, a.USER_ID, a.TYPE, a.CONTENT,b.USER_NAME
+    from plan a
+    left join user b on a.user_id = b .uuid
 		<trim prefix="where" prefixOverrides="and|or" >
     		<if test="plan.uuid != null">
-				and uuid = #{plan.uuid}
+				and a.uuid = #{plan.uuid}
 			</if>
 			<if test="plan.title != null" >
-        		and title = #{plan.title,jdbcType=VARCHAR}
+        		and a.title = #{plan.title,jdbcType=VARCHAR}
 			</if>
 			<if test="plan.createTime != null" >
-        		and create_time = #{plan.createTime,jdbcType=TIMESTAMP}
+        		and a.create_time = #{plan.createTime,jdbcType=TIMESTAMP}
 			</if>
 			<if test="plan.userId != null" >
-        		and user_id = #{plan.userId,jdbcType=VARCHAR}
+        		and a.user_id = #{plan.userId,jdbcType=VARCHAR}
 			</if>
 			<if test="plan.type != null" >
-       			and type=  #{plan.type,jdbcType=VARCHAR}
+       			and a.type=  #{plan.type,jdbcType=VARCHAR}
 			</if>
 			<if test="plan.content != null" >
-        		and content = #{plan.content,jdbcType=LONGVARCHAR}
+        		and a.content = #{plan.content,jdbcType=LONGVARCHAR}
 			</if>
 		</trim>
 		order by create_time
 		limit #{page.start},#{page.end}
 	</select>
+	
+	<select id="getPlanList" resultMap="BaseResultMap">
+  	 select 
+		a.UUID, a.TITLE, a.CREATE_TIME, a.USER_ID, a.TYPE, a.CONTENT,b.USER_NAME
+    from plan a
+    left join user b on a.user_id = b .uuid
+		<trim prefix="where" prefixOverrides="and|or" >
+    		<if test="uuid != null">
+				and a.uuid = #{uuid}
+			</if>
+			<if test="title != null" >
+        		and a.title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="createTime != null" >
+        		and a.create_time = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="userId != null" >
+        		and a.user_id = #{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null" >
+       			and a.type=  #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null" >
+        		and a.content = #{content,jdbcType=LONGVARCHAR}
+			</if>
+		</trim>
+		order by create_time
+	</select>
+	
 	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
 		<include refid="Base_Column_List" />

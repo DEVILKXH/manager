@@ -94,9 +94,13 @@ public class LoginController{
 	}
 	
 	@RequestMapping(value = "/logout.do")
-	public String doLogout(HttpSession session){
+	@ResponseBody
+	public AjaxResult<String> doLogout(HttpSession session){
 		session.invalidate();
-		return "login";
+		AjaxResult<String> ajax = new AjaxResult<String>();
+		ajax.setStatus("200");
+		ajax.setMessage("退出成功");
+		return ajax;
 	}
 	
 	@RequestMapping(value = "/register.do")

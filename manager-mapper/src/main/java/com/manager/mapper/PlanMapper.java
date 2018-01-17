@@ -11,4 +11,6 @@ import com.manager.inner.dto.Page;
 
 public interface PlanMapper extends BaseMapper<PlanExample, Plan>{
 	public List<Plan> getPlanPage(@Param("plan") Plan plan, @Param("page") Page<Plan> page);
+	
+	public List<Plan> getPlanList(Plan plan);
 }

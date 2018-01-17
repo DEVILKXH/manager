@@ -52,6 +52,6 @@ public class PlanController extends BaseController<PlanService, PlanExample, Pla
 			}
 			plan.setCreateTime(date);
 		}
-		return planService.selectByExample(plan.getExample());
+		return planService.getPlanList(plan);
 	}
 }

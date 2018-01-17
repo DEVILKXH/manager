@@ -17,6 +17,8 @@ public class Plan extends BaseEntity{
     private String type;
 
     private String content;
+    
+    private String userName;
 
     public String getTitle() {
         return title;
@@ -58,7 +60,15 @@ public class Plan extends BaseEntity{
         this.content = content == null ? null : content.trim();
     }
     
-    public PlanExample getExample(){
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public PlanExample getExample(){
     	PlanExample example = new PlanExample();
     	Criteria criteria = example.createCriteria();
     	if(StringUtil.isNotNull(this.getUuid())){
