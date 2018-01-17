@@ -354,6 +354,16 @@ public class GroupsExample {
             return (Criteria) this;
         }
 
+        public Criteria andParentGroupIdLike(String value) {
+            addCriterion("PARENT_GROUP_ID like", value, "parentGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andParentGroupIdNotLike(String value) {
+            addCriterion("PARENT_GROUP_ID not like", value, "parentGroupId");
+            return (Criteria) this;
+        }
+
         public Criteria andParentGroupIdIn(List<String> values) {
             addCriterion("PARENT_GROUP_ID in", values, "parentGroupId");
             return (Criteria) this;
@@ -371,6 +381,77 @@ public class GroupsExample {
 
         public Criteria andParentGroupIdNotBetween(String value1, String value2) {
             addCriterion("PARENT_GROUP_ID not between", value1, value2, "parentGroupId");
+            return (Criteria) this;
+        }
+        
+        
+        public Criteria andGroupDespIsNull() {
+            addCriterion("GROUP_DESP is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespIsNotNull() {
+            addCriterion("GROUP_DESP is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespEqualTo(String value) {
+            addCriterion("GROUP_DESP =", value, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespNotEqualTo(String value) {
+            addCriterion("GROUP_DESP", value, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespGreaterThan(String value) {
+            addCriterion("GROUP_DESP >", value, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespGreaterThanOrEqualTo(String value) {
+            addCriterion("GROUP_DESP >=", value, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespLessThan(String value) {
+            addCriterion("GROUP_DESP <", value, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespLessThanOrEqualTo(String value) {
+            addCriterion("GROUP_DESP <=", value, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespLike(String value) {
+            addCriterion("GROUP_DESP like", value, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespNotLike(String value) {
+            addCriterion("GROUP_DESP not like", value, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespIn(List<String> values) {
+            addCriterion("GROUP_DESP in", values, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespNotIn(List<String> values) {
+            addCriterion("GROUP_DESP not in", values, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespBetween(String value1, String value2) {
+            addCriterion("GROUP_DESP between", value1, value2, "groupDesp");
+            return (Criteria) this;
+        }
+
+        public Criteria andGroupDespNotBetween(String value1, String value2) {
+            addCriterion("GROUP_DESP not between", value1, value2, "groupDesp");
             return (Criteria) this;
         }
     }

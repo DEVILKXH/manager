@@ -11,6 +11,7 @@
 		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
 		<result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
 		<result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR"/>
+		<result column="GROUP_DESP" property="groupDesp" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Example_Where_Clause" >
 		<where >
@@ -77,7 +78,7 @@
 	<select id="getCustomerPage" resultMap="BaseResultMap">
 		select 
 		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, 
-		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.GROUP_NAME
+		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.GROUP_NAME,b.group_desp
 		from customer a
 		left join groups b on a.group_id = b.uuid
 		<trim prefix="where" prefixOverrides="and | or" >
@@ -112,7 +113,7 @@
 	<select id="getCustomerList" resultMap="BaseResultMap">
 		select 
 		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, 
-		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.group_name
+		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.group_name,b.group_desp
 		from customer a
 		left join groups b on a.group_id = b.uuid
 		<trim prefix="where" prefixOverrides="and | or" >
@@ -146,7 +147,7 @@
 	<select id="getCustomerListByInId" resultMap="BaseResultMap">
 		select 
 		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, 
-		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.group_name
+		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.group_name,b.group_desp
 		from customer a
 		left join groups b on a.group_id = b.uuid
 		where user_id in

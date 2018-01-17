@@ -14,6 +14,8 @@ public class Groups extends BaseEntity{
     private String groupCode;
 
     private String parentGroupId;
+    
+    private String groupDesp;
 
     private List<Customer> cus;
     
@@ -46,7 +48,15 @@ public class Groups extends BaseEntity{
     }
     
     
-    public List<Customer> getCus() {
+    public String getGroupDesp() {
+		return groupDesp;
+	}
+
+	public void setGroupDesp(String groupDesp) {
+		this.groupDesp = groupDesp;
+	}
+
+	public List<Customer> getCus() {
 		return cus;
 	}
 
@@ -72,6 +82,9 @@ public class Groups extends BaseEntity{
   		}
   		if(StringUtil.isNotNull(this.parentGroupId)){
   			criteria.andParentGroupIdEqualTo(this.parentGroupId);
+  		}
+  		if(StringUtil.isNotNull(this.groupDesp)){
+  			criteria.andGroupDespEqualTo(this.groupDesp);
   		}
   		return example;
   	}

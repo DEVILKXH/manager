@@ -7,6 +7,9 @@
     <result column="GROUP_CODE" property="groupCode" jdbcType="VARCHAR" />
     <result column="PARENT_GROUP_ID" property="parentGroupId" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.manager.entity.Groups" extends="BaseResultMap" >
+    <result column="GROUP_DESP" property="groupDesp" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -68,6 +71,25 @@
   <sql id="Base_Column_List" >
     UUID, GROUP_NAME, GROUP_CODE, PARENT_GROUP_ID
   </sql>
+  <sql id="Blob_Column_List" >
+    GROUP_DESP
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.manager.entity.GroupsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from groups
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.manager.entity.GroupsExample" >
     select
     <if test="distinct" >
@@ -82,9 +104,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from groups
     where UUID = #{uuid,jdbcType=VARCHAR}
   </select>
@@ -99,16 +123,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.manager.entity.Groups" >
-    insert into groups (UUID,GROUP_NAME, GROUP_CODE, PARENT_GROUP_ID
-      )
-    values (#{uuid},#{groupName,jdbcType=VARCHAR}, #{groupCode,jdbcType=VARCHAR}, #{parentGroupId,jdbcType=VARCHAR}
-      )
+    insert into groups (UUID,GROUP_NAME, GROUP_CODE, PARENT_GROUP_ID, 
+      GROUP_DESP)
+    values (#{uuid},#{groupName,jdbcType=VARCHAR}, #{groupCode,jdbcType=VARCHAR}, #{parentGroupId,jdbcType=VARCHAR}, 
+      #{groupDesp,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.manager.entity.Groups" >
     insert into groups
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="uuid != null" >
-        uuid,
+        GROUP_NAME,
       </if>
       <if test="groupName != null" >
         GROUP_NAME,
@@ -119,12 +143,14 @@
       <if test="parentGroupId != null" >
         PARENT_GROUP_ID,
       </if>
+      <if test="groupDesp != null" >
+        GROUP_DESP,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="uuid != null" >
         #{uuid,jdbcType=VARCHAR},
-      </if>
-      <if test="groupName != null" >
+      </if> <if test="groupName != null" >
         #{groupName,jdbcType=VARCHAR},
       </if>
       <if test="groupCode != null" >
@@ -132,6 +158,9 @@
       </if>
       <if test="parentGroupId != null" >
         #{parentGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupDesp != null" >
+        #{groupDesp,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,7 +185,21 @@
       <if test="record.parentGroupId != null" >
         PARENT_GROUP_ID = #{record.parentGroupId,jdbcType=VARCHAR},
       </if>
+      <if test="record.groupDesp != null" >
+        GROUP_DESP = #{record.groupDesp,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update groups
+    set UUID = #{record.uuid,jdbcType=VARCHAR},
+      GROUP_NAME = #{record.groupName,jdbcType=VARCHAR},
+      GROUP_CODE = #{record.groupCode,jdbcType=VARCHAR},
+      PARENT_GROUP_ID = #{record.parentGroupId,jdbcType=VARCHAR},
+      GROUP_DESP = #{record.groupDesp,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,7 +226,18 @@
       <if test="parentGroupId != null" >
         PARENT_GROUP_ID = #{parentGroupId,jdbcType=VARCHAR},
       </if>
+      <if test="groupDesp != null" >
+        GROUP_DESP = #{groupDesp,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.manager.entity.Groups" >
+    update groups
+    set GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+      GROUP_CODE = #{groupCode,jdbcType=VARCHAR},
+      PARENT_GROUP_ID = #{parentGroupId,jdbcType=VARCHAR},
+      GROUP_DESP = #{groupDesp,jdbcType=LONGVARCHAR}
     where UUID = #{uuid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.manager.entity.Groups" >

@@ -23,6 +23,8 @@ public class Customer extends BaseEntity{
     private String groupId;
     
     private String groupName;
+    
+    private String groupDesp;
 
     public String getCusName() {
         return cusName;
@@ -89,7 +91,15 @@ public class Customer extends BaseEntity{
         this.groupId = groupId == null ? null : groupId.trim();
     }
     
-    public CustomerExample getExample(){
+    public String getGroupDesp() {
+		return groupDesp;
+	}
+
+	public void setGroupDesp(String groupDesp) {
+		this.groupDesp = groupDesp;
+	}
+
+	public CustomerExample getExample(){
     	CustomerExample example = new CustomerExample();
     	Criteria criteria =  example.createCriteria();
     	if(StringUtil.isNotNull(this.getUuid())){
