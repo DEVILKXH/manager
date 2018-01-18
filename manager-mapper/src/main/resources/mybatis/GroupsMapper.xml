@@ -132,7 +132,7 @@
     insert into groups
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="uuid != null" >
-        GROUP_NAME,
+        uuid,
       </if>
       <if test="groupName != null" >
         GROUP_NAME,
