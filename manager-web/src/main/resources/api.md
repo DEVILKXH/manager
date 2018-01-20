@@ -104,6 +104,28 @@
 
 # 用户模块
 
+## 修改密码
+- PATH: /manager-web/m/user/changePassword.do
+- 方法: POST
+- 说明: 修改密码
+- 请求内容:
+```json
+{
+	"uuid": "",
+	"password": "",
+	"password2": "",
+	"password3": "",
+}
+```
+
+- 返回值
+```json
+{
+	"status": "200",
+	"message": "成功"
+}
+```
+
 ## 选择用户
 - PATH: /manager-web/m/user/selectOne.do
 - 方法: GET/POST
