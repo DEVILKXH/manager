@@ -106,13 +106,89 @@
         	and user_address =  #{user.userAddress,jdbcType=VARCHAR}
 			</if>
 			<if test="user.userRank != null" >
-        	and user_rank = #{user.userRank,jdbcType=VARCHAR}
+        	and (user_rank > CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) or (user_rank = CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) and uuid = #{user.id}))
 			</if>
 			<if test="user.parentUserId != null" >
         	and parent_user_id = #{user.parentUserId,jdbcType=VARCHAR}
 			</if>
     	</trim>
 		limit #{page.start} , #{page.end}
+	</select>
+
+	<select id="getUserList" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+    	from user
+    	<trim prefix="where" prefixOverrides="and | or" >
+    		<if test="user.uuid != null" >
+        	and uuid =  #{user.uuid,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userName != null" >
+        	and user_name = #{user.userName,jdbcType=VARCHAR}
+			</if>
+			<if test="user.password != null" >
+        	and password = #{user.password,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userSingal != null" >
+       		 and user_singal = #{user.userSingal,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userBirthday != null" >
+        	and user_birthday = #{user.userBirthday,jdbcType=DATE}
+			</if>
+			<if test="user.userPhone != null" >
+        	and user_phone =  #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userStatus != null" >
+        	and user_status = #{user.userStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userAddress != null" >
+        	and user_address =  #{user.userAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userRank != null" >
+        	and (user_rank > CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) or (user_rank = CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) and uuid = #{user.id}))
+			</if>
+			<if test="user.parentUserId != null" >
+        	and parent_user_id = #{user.parentUserId,jdbcType=VARCHAR}
+			</if>
+    	</trim>
+	</select>
+
+	<select id="count" resultType="java.lang.Integer">
+		select 
+		count(0)
+    	from user
+    	<trim prefix="where" prefixOverrides="and | or" >
+    		<if test="user.uuid != null" >
+        	and uuid =  #{user.uuid,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userName != null" >
+        	and user_name = #{user.userName,jdbcType=VARCHAR}
+			</if>
+			<if test="user.password != null" >
+        	and password = #{user.password,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userSingal != null" >
+       		 and user_singal = #{user.userSingal,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userBirthday != null" >
+        	and user_birthday = #{user.userBirthday,jdbcType=DATE}
+			</if>
+			<if test="user.userPhone != null" >
+        	and user_phone =  #{user.userPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userStatus != null" >
+        	and user_status = #{user.userStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userAddress != null" >
+        	and user_address =  #{user.userAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="user.userRank != null" >
+        	and (user_rank > CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) or (user_rank = CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) and uuid = #{user.id}))
+			</if>
+			<if test="user.parentUserId != null" >
+        	and parent_user_id = #{user.parentUserId,jdbcType=VARCHAR}
+			</if>
+    	</trim>
 	</select>
 
 	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.manager.entity.UserExample" >

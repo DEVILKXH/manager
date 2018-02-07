@@ -612,6 +612,77 @@ public class CustomerExample {
             return (Criteria) this;
         }
 
+        public Criteria andCusTypeIsNull() {
+            addCriterion("CUS_TYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeIsNotNull() {
+            addCriterion("CUS_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeEqualTo(String value) {
+            addCriterion("CUS_TYPE =", value, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeNotEqualTo(String value) {
+            addCriterion("CUS_TYPE <>", value, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeGreaterThan(String value) {
+            addCriterion("CUS_TYPE >", value, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("CUS_TYPE >=", value, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeLessThan(String value) {
+            addCriterion("CUS_TYPE <", value, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeLessThanOrEqualTo(String value) {
+            addCriterion("CUS_TYPE <=", value, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeLike(String value) {
+            addCriterion("CUS_TYPE like", value, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeNotLike(String value) {
+            addCriterion("CUS_TYPE not like", value, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeIn(List<String> values) {
+            addCriterion("CUS_TYPE in", values, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeNotIn(List<String> values) {
+            addCriterion("CUS_TYPE not in", values, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeBetween(String value1, String value2) {
+            addCriterion("CUS_TYPE between", value1, value2, "cusType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCusTypeNotBetween(String value1, String value2) {
+            addCriterion("CUS_TYPE not between", value1, value2, "cusType");
+            return (Criteria) this;
+        }
+        
+        
         public Criteria andGroupIdIsNull() {
             addCriterion("GROUP_ID is null");
             return (Criteria) this;
@@ -679,6 +750,77 @@ public class CustomerExample {
 
         public Criteria andGroupIdNotBetween(String value1, String value2) {
             addCriterion("GROUP_ID not between", value1, value2, "groupId");
+            return (Criteria) this;
+        }
+        
+        
+        public Criteria andBusTypeIsNull() {
+            addCriterion("BUS_TYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeIsNotNull() {
+            addCriterion("BUS_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeEqualTo(String value) {
+            addCriterion("BUS_TYPE =", value, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeNotEqualTo(String value) {
+            addCriterion("BUS_TYPE <>", value, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeGreaterThan(String value) {
+            addCriterion("BUS_TYPE >", value, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("BUS_TYPE >=", value, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeLessThan(String value) {
+            addCriterion("BUS_TYPE <", value, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeLessThanOrEqualTo(String value) {
+            addCriterion("BUS_TYPE <=", value, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeLike(String value) {
+            addCriterion("BUS_TYPE like", value, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeNotLike(String value) {
+            addCriterion("BUS_TYPE not like", value, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeIn(List<String> values) {
+            addCriterion("BUS_TYPE in", values, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeNotIn(List<String> values) {
+            addCriterion("BUS_TYPE not in", values, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeBetween(String value1, String value2) {
+            addCriterion("BUS_TYPE between", value1, value2, "busType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusTypeNotBetween(String value1, String value2) {
+            addCriterion("BUS_TYPE not between", value1, value2, "busType");
             return (Criteria) this;
         }
     }

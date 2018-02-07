@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.manager.entity.Plan;
 import com.manager.entity.PlanExample;
+import com.manager.entity.User;
 import com.manager.inner.base.mapper.BaseMapper;
 import com.manager.inner.base.serviceimpl.BaseServiceImpl;
 import com.manager.inner.dto.Page;
@@ -21,10 +22,10 @@ public class PlanServiceImpl extends BaseServiceImpl<PlanExample, Plan, BaseMapp
 	private PlanMapper planMapper;
 	
 	@Override
-	public Page<Plan> getPlanPage(Plan plan, Page<Plan> page) {
+	public Page<Plan> getPlanPage(Plan plan, Page<Plan> page,List<User> users) {
 		page.setStartAndEnd();
-		List<Plan> list = planMapper.getPlanPage(plan, page);
-		int count = planMapper.countByExample(plan.getExample());
+		List<Plan> list = planMapper.getPlanPage(plan, page,users);
+		int count = planMapper.count(plan,users);
 		page.setList(list);
 		page.setCount(count);
 		page.setPageResultCount(count);
@@ -33,7 +34,7 @@ public class PlanServiceImpl extends BaseServiceImpl<PlanExample, Plan, BaseMapp
 	}
 
 	@Override
-	public List<Plan> getPlanList(Plan plan) {
-		return planMapper.getPlanList(plan);
+	public List<Plan> getPlanList(Plan plan,List<User> users) {
+		return planMapper.getPlanList(plan,users);
 	}
 }

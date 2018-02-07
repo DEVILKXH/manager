@@ -40,7 +40,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserExample, User,UserMappe
 			for(User _user: users){
 				map.put(_user.getUuid(), _user);
 			}
-			List<Customer> cuss = customerMapper.getCustomerList(new Customer());
+			List<Customer> cuss = customerMapper.getCustomerList(new Customer(),null);
 			for(Customer cus: cuss){
 				String id = cus.getUserId();
 				if(map.containsKey(id)){
@@ -53,8 +53,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserExample, User,UserMappe
 
 	@Override
 	public List<User> getUser(User user) {
-		UserExample example = user.getExample();
-		List<User> users = userMapper.selectByExample(example);
+		List<User> users = userMapper.getUserList(user);
 		if(null == users || users.size() == 0){
 			return new ArrayList<User>();
 		}
@@ -62,7 +61,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserExample, User,UserMappe
 		for(User _user: users){
 			map.put(_user.getUuid(), _user);
 		}
-		List<Customer> customers = customerMapper.getCustomerList(new Customer());
+		List<Customer> customers = customerMapper.getCustomerList(new Customer(),null);
 		if(null != customers && customers.size() > 0){
 			for(Customer cus: customers){
 				String id = cus.getUserId();
@@ -77,8 +76,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserExample, User,UserMappe
 	@Override
 	public Page<User> getUserPage(User user,Page<User> page) {
 		page.setStartAndEnd();
-		List<User> list = userMapper.getUserPage(user, page);
-		int count = userMapper.countByExample(user.getExample());
+		user = userMapper.selectByPrimaryKey(user.getUuid());
+		User _user = new User();
+		_user.setId(user.getUuid());
+		_user.setUserRank(user.getUserRank());
+		List<User> list = userMapper.getUserPage(_user, page);
+		int count = userMapper.count(_user);
 		page.setList(list);
 		page.setCount(count);
 		page.setPageResultCount(count);
@@ -95,6 +98,9 @@ public class UserServiceImpl extends BaseServiceImpl<UserExample, User,UserMappe
 		for(User _user: users){
 			userIds.add(_user.getUuid());
 			map.put(_user.getUuid(), _user);
+		}
+		if(userIds.isEmpty()){
+			return _page;
 		}
 		List<Customer> customers = customerMapper.getCustomerListByInId(userIds);
 		if(null != customers && customers.size() > 0){

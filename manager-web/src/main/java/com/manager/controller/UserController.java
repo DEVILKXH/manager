@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,11 +18,13 @@ import com.manager.entity.Customer;
 import com.manager.entity.CustomerExample;
 import com.manager.entity.User;
 import com.manager.entity.UserExample;
+import com.manager.inner.dto.AjaxResult;
 import com.manager.inner.dto.Page;
 import com.manager.inner.tree.entity.TreeNode;
 import com.manager.inner.tree.util.TreeUtil;
 import com.manager.service.CustomerService;
 import com.manager.service.UserService;
+import com.manager.utils.StringUtil;
 
 @Controller
 @RequestMapping(value = "/m/user")
@@ -47,7 +50,8 @@ public class UserController extends BaseController<UserService,UserExample,User>
 	@RequestMapping(value = "/getUserList.do")
 	@ResponseBody
 	public List<User> getUserList(User user){
-		return userService.getUser(user);
+		User _user = userService.selectByPrimaryKey(user.getUuid());
+		return userService.getUser(_user);
 	}
 	
 	@RequestMapping(value = "/getUserPage.do")
@@ -62,10 +66,37 @@ public class UserController extends BaseController<UserService,UserExample,User>
 		return userService.getUserPageWithCustomer(user, page);
 	}
 	
+	@RequestMapping(value = "/changePassword.do")
+	@ResponseBody
+	public AjaxResult<String> changePassword(@RequestBody User user){
+		AjaxResult<String> ajax = new AjaxResult<String>();
+		if(StringUtil.isNull(user.getPassword()) || StringUtil.isNull(user.getPassword2()) || StringUtil.isNull(user.getPassword3())){
+			ajax.setStatus("500");
+			ajax.setMessage("请填写密码");
+			return ajax;
+		}
+		if(!user.getPassword2().equals(user.getPassword3())){
+			ajax.setStatus("500");
+			ajax.setMessage("两次密码不一样");
+			return ajax;
+		}
+		User _user = userService.selectByPrimaryKey(user.getUuid());
+		if(!_user.getPassword().equals(user.getPassword())){
+			ajax.setStatus("500");
+			ajax.setMessage("密码错误");
+			return ajax;
+		}
+		user.setPassword(user.getPassword2());
+		userService.updateByPrimaryKeySelective(user);
+		ajax.setStatus("200");
+		ajax.setMessage("修改成功");
+		return ajax;
+	}
+	
 	@RequestMapping(value = "/getUserTree.do")
 	@ResponseBody
 	public List<TreeNode> getUserTree(User user) throws Exception{
-		List<User> users = userService.selectByExample(user.getExample());
+		List<User> users = userService.getUser(user);
 		if(null == users || users.isEmpty()){
 			return new ArrayList<TreeNode>();
 		}

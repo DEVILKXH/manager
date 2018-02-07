@@ -41,7 +41,7 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupsExample, Groups, Gro
 		for(Groups g: groups){
 			map.put(g.getUuid(), g);
 		}
-		List<Customer> gcs = customerMapper.getCustomerList(new Customer()); 
+		List<Customer> gcs = customerMapper.getCustomerList(new Customer(),null); 
 		if(null != gcs && gcs.size() > 0){
 			for(Customer customer: gcs){
 				String id = customer.getGroupId();
@@ -65,7 +65,7 @@ public class GroupServiceImpl extends BaseServiceImpl<GroupsExample, Groups, Gro
 			map.put(g.getUuid(), g);
 		}
 		List<Customer> customers = new ArrayList<Customer>();
-		List<Customer> gcs = customerMapper.getCustomerList(new Customer()); 
+		List<Customer> gcs = customerMapper.getCustomerList(new Customer(),null); 
 		if(null != gcs && gcs.size() > 0){
 			for(Customer customer: gcs){
 				String id = customer.getGroupId();

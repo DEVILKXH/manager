@@ -19,6 +19,8 @@ public class Plan extends BaseEntity{
     private String content;
     
     private String userName;
+    
+    private String readFlag;
 
     public String getTitle() {
         return title;
@@ -67,6 +69,14 @@ public class Plan extends BaseEntity{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	
+	public String getReadFlag() {
+		return readFlag;
+	}
+
+	public void setReadFlag(String readFlag) {
+		this.readFlag = readFlag;
+	}
 
 	public PlanExample getExample(){
     	PlanExample example = new PlanExample();
@@ -88,6 +98,9 @@ public class Plan extends BaseEntity{
     	}
     	if(StringUtil.isNotNull(this.type)){
     		criteria.andTypeEqualTo(this.type);
+    	}
+    	if(StringUtil.isNotNull(this.readFlag)){
+    		criteria.andReadFlagEqualTo(this.readFlag);
     	}
     	return example;
     }

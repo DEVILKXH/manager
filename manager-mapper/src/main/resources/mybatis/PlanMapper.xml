@@ -8,6 +8,7 @@
 		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
 		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
 		<result column="TYPE" property="type" jdbcType="VARCHAR" />
+		<result column="READ_FLAG" property="readFlag" jdbcType="VARCHAR" />
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.manager.entity.Plan" extends="BaseResultMap" >
 		<result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
@@ -71,7 +72,7 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List" >
-    UUID, TITLE, CREATE_TIME, USER_ID, TYPE
+    UUID, TITLE, CREATE_TIME, USER_ID, TYPE,READ_FLAG
 	</sql>
 	<sql id="Blob_Column_List" >
     CONTENT
@@ -108,10 +109,11 @@
 		</if>
 	</select>
 	<select id="getPlanPage" resultMap="BaseResultMap">
+  	
   	 select 
-		a.UUID, a.TITLE, a.CREATE_TIME, a.USER_ID, a.TYPE, a.CONTENT,b.USER_NAME
-    from plan a
-    left join user b on a.user_id = b .uuid
+		a.UUID, a.TITLE, a.CREATE_TIME, a.USER_ID, a.TYPE, a.CONTENT,b.USER_NAME,a.READ_FLAG
+	    from plan a
+	    left join user b on a.user_id = b .uuid
 		<trim prefix="where" prefixOverrides="and|or" >
     		<if test="plan.uuid != null">
 				and a.uuid = #{plan.uuid}
@@ -122,14 +124,20 @@
 			<if test="plan.createTime != null" >
         		and a.create_time = #{plan.createTime,jdbcType=TIMESTAMP}
 			</if>
-			<if test="plan.userId != null" >
-        		and a.user_id = #{plan.userId,jdbcType=VARCHAR}
+			<if test="users != null" >
+        		and a.user_id in
+        		<foreach collection="users" item="user" open="(" close=")" separator=",">
+        			#{user.uuid}
+        		</foreach>
 			</if>
 			<if test="plan.type != null" >
        			and a.type=  #{plan.type,jdbcType=VARCHAR}
 			</if>
 			<if test="plan.content != null" >
         		and a.content = #{plan.content,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="plan.readFlag != null" >
+        		and a.read_flag = #{plan.readFlag}
 			</if>
 		</trim>
 		order by create_time
@@ -138,30 +146,68 @@
 	
 	<select id="getPlanList" resultMap="BaseResultMap">
   	 select 
-		a.UUID, a.TITLE, a.CREATE_TIME, a.USER_ID, a.TYPE, a.CONTENT,b.USER_NAME
-    from plan a
-    left join user b on a.user_id = b .uuid
+		a.UUID, a.TITLE, a.CREATE_TIME, a.USER_ID, a.TYPE, a.CONTENT,b.USER_NAME,a.READ_FLAG
+	    from plan a
+	    left join user b on a.user_id = b .uuid
 		<trim prefix="where" prefixOverrides="and|or" >
-    		<if test="uuid != null">
-				and a.uuid = #{uuid}
+    		<if test="plan.uuid != null">
+				and a.uuid = #{plan.uuid}
 			</if>
-			<if test="title != null" >
-        		and a.title = #{title,jdbcType=VARCHAR}
+			<if test="plan.title != null" >
+        		and a.title = #{plan.title,jdbcType=VARCHAR}
 			</if>
-			<if test="createTime != null" >
-        		and a.create_time = #{createTime,jdbcType=TIMESTAMP}
+			<if test="plan.createTime != null" >
+        		and a.create_time = #{plan.createTime,jdbcType=TIMESTAMP}
 			</if>
-			<if test="userId != null" >
-        		and a.user_id = #{userId,jdbcType=VARCHAR}
+			<if test="users != null" >
+        		and a.user_id in
+        		<foreach collection="users" item="user" open="(" close=")" separator=",">
+        			#{user.uuid}
+        		</foreach>
 			</if>
-			<if test="type != null" >
-       			and a.type=  #{type,jdbcType=VARCHAR}
+			<if test="plan.type != null" >
+       			and a.type=  #{plan.type,jdbcType=VARCHAR}
 			</if>
-			<if test="content != null" >
-        		and a.content = #{content,jdbcType=LONGVARCHAR}
+			<if test="plan.content != null" >
+        		and a.content = #{plan.content,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="plan.readFlag != null" >
+        		and a.read_flag = #{plan.readFlag}
 			</if>
 		</trim>
-		order by create_time
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+  	 select 
+		count(0)
+	    from plan a
+	    left join user b on a.user_id = b .uuid
+		<trim prefix="where" prefixOverrides="and|or" >
+    		<if test="plan.uuid != null">
+				and a.uuid = #{plan.uuid}
+			</if>
+			<if test="plan.title != null" >
+        		and a.title = #{plan.title,jdbcType=VARCHAR}
+			</if>
+			<if test="plan.createTime != null" >
+        		and a.create_time = #{plan.createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="users != null" >
+        		and a.user_id in
+        		<foreach collection="users" item="user" open="(" close=")" separator=",">
+        			#{user.uuid}
+        		</foreach>
+			</if>
+			<if test="plan.type != null" >
+       			and a.type=  #{plan.type,jdbcType=VARCHAR}
+			</if>
+			<if test="plan.content != null" >
+        		and a.content = #{plan.content,jdbcType=LONGVARCHAR}
+			</if>
+			<if test="plan.readFlag != null" >
+        		and a.read_flag = #{plan.readFlag}
+			</if>
+		</trim>
 	</select>
 	
 	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
@@ -184,9 +230,9 @@
 	</delete>
 	<insert id="insert" parameterType="com.manager.entity.Plan" >
     insert into plan (UUID,TITLE, CREATE_TIME, USER_ID, 
-      TYPE, CONTENT)
+      TYPE, CONTENT,READ_FLAG)
     values (#{uuid},#{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+      #{type,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR},#{readFlag})
 	</insert>
 	<insert id="insertSelective" parameterType="com.manager.entity.Plan" >
     insert into plan
@@ -209,6 +255,9 @@
 			<if test="content != null" >
         CONTENT,
 			</if>
+			<if test="readFlag != null" >
+        		READ_FLAG,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides="," >
 			<if test="uuid != null">
@@ -228,6 +277,9 @@
 			</if>
 			<if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="readFlag != null" >
+        #{readFlag}
 			</if>
 		</trim>
 	</insert>
@@ -258,6 +310,9 @@
 			<if test="record.content != null" >
         CONTENT = #{record.content,jdbcType=LONGVARCHAR},
 			</if>
+			<if test="record.readFlag != null" >
+        READ_FLAG = #{record.readFlag}
+			</if>
 		</set>
 		<if test="_parameter != null" >
 			<include refid="Update_By_Example_Where_Clause" />
@@ -270,7 +325,8 @@
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       USER_ID = #{record.userId,jdbcType=VARCHAR},
       TYPE = #{record.type,jdbcType=VARCHAR},
-      CONTENT = #{record.content,jdbcType=LONGVARCHAR}
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      read_flag = #{record.readFlag}
 		<if test="_parameter != null" >
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -281,6 +337,7 @@
       TITLE = #{record.title,jdbcType=VARCHAR},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       USER_ID = #{record.userId,jdbcType=VARCHAR},
+      read_Flag = #{record.readFlag},
       TYPE = #{record.type,jdbcType=VARCHAR}
 		<if test="_parameter != null" >
 			<include refid="Update_By_Example_Where_Clause" />
@@ -304,6 +361,9 @@
 			<if test="content != null" >
         CONTENT = #{content,jdbcType=LONGVARCHAR},
 			</if>
+			<if test="readFlag != null" >
+        read_flag = #{readFlag},
+			</if>
 		</set>
     where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>
@@ -313,6 +373,7 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       USER_ID = #{userId,jdbcType=VARCHAR},
       TYPE = #{type,jdbcType=VARCHAR},
+      read_flag = #{readFlag},
       CONTENT = #{content,jdbcType=LONGVARCHAR}
     where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>
@@ -321,6 +382,7 @@
     set TITLE = #{title,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       USER_ID = #{userId,jdbcType=VARCHAR},
+      read_flag = #{readFlag},
       TYPE = #{type,jdbcType=VARCHAR}
     where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>

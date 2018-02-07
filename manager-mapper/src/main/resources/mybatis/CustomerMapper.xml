@@ -9,9 +9,12 @@
 		<result column="CUS_STATUS" property="cusStatus" jdbcType="VARCHAR" />
 		<result column="CUS_ADDRESS" property="cusAddress" jdbcType="VARCHAR" />
 		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
 		<result column="GROUP_ID" property="groupId" jdbcType="VARCHAR" />
 		<result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR"/>
 		<result column="GROUP_DESP" property="groupDesp" jdbcType="VARCHAR"/>
+		<result column="BUS_TYPE" property="busType" jdbcType="VARCHAR"/>
+		<result column="CUS_TYPE" property="cusType" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Example_Where_Clause" >
 		<where >
@@ -72,15 +75,16 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List" >
-    UUID, CUS_NAME, CUS_BIRTHDAY, CUS_PHONE, CUS_STATUS, CUS_ADDRESS, USER_ID, GROUP_ID
+    UUID, CUS_NAME, CUS_BIRTHDAY, CUS_PHONE, CUS_STATUS, CUS_ADDRESS, USER_ID, GROUP_ID, CUS_TYPE, BUS_TYPE
 	</sql>
 	
 	<select id="getCustomerPage" resultMap="BaseResultMap">
 		select 
-		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, 
-		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.GROUP_NAME,b.group_desp
+		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, a.CUS_TYPE, a.BUS_TYPE,
+		a.CUS_ADDRESS, a.USER_ID, c.user_name,a.GROUP_ID,b.GROUP_NAME,b.group_desp
 		from customer a
 		left join groups b on a.group_id = b.uuid
+		left join user c on a.user_id = c.uuid
 		<trim prefix="where" prefixOverrides="and | or" >
 			<if test="customer.uuid != null" >
        and a.uuid = #{customer.uuid,jdbcType=VARCHAR}
@@ -100,11 +104,20 @@
 			<if test="customer.cusAddress != null" >
        and a.cus_address = #{customer.cusAddress,jdbcType=VARCHAR}
 			</if>
-			<if test="customer.userId != null" >
-       and a.user_id = #{customer.userId,jdbcType=VARCHAR}
+			<if test="users != null" >
+        		and a.user_id in
+        		<foreach collection="users" item="user" open="(" close=")" separator=",">
+        			#{user.uuid}
+        		</foreach>
 			</if>
 			<if test="customer.groupId != null" >
        and a.group_id = #{customer.groupId,jdbcType=VARCHAR} 
+			</if>
+			<if test="customer.cusType != null">
+				and a.cus_type = #{customer.cusType}
+			</if>
+			<if test="customer.busType != null">
+				and a.bus_type = #{customer.busType}
 			</if>
 		</trim>
 		limit #{page.start} , #{page.end}
@@ -112,41 +125,94 @@
 	
 	<select id="getCustomerList" resultMap="BaseResultMap">
 		select 
-		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, 
-		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.group_name,b.group_desp
+		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, a.CUS_TYPE, a.BUS_TYPE,
+		a.CUS_ADDRESS, a.USER_ID, c.user_name,a.GROUP_ID,b.GROUP_NAME,b.group_desp
 		from customer a
 		left join groups b on a.group_id = b.uuid
+		left join user c on a.user_id = c.uuid
 		<trim prefix="where" prefixOverrides="and | or" >
-			<if test="uuid != null" >
-       and a.uuid = #{uuid,jdbcType=VARCHAR}
+			<if test="customer.uuid != null" >
+       and a.uuid = #{customer.uuid,jdbcType=VARCHAR}
 			</if>
-			<if test="cusName != null" >
-       and a.cus_name = #{cusName,jdbcType=VARCHAR}
+			<if test="customer.cusName != null" >
+       and a.cus_name = #{customer.cusName,jdbcType=VARCHAR}
 			</if>
-			<if test="cusBirthday != null" >
-        and a.cus_birthday = #{cusBirthday,jdbcType=DATE}
+			<if test="customer.cusBirthday != null" >
+        and a.cus_birthday = #{customer.cusBirthday,jdbcType=DATE}
 			</if>
-			<if test="cusPhone != null" >
-       and a.cus_phone =  #{cusPhone,jdbcType=VARCHAR}
+			<if test="customer.cusPhone != null" >
+       and a.cus_phone =  #{customer.cusPhone,jdbcType=VARCHAR}
 			</if>
-			<if test="cusStatus != null" >
-       and a.cus_status =  #{cusStatus,jdbcType=VARCHAR}
+			<if test="customer.cusStatus != null" >
+       and a.cus_status =  #{customer.cusStatus,jdbcType=VARCHAR}
 			</if>
-			<if test="cusAddress != null" >
-       and a.cus_address = #{cusAddress,jdbcType=VARCHAR}
+			<if test="customer.cusAddress != null" >
+       and a.cus_address = #{customer.cusAddress,jdbcType=VARCHAR}
 			</if>
-			<if test="userId != null" >
-       and a.user_id = #{userId,jdbcType=VARCHAR}
+			<if test="users != null" >
+        		and a.user_id in
+        		<foreach collection="users" item="user" open="(" close=")" separator=",">
+        			#{user.uuid}
+        		</foreach>
 			</if>
-			<if test="groupId != null" >
-       and a.group_id = #{groupId,jdbcType=VARCHAR} 
+			<if test="customer.groupId != null" >
+       and a.group_id = #{customer.groupId,jdbcType=VARCHAR} 
+			</if>
+			<if test="customer.cusType != null">
+				and a.cus_type = #{customer.cusType}
+			</if>
+			<if test="customer.busType != null">
+				and a.bus_type = #{customer.busType}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+		select 
+			count(0)
+		from customer a
+		left join groups b on a.group_id = b.uuid
+		left join user c on a.user_id = c.uuid
+		<trim prefix="where" prefixOverrides="and | or" >
+			<if test="customer.uuid != null" >
+       and a.uuid = #{customer.uuid,jdbcType=VARCHAR}
+			</if>
+			<if test="customer.cusName != null" >
+       and a.cus_name = #{customer.cusName,jdbcType=VARCHAR}
+			</if>
+			<if test="customer.cusBirthday != null" >
+        and a.cus_birthday = #{customer.cusBirthday,jdbcType=DATE}
+			</if>
+			<if test="customer.cusPhone != null" >
+       and a.cus_phone =  #{customer.cusPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="customer.cusStatus != null" >
+       and a.cus_status =  #{customer.cusStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="customer.cusAddress != null" >
+       and a.cus_address = #{customer.cusAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="users != null" >
+        		and a.user_id in
+        		<foreach collection="users" item="user" open="(" close=")" separator=",">
+        			#{user.uuid}
+        		</foreach>
+			</if>
+			<if test="customer.groupId != null" >
+       and a.group_id = #{customer.groupId,jdbcType=VARCHAR} 
+			</if>
+			<if test="customer.cusType != null">
+				and a.cus_type = #{customer.cusType}
+			</if>
+			<if test="customer.busType != null">
+				and a.bus_type = #{customer.busType}
 			</if>
 		</trim>
 	</select>
 	
 	<select id="getCustomerListByInId" resultMap="BaseResultMap">
 		select 
-		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, 
+		a.UUID, a.CUS_NAME, a.CUS_BIRTHDAY, a.CUS_PHONE, a.CUS_STATUS, a.CUS_TYPE, a.BUS_TYPE,
 		a.CUS_ADDRESS, a.USER_ID, a.GROUP_ID,b.group_name,b.group_desp
 		from customer a
 		left join groups b on a.group_id = b.uuid
@@ -190,10 +256,10 @@
 	<insert id="insert" parameterType="com.manager.entity.Customer" >
     insert into customer (UUID,CUS_NAME, CUS_BIRTHDAY, CUS_PHONE, 
       CUS_STATUS, CUS_ADDRESS, USER_ID, 
-      GROUP_ID)
+      GROUP_ID,CUS_TYPE,BUS_TYPE)
     values (#{uuid},#{cusName,jdbcType=VARCHAR}, #{cusBirthday,jdbcType=DATE}, #{cusPhone,jdbcType=VARCHAR}, 
       #{cusStatus,jdbcType=VARCHAR}, #{cusAddress,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{groupId,jdbcType=VARCHAR})
+      #{groupId,jdbcType=VARCHAR},#{cusType},#{busType})
 	</insert>
 	<insert id="insertSelective" parameterType="com.manager.entity.Customer" >
     insert into customer
@@ -222,6 +288,12 @@
 			<if test="groupId != null" >
         GROUP_ID,
 			</if>
+			<if test="cusType != null" >
+        CUS_TYPE,
+			</if>
+			<if test="busType != null" >
+        BUS_TYPE,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides="," >
 			<if test="uuid != null" >
@@ -247,6 +319,12 @@
 			</if>
 			<if test="groupId != null" >
         #{groupId,jdbcType=VARCHAR},
+			</if>
+			<if test="cusType != null" >
+        #{cusType},
+			</if>
+			<if test="busType != null" >
+        #{busType},
 			</if>
 		</trim>
 	</insert>
@@ -283,6 +361,12 @@
 			<if test="record.groupId != null" >
         GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
 			</if>
+			<if test="record.cusType != null" >
+        CUS_TYPE = #{record.cusType},
+			</if>
+			<if test="record.busType != null" >
+        BUS_TYPE = #{record.busType},
+			</if>
 		</set>
 		<if test="_parameter != null" >
 			<include refid="Update_By_Example_Where_Clause" />
@@ -297,7 +381,9 @@
       CUS_STATUS = #{record.cusStatus,jdbcType=VARCHAR},
       CUS_ADDRESS = #{record.cusAddress,jdbcType=VARCHAR},
       USER_ID = #{record.userId,jdbcType=VARCHAR},
-      GROUP_ID = #{record.groupId,jdbcType=VARCHAR}
+      GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
+      CUS_TYPE = #{record.cusType,jdbcType=VARCHAR},
+      BUS_TYPE = #{record.busType,jdbcType=VARCHAR}
 		<if test="_parameter != null" >
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -326,6 +412,12 @@
 			<if test="groupId != null" >
         GROUP_ID = #{groupId,jdbcType=VARCHAR},
 			</if>
+			<if test="cusType != null" >
+        CUS_TYPE = #{cusType},
+			</if>
+			<if test="busType != null" >
+        BUS_TYPE = #{busType},
+			</if>
 		</set>
     where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>
@@ -337,7 +429,9 @@
       CUS_STATUS = #{cusStatus,jdbcType=VARCHAR},
       CUS_ADDRESS = #{cusAddress,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=VARCHAR},
-      GROUP_ID = #{groupId,jdbcType=VARCHAR}
+      GROUP_ID = #{groupId,jdbcType=VARCHAR},
+      CUS_TYPE = #{cusType,jdbcType=VARCHAR},
+      BUS_TYPE = #{busType,jdbcType=VARCHAR}
     where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>
 </mapper>

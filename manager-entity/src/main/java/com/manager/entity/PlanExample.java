@@ -516,6 +516,78 @@ public class PlanExample {
             addCriterion("TYPE not between", value1, value2, "type");
             return (Criteria) this;
         }
+        
+        
+        
+        public Criteria andReadFlagIsNull() {
+            addCriterion("READ_FLAG is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagIsNotNull() {
+            addCriterion("READ_FLAG is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagEqualTo(String value) {
+            addCriterion("READ_FLAG =", value, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagNotEqualTo(String value) {
+            addCriterion("READ_FLAG <>", value, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagGreaterThan(String value) {
+            addCriterion("READ_FLAG >", value, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagGreaterThanOrEqualTo(String value) {
+            addCriterion("READ_FLAG >=", value, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagLessThan(String value) {
+            addCriterion("READ_FLAG <", value, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagLessThanOrEqualTo(String value) {
+            addCriterion("READ_FLAG <=", value, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagLike(String value) {
+            addCriterion("READ_FLAG like", value, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagNotLike(String value) {
+            addCriterion("READ_FLAG not like", value, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagIn(List<String> values) {
+            addCriterion("READ_FLAG in", values, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagNotIn(List<String> values) {
+            addCriterion("READ_FLAG not in", values, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagBetween(String value1, String value2) {
+            addCriterion("READ_FLAG between", value1, value2, "readFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadFlagNotBetween(String value1, String value2) {
+            addCriterion("READ_FLAG not between", value1, value2, "readFlag");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -20,11 +20,17 @@ public class Customer extends BaseEntity{
 
     private String userId;
 
+    private String userName;
+    
     private String groupId;
     
     private String groupName;
     
     private String groupDesp;
+    
+    private String cusType;
+    
+    private String busType;
 
     public String getCusName() {
         return cusName;
@@ -97,6 +103,30 @@ public class Customer extends BaseEntity{
 
 	public void setGroupDesp(String groupDesp) {
 		this.groupDesp = groupDesp;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getCusType() {
+		return cusType;
+	}
+
+	public void setCusType(String cusType) {
+		this.cusType = cusType;
+	}
+
+	public String getBusType() {
+		return busType;
+	}
+
+	public void setBusType(String busType) {
+		this.busType = busType;
 	}
 
 	public CustomerExample getExample(){

@@ -11,4 +11,6 @@ import com.manager.inner.dto.Page;
 
 public interface UserMapper extends BaseMapper<UserExample, User>{
     public List<User> getUserPage(@Param("user") User user, @Param("page") Page<User> page);
+    public List<User> getUserList(@Param("user") User user);
+    public int count(@Param("user") User user);
 }
