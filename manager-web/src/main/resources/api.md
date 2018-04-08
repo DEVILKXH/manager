@@ -69,10 +69,11 @@
 {
 	"uuid": "(ID)",
 	"userName": "(报销人)",
-	"quitTime": "(报销时间)",
-	"quitReason": "(报销原因)",
-	"quitMoney": "(报销金额)",
-	"bankAccount": "(银行账户)"
+	"expanseTime": "(报销时间)",
+	"expanseReason": "(报销原因)",
+	"expanseMoney": "(报销金额)",
+	"bankAccount": "(银行账户)",
+	"docStatus": "(状态)"
 }
 ```
 
