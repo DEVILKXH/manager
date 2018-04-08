@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.manager.inner.dto.Page;
+
 
 public interface BaseMapper<T,E> {
 	int countByExample(T example);
@@ -32,4 +34,10 @@ public interface BaseMapper<T,E> {
     int updateByPrimaryKeySelective(E record);
 
     int updateByPrimaryKey(E record);
+    
+    public List<E> getPage(@Param("record") E record, @Param("page")Page<E> page);
+
+	public List<E> getList(@Param("record") E record);
+	
+	public int count(@Param("record") E record);
 }

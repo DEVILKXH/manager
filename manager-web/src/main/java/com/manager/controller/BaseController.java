@@ -19,6 +19,7 @@ import com.manager.entity.User;
 import com.manager.entity.UserExample;
 import com.manager.inner.base.service.BaseService;
 import com.manager.inner.dto.AjaxResult;
+import com.manager.inner.dto.Page;
 import com.manager.service.UserService;
 
 public class BaseController<S extends BaseService<T,E>, T, E> {
@@ -149,5 +150,17 @@ public class BaseController<S extends BaseService<T,E>, T, E> {
 	
 	public T getExample(E record){
 		return null;
+	}
+
+	@RequestMapping(value = "/getPage.do")
+	@ResponseBody
+	public Page<E> getPage(E record, Page<E> page){
+		return service.getPage(record, page);
+	}
+
+	@RequestMapping(value = "/getLists.do")
+	@ResponseBody
+	public List<E> getList(E record){
+		return service.getList(record);
 	}
 }

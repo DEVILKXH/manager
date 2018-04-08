@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.manager.inner.base.mapper.BaseMapper;
 import com.manager.inner.base.service.BaseService;
+import com.manager.inner.dto.Page;
+import com.manager.inner.util.PageUtil;
 
 public class BaseServiceImpl<T, E,K extends BaseMapper<T,E>> implements BaseService<T, E>{
 
@@ -70,6 +72,28 @@ public class BaseServiceImpl<T, E,K extends BaseMapper<T,E>> implements BaseServ
 	@Override
 	public int updateByPrimaryKey(E record) {
 		return mapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public Page<E> getPage(E record, Page<E> page) {
+		page.setStartAndEnd();
+		List<E> list = mapper.getPage(record, page);
+		int count = mapper.count(record);
+		page.setList(list);
+		page.setCount(count);
+		page.setPageResultCount(count);
+		PageUtil.getInterval(page);
+		return page;
+	}
+
+	@Override
+	public List<E> getList(E record) {
+		return mapper.getList(record);
+	}
+
+	@Override
+	public int count(E record) {
+		return mapper.count(record);
 	}
 
 }

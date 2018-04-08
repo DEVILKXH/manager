@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manager.mapper.QuitMapper">
+	<resultMap id="BaseResultMap" type="com.manager.entity.Quit">
+		<id column="UUID" property="uuid" jdbcType="VARCHAR" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="QUIT_REASON" property="quitReason" jdbcType="VARCHAR" />
+		<result column="QUIT_TIME" property="quitTime" jdbcType="TIMESTAMP" />
+		<result column="QUIT_IS_SAVE" property="quitIsSave" jdbcType="VARCHAR" />
+		<result column="QUIT_IS_AGREE" property="quitIsAgree" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listQUIT"
+										open="(" close=")" separator=",">
+										#{listQUIT}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listQUIT"
+										open="(" close=")" separator=",">
+										#{listQUIT}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		UUID, USER_NAME, QUIT_REASON, QUIT_TIME, QUIT_IS_SAVE, QUIT_IS_AGREE
+	</sql>
+	
+	<select id="getPage" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from QUIT
+		<trim prefix="where"  prefixOverrides="and|or">
+			<if test="record.uuid != null">
+				and UUID = #{record.uuid}
+			</if>
+			<if test="record.userName != null">
+				and USER_NAME = #{record.userName}
+			</if>
+			<if test="record.quitReason != null">
+				and QUIT_REASON = #{record.quitReason}
+			</if>
+			<if test="record.quitTime != null">
+				and QUIT_TIME = #{record.quitTime}
+			</if>
+			<if test="record.quitIsSave != null">
+				and QUIT_IS_SAVE = #{record.quitIsSave}
+			</if>
+			<if test="record.quitIsAgree != null">
+				and QUIT_IS_AGREE = #{record.quitIsAgree}
+			</if>
+		</trim>
+		limit #{page.start},#{page.end}
+	</select>
+	
+	<select id="getList" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from QUIT
+		<trim prefix="where"  prefixOverrides="and|or">
+			<if test="record.uuid != null">
+				and UUID = #{record.uuid}
+			</if>
+			<if test="record.userName != null">
+				and USER_NAME = #{record.userName}
+			</if>
+			<if test="record.quitReason != null">
+				and QUIT_REASON = #{record.quitReason}
+			</if>
+			<if test="record.quitTime != null">
+				and QUIT_TIME = #{record.quitTime}
+			</if>
+			<if test="record.quitIsSave != null">
+				and QUIT_IS_SAVE = #{record.quitIsSave}
+			</if>
+			<if test="record.quitIsAgree != null">
+				and QUIT_IS_AGREE = #{record.quitIsAgree}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+		select count(0)
+		from QUIT
+		<trim prefix="where"  prefixOverrides="and|or">
+			<if test="record.uuid != null">
+				and UUID = #{record.uuid}
+			</if>
+			<if test="record.userName != null">
+				and USER_NAME = #{record.userName}
+			</if>
+			<if test="record.quitReason != null">
+				and QUIT_REASON = #{record.quitReason}
+			</if>
+			<if test="record.quitTime != null">
+				and QUIT_TIME = #{record.quitTime}
+			</if>
+			<if test="record.quitIsSave != null">
+				and QUIT_IS_SAVE = #{record.quitIsSave}
+			</if>
+			<if test="record.quitIsAgree != null">
+				and QUIT_IS_AGREE = #{record.quitIsAgree}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.manager.entity.QuitExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from QUIT
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from QUIT
+		where UUID = #{uuid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from QUIT
+		where UUID = #{uuid,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.manager.entity.QuitExample">
+		delete from QUIT
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.manager.entity.Quit">
+		insert into QUIT (UUID, USER_NAME, QUIT_REASON,
+		QUIT_TIME, QUIT_IS_SAVE, QUIT_IS_AGREE
+		)
+		values (#{uuid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+		#{quitReason,jdbcType=VARCHAR},
+		#{quitTime,jdbcType=TIMESTAMP}, #{quitIsSave,jdbcType=VARCHAR}, #{quitIsAgree,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.manager.entity.Quit">
+		insert into QUIT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uuid != null">
+				UUID,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="quitReason != null">
+				QUIT_REASON,
+			</if>
+			<if test="quitTime != null">
+				QUIT_TIME,
+			</if>
+			<if test="quitIsSave != null">
+				QUIT_IS_SAVE,
+			</if>
+			<if test="quitIsAgree != null">
+				QUIT_IS_AGREE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uuid != null">
+				#{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="quitReason != null">
+				#{quitReason,jdbcType=VARCHAR},
+			</if>
+			<if test="quitTime != null">
+				#{quitTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="quitIsSave != null">
+				#{quitIsSave,jdbcType=VARCHAR},
+			</if>
+			<if test="quitIsAgree != null">
+				#{quitIsAgree,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.manager.entity.QuitExample"
+		resultType="java.lang.Integer">
+		select count(*) from QUIT
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update QUIT
+		<set>
+			<if test="record.uuid != null">
+				UUID = #{record.uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="record.userName != null">
+				USER_NAME = #{record.userName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.quitReason != null">
+				QUIT_REASON = #{record.quitReason,jdbcType=VARCHAR},
+			</if>
+			<if test="record.quitTime != null">
+				QUIT_TIME = #{record.quitTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.quitIsSave != null">
+				QUIT_IS_SAVE = #{record.quitIsSave,jdbcType=VARCHAR},
+			</if>
+			<if test="record.quitIsAgree != null">
+				QUIT_IS_AGREE = #{record.quitIsAgree,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update QUIT
+		set UUID = #{record.uuid,jdbcType=VARCHAR},
+		USER_NAME = #{record.userName,jdbcType=VARCHAR},
+		QUIT_REASON = #{record.quitReason,jdbcType=VARCHAR},
+		QUIT_TIME = #{record.quitTime,jdbcType=TIMESTAMP},
+		QUIT_IS_SAVE = #{record.quitIsSave,jdbcType=VARCHAR},
+		QUIT_IS_AGREE = #{record.quitIsAgree,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.manager.entity.Quit">
+		update QUIT
+		<set>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="quitReason != null">
+				QUIT_REASON = #{quitReason,jdbcType=VARCHAR},
+			</if>
+			<if test="quitTime != null">
+				QUIT_TIME = #{quitTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="quitIsSave != null">
+				QUIT_IS_SAVE = #{quitIsSave,jdbcType=VARCHAR},
+			</if>
+			<if test="quitIsAgree != null">
+				QUIT_IS_AGREE = #{quitIsAgree,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where UUID = #{uuid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.manager.entity.Quit">
+		update QUIT
+		set USER_NAME = #{userName,jdbcType=VARCHAR},
+		QUIT_REASON = #{quitReason,jdbcType=VARCHAR},
+		QUIT_TIME = #{quitTime,jdbcType=TIMESTAMP},
+		QUIT_IS_SAVE = #{quitIsSave,jdbcType=VARCHAR},
+		QUIT_IS_AGREE = #{quitIsAgree,jdbcType=VARCHAR}
+		where UUID = #{uuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

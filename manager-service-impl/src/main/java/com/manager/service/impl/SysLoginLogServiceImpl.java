@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.manager.entity.SysLoginLog;
 import com.manager.entity.SysLoginLogExample;
+import com.manager.inner.dto.Page;
 import com.manager.mapper.SysLoginLogMapper;
 import com.manager.service.SysLoginLogService;
 
@@ -74,6 +75,24 @@ public class SysLoginLogServiceImpl implements SysLoginLogService{
 	@Override
 	public int updateByPrimaryKey(SysLoginLog record) {
 		return sysLoginLogMapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public Page<SysLoginLog> getPage(SysLoginLog record, Page<SysLoginLog> page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SysLoginLog> getList(SysLoginLog record) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int count(SysLoginLog record) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

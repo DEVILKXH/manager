@@ -434,4 +434,9 @@
       BUS_TYPE = #{busType,jdbcType=VARCHAR}
     where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>
+	
+	<select id="getPage" resultMap="BaseResultMap">
+	</select>
+	<select id="getList" resultMap="BaseResultMap">
+	</select>
 </mapper>

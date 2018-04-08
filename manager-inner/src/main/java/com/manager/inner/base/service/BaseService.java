@@ -7,6 +7,8 @@ package com.manager.inner.base.service;
 
 import java.util.List;
 
+import com.manager.inner.dto.Page;
+
 
 public interface BaseService<T,E> {
 	
@@ -31,4 +33,10 @@ public interface BaseService<T,E> {
     int updateByPrimaryKeySelective(E record);
 
     int updateByPrimaryKey(E record);
+    
+    Page<E> getPage(E record, Page<E> page);
+
+	List<E> getList(E record);
+	
+	int count(E record);
 }

@@ -18,21 +18,21 @@
 			<property name="forceBigDecimals" value="false"/>    
 		</javaTypeResolver>    
 		<!-- 生成模型的包名和位置-->    
-		<javaModelGenerator targetPackage="com.manager.entity" targetProject="F:\manager\manager-entity\src\main\java">    
+		<javaModelGenerator targetPackage="com.manager.entity" targetProject="E:\manager\manager-entity\src\main\java">    
 			<property name="enableSubPackages" value="true"/>    
 			<property name="trimStrings" value="true"/>    
 		</javaModelGenerator>    
 		<!-- 生成映射文件的包名和位置-->    
-		<sqlMapGenerator targetPackage="mybatis" targetProject="F:\manager\manager-mapper\src\main\resources">    
+		<sqlMapGenerator targetPackage="mybatis" targetProject="E:\manager\manager-mapper\src\main\resources">    
 			<property name="enableSubPackages" value="true"/>    
 		</sqlMapGenerator>    
 		<!-- 生成DAO的包名和位置-->    
-		<javaClientGenerator type="XMLMAPPER" targetPackage="com.manager.mapper" targetProject="F:\manager\manager-mapper\src\main\java">    
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.manager.mapper" targetProject="E:\manager\manager-mapper\src\main\java">    
 			<property name="enableSubPackages" value="true"/>    
 		</javaClientGenerator>    
 		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->    
 		<table tableName="%" >
-			<generatedKey column="uuid" sqlStatement="Mysql" identity="true"/>
+			
 		</table>
 	</context>    
 </generatorConfiguration> 

@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.manager.mapper.UserMapper" >
-	<resultMap id="BaseResultMap" type="com.manager.entity.User" >
+<mapper namespace="com.manager.mapper.UserMapper">
+	<resultMap id="BaseResultMap" type="com.manager.entity.User">
 		<id column="UUID" property="uuid" jdbcType="VARCHAR" />
 		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
 		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
 		<result column="USER_SINGAL" property="userSingal" jdbcType="VARCHAR" />
-		<result column="USER_BIRTHDAY" property="userBirthday" jdbcType="DATE" />
+		<result column="USER_BIRTHDAY" property="userBirthday"
+			jdbcType="DATE" />
 		<result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR" />
 		<result column="USER_STATUS" property="userStatus" jdbcType="VARCHAR" />
 		<result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR" />
 		<result column="USER_RANK" property="userRank" jdbcType="VARCHAR" />
-		<result column="PARENT_USER_ID" property="parentUserId" jdbcType="VARCHAR" />
-	</resultMap> 
-	<sql id="Example_Where_Clause" >
-		<where >
-			<foreach collection="oredCriteria" item="criteria" separator="or" >
-				<if test="criteria.valid" >
-					<trim prefix="(" suffix=")" prefixOverrides="and" >
-						<foreach collection="criteria.criteria" item="criterion" >
-							<choose >
-								<when test="criterion.noValue" >
-                  and ${criterion.condition}
+		<result column="PARENT_USER_ID" property="parentUserId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
 								</when>
-								<when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
 								</when>
-								<when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
 								</when>
-								<when test="criterion.listValue" >
-                  and ${criterion.condition}
-									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
 									</foreach>
 								</when>
 							</choose>
@@ -42,26 +46,29 @@
 			</foreach>
 		</where>
 	</sql>
-	<sql id="Update_By_Example_Where_Clause" >
-		<where >
-			<foreach collection="example.oredCriteria" item="criteria" separator="or" >
-				<if test="criteria.valid" >
-					<trim prefix="(" suffix=")" prefixOverrides="and" >
-						<foreach collection="criteria.criteria" item="criterion" >
-							<choose >
-								<when test="criterion.noValue" >
-                  and ${criterion.condition}
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
 								</when>
-								<when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
 								</when>
-								<when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
 								</when>
-								<when test="criterion.listValue" >
-                  and ${criterion.condition}
-									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
 									</foreach>
 								</when>
 							</choose>
@@ -71,337 +78,354 @@
 			</foreach>
 		</where>
 	</sql>
-	<sql id="Base_Column_List" >
-    UUID, USER_NAME, PASSWORD, USER_SINGAL, USER_BIRTHDAY, USER_PHONE, USER_STATUS, USER_ADDRESS, 
-    USER_RANK, PARENT_USER_ID
+	<sql id="Base_Column_List">
+		UUID, USER_NAME, PASSWORD, USER_SINGAL, USER_BIRTHDAY, USER_PHONE,
+		USER_STATUS, USER_ADDRESS,
+		USER_RANK, PARENT_USER_ID
 	</sql>
-	
+
 	<select id="getUserPage" resultMap="BaseResultMap">
-		select 
+		select
 		<include refid="Base_Column_List" />
-    	from user
-    	<trim prefix="where" prefixOverrides="and | or" >
-    		<if test="user.uuid != null" >
-        	and uuid =  #{user.uuid,jdbcType=VARCHAR}
+		from user
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="user.uuid != null">
+				and uuid = #{user.uuid,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userName != null" >
-        	and user_name = #{user.userName,jdbcType=VARCHAR}
+			<if test="user.userName != null">
+				and user_name = #{user.userName,jdbcType=VARCHAR}
 			</if>
-			<if test="user.password != null" >
-        	and password = #{user.password,jdbcType=VARCHAR}
+			<if test="user.password != null">
+				and password = #{user.password,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userSingal != null" >
-       		 and user_singal = #{user.userSingal,jdbcType=VARCHAR}
+			<if test="user.userSingal != null">
+				and user_singal = #{user.userSingal,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userBirthday != null" >
-        	and user_birthday = #{user.userBirthday,jdbcType=DATE}
+			<if test="user.userBirthday != null">
+				and user_birthday = #{user.userBirthday,jdbcType=DATE}
 			</if>
-			<if test="user.userPhone != null" >
-        	and user_phone =  #{user.userPhone,jdbcType=VARCHAR}
+			<if test="user.userPhone != null">
+				and user_phone = #{user.userPhone,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userStatus != null" >
-        	and user_status = #{user.userStatus,jdbcType=VARCHAR}
+			<if test="user.userStatus != null">
+				and user_status = #{user.userStatus,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userAddress != null" >
-        	and user_address =  #{user.userAddress,jdbcType=VARCHAR}
+			<if test="user.userAddress != null">
+				and user_address = #{user.userAddress,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userRank != null" >
-        	and (user_rank > CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) or (user_rank = CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) and uuid = #{user.id}))
+			<if test="user.userRank != null">
+				and (user_rank > CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) or
+				(user_rank = CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) and
+				uuid = #{user.id}))
 			</if>
-			<if test="user.parentUserId != null" >
-        	and parent_user_id = #{user.parentUserId,jdbcType=VARCHAR}
+			<if test="user.parentUserId != null">
+				and parent_user_id = #{user.parentUserId,jdbcType=VARCHAR}
 			</if>
-    	</trim>
+		</trim>
 		limit #{page.start} , #{page.end}
 	</select>
 
 	<select id="getUserList" resultMap="BaseResultMap">
-		select 
+		select
 		<include refid="Base_Column_List" />
-    	from user
-    	<trim prefix="where" prefixOverrides="and | or" >
-    		<if test="user.uuid != null" >
-        	and uuid =  #{user.uuid,jdbcType=VARCHAR}
+		from user
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="user.uuid != null">
+				and uuid = #{user.uuid,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userName != null" >
-        	and user_name = #{user.userName,jdbcType=VARCHAR}
+			<if test="user.userName != null">
+				and user_name = #{user.userName,jdbcType=VARCHAR}
 			</if>
-			<if test="user.password != null" >
-        	and password = #{user.password,jdbcType=VARCHAR}
+			<if test="user.password != null">
+				and password = #{user.password,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userSingal != null" >
-       		 and user_singal = #{user.userSingal,jdbcType=VARCHAR}
+			<if test="user.userSingal != null">
+				and user_singal = #{user.userSingal,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userBirthday != null" >
-        	and user_birthday = #{user.userBirthday,jdbcType=DATE}
+			<if test="user.userBirthday != null">
+				and user_birthday = #{user.userBirthday,jdbcType=DATE}
 			</if>
-			<if test="user.userPhone != null" >
-        	and user_phone =  #{user.userPhone,jdbcType=VARCHAR}
+			<if test="user.userPhone != null">
+				and user_phone = #{user.userPhone,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userStatus != null" >
-        	and user_status = #{user.userStatus,jdbcType=VARCHAR}
+			<if test="user.userStatus != null">
+				and user_status = #{user.userStatus,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userAddress != null" >
-        	and user_address =  #{user.userAddress,jdbcType=VARCHAR}
+			<if test="user.userAddress != null">
+				and user_address = #{user.userAddress,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userRank != null" >
-        	and (user_rank > CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) or (user_rank = CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) and uuid = #{user.id}))
+			<if test="user.userRank != null">
+				and (user_rank > CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) or
+				(user_rank = CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) and
+				uuid = #{user.id}))
 			</if>
-			<if test="user.parentUserId != null" >
-        	and parent_user_id = #{user.parentUserId,jdbcType=VARCHAR}
+			<if test="user.parentUserId != null">
+				and parent_user_id = #{user.parentUserId,jdbcType=VARCHAR}
 			</if>
-    	</trim>
+		</trim>
 	</select>
 
 	<select id="count" resultType="java.lang.Integer">
-		select 
+		select
 		count(0)
-    	from user
-    	<trim prefix="where" prefixOverrides="and | or" >
-    		<if test="user.uuid != null" >
-        	and uuid =  #{user.uuid,jdbcType=VARCHAR}
+		from user
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="user.uuid != null">
+				and uuid = #{user.uuid,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userName != null" >
-        	and user_name = #{user.userName,jdbcType=VARCHAR}
+			<if test="user.userName != null">
+				and user_name = #{user.userName,jdbcType=VARCHAR}
 			</if>
-			<if test="user.password != null" >
-        	and password = #{user.password,jdbcType=VARCHAR}
+			<if test="user.password != null">
+				and password = #{user.password,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userSingal != null" >
-       		 and user_singal = #{user.userSingal,jdbcType=VARCHAR}
+			<if test="user.userSingal != null">
+				and user_singal = #{user.userSingal,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userBirthday != null" >
-        	and user_birthday = #{user.userBirthday,jdbcType=DATE}
+			<if test="user.userBirthday != null">
+				and user_birthday = #{user.userBirthday,jdbcType=DATE}
 			</if>
-			<if test="user.userPhone != null" >
-        	and user_phone =  #{user.userPhone,jdbcType=VARCHAR}
+			<if test="user.userPhone != null">
+				and user_phone = #{user.userPhone,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userStatus != null" >
-        	and user_status = #{user.userStatus,jdbcType=VARCHAR}
+			<if test="user.userStatus != null">
+				and user_status = #{user.userStatus,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userAddress != null" >
-        	and user_address =  #{user.userAddress,jdbcType=VARCHAR}
+			<if test="user.userAddress != null">
+				and user_address = #{user.userAddress,jdbcType=VARCHAR}
 			</if>
-			<if test="user.userRank != null" >
-        	and (user_rank > CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) or (user_rank = CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) and uuid = #{user.id}))
+			<if test="user.userRank != null">
+				and (user_rank > CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) or
+				(user_rank = CAST(#{user.userRank,jdbcType=VARCHAR} AS SIGNED) and
+				uuid = #{user.id}))
 			</if>
-			<if test="user.parentUserId != null" >
-        	and parent_user_id = #{user.parentUserId,jdbcType=VARCHAR}
+			<if test="user.parentUserId != null">
+				and parent_user_id = #{user.parentUserId,jdbcType=VARCHAR}
 			</if>
-    	</trim>
+		</trim>
 	</select>
 
-	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.manager.entity.UserExample" >
-    select
-		<if test="distinct" >
-      distinct
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.manager.entity.UserExample">
+		select
+		<if test="distinct">
+			distinct
 		</if>
 		<include refid="Base_Column_List" />
-    from user
-		<if test="_parameter != null" >
+		from user
+		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
-		<if test="orderByClause != null" >
-      order by ${orderByClause}
+		<if test="orderByClause != null">
+			order by ${orderByClause}
 		</if>
 	</select>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
 		<include refid="Base_Column_List" />
-    from user
-    where UUID = #{uuid,jdbcType=VARCHAR}
+		from user
+		where UUID = #{uuid,jdbcType=VARCHAR}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from user
-    where UUID = #{uuid,jdbcType=VARCHAR}
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from user
+		where UUID = #{uuid,jdbcType=VARCHAR}
 	</delete>
-	<delete id="deleteByExample" parameterType="com.manager.entity.UserExample" >
-    delete from user
-		<if test="_parameter != null" >
+	<delete id="deleteByExample" parameterType="com.manager.entity.UserExample">
+		delete from user
+		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</delete>
-	<insert id="insert" parameterType="com.manager.entity.User" >
-    insert into user (UUID,USER_NAME, PASSWORD, USER_SINGAL, 
-      USER_BIRTHDAY, USER_PHONE, USER_STATUS, 
-      USER_ADDRESS, USER_RANK, PARENT_USER_ID
-      )
-    values (#{uuid},#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{userSingal,jdbcType=VARCHAR}, 
-      #{userBirthday,jdbcType=DATE}, #{userPhone,jdbcType=VARCHAR}, #{userStatus,jdbcType=VARCHAR}, 
-      #{userAddress,jdbcType=VARCHAR}, #{userRank,jdbcType=VARCHAR}, #{parentUserId,jdbcType=VARCHAR}
-      )
+	<insert id="insert" parameterType="com.manager.entity.User">
+		insert into user (UUID,USER_NAME, PASSWORD, USER_SINGAL,
+		USER_BIRTHDAY, USER_PHONE, USER_STATUS,
+		USER_ADDRESS, USER_RANK, PARENT_USER_ID
+		)
+		values (#{uuid},#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+		#{userSingal,jdbcType=VARCHAR},
+		#{userBirthday,jdbcType=DATE}, #{userPhone,jdbcType=VARCHAR}, #{userStatus,jdbcType=VARCHAR},
+		#{userAddress,jdbcType=VARCHAR}, #{userRank,jdbcType=VARCHAR},
+		#{parentUserId,jdbcType=VARCHAR}
+		)
 	</insert>
-	<insert id="insertSelective" parameterType="com.manager.entity.User" >
-    insert into user
-		<trim prefix="(" suffix=")" suffixOverrides="," >
-			<if test="uuid != null" >
-        UUID,
+	<insert id="insertSelective" parameterType="com.manager.entity.User">
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uuid != null">
+				UUID,
 			</if>
-			<if test="userName != null" >
-        USER_NAME,
+			<if test="userName != null">
+				USER_NAME,
 			</if>
-			<if test="password != null" >
-        PASSWORD,
+			<if test="password != null">
+				PASSWORD,
 			</if>
-			<if test="userSingal != null" >
-        USER_SINGAL,
+			<if test="userSingal != null">
+				USER_SINGAL,
 			</if>
-			<if test="userBirthday != null" >
-        USER_BIRTHDAY,
+			<if test="userBirthday != null">
+				USER_BIRTHDAY,
 			</if>
-			<if test="userPhone != null" >
-        USER_PHONE,
+			<if test="userPhone != null">
+				USER_PHONE,
 			</if>
-			<if test="userStatus != null" >
-        USER_STATUS,
+			<if test="userStatus != null">
+				USER_STATUS,
 			</if>
-			<if test="userAddress != null" >
-        USER_ADDRESS,
+			<if test="userAddress != null">
+				USER_ADDRESS,
 			</if>
-			<if test="userRank != null" >
-        USER_RANK,
+			<if test="userRank != null">
+				USER_RANK,
 			</if>
-			<if test="parentUserId != null" >
-        PARENT_USER_ID,
+			<if test="parentUserId != null">
+				PARENT_USER_ID,
 			</if>
 		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides="," >
-			<if test="uuid != null" >
-        #{uuid,jdbcType=VARCHAR},
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uuid != null">
+				#{uuid,jdbcType=VARCHAR},
 			</if>
-			<if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
 			</if>
-			<if test="password != null" >
-        #{password,jdbcType=VARCHAR},
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
 			</if>
-			<if test="userSingal != null" >
-        #{userSingal,jdbcType=VARCHAR},
+			<if test="userSingal != null">
+				#{userSingal,jdbcType=VARCHAR},
 			</if>
-			<if test="userBirthday != null" >
-        #{userBirthday,jdbcType=DATE},
+			<if test="userBirthday != null">
+				#{userBirthday,jdbcType=DATE},
 			</if>
-			<if test="userPhone != null" >
-        #{userPhone,jdbcType=VARCHAR},
+			<if test="userPhone != null">
+				#{userPhone,jdbcType=VARCHAR},
 			</if>
-			<if test="userStatus != null" >
-        #{userStatus,jdbcType=VARCHAR},
+			<if test="userStatus != null">
+				#{userStatus,jdbcType=VARCHAR},
 			</if>
-			<if test="userAddress != null" >
-        #{userAddress,jdbcType=VARCHAR},
+			<if test="userAddress != null">
+				#{userAddress,jdbcType=VARCHAR},
 			</if>
-			<if test="userRank != null" >
-        #{userRank,jdbcType=VARCHAR},
+			<if test="userRank != null">
+				#{userRank,jdbcType=VARCHAR},
 			</if>
-			<if test="parentUserId != null" >
-        #{parentUserId,jdbcType=VARCHAR},
+			<if test="parentUserId != null">
+				#{parentUserId,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
-	<select id="countByExample" parameterType="com.manager.entity.UserExample" resultType="java.lang.Integer" >
-    select count(*) from user
-		<if test="_parameter != null" >
+	<select id="countByExample" parameterType="com.manager.entity.UserExample"
+		resultType="java.lang.Integer">
+		select count(*) from user
+		<if test="_parameter != null">
 			<include refid="Example_Where_Clause" />
 		</if>
 	</select>
-	<update id="updateByExampleSelective" parameterType="map" >
-    update user
-		<set >
-			<if test="record.uuid != null" >
-        UUID = #{record.uuid,jdbcType=VARCHAR},
+	<update id="updateByExampleSelective" parameterType="map">
+		update user
+		<set>
+			<if test="record.uuid != null">
+				UUID = #{record.uuid,jdbcType=VARCHAR},
 			</if>
-			<if test="record.userName != null" >
-        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+			<if test="record.userName != null">
+				USER_NAME = #{record.userName,jdbcType=VARCHAR},
 			</if>
-			<if test="record.password != null" >
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
+			<if test="record.password != null">
+				PASSWORD = #{record.password,jdbcType=VARCHAR},
 			</if>
-			<if test="record.userSingal != null" >
-        USER_SINGAL = #{record.userSingal,jdbcType=VARCHAR},
+			<if test="record.userSingal != null">
+				USER_SINGAL = #{record.userSingal,jdbcType=VARCHAR},
 			</if>
-			<if test="record.userBirthday != null" >
-        USER_BIRTHDAY = #{record.userBirthday,jdbcType=DATE},
+			<if test="record.userBirthday != null">
+				USER_BIRTHDAY = #{record.userBirthday,jdbcType=DATE},
 			</if>
-			<if test="record.userPhone != null" >
-        USER_PHONE = #{record.userPhone,jdbcType=VARCHAR},
+			<if test="record.userPhone != null">
+				USER_PHONE = #{record.userPhone,jdbcType=VARCHAR},
 			</if>
-			<if test="record.userStatus != null" >
-        USER_STATUS = #{record.userStatus,jdbcType=VARCHAR},
+			<if test="record.userStatus != null">
+				USER_STATUS = #{record.userStatus,jdbcType=VARCHAR},
 			</if>
-			<if test="record.userAddress != null" >
-        USER_ADDRESS = #{record.userAddress,jdbcType=VARCHAR},
+			<if test="record.userAddress != null">
+				USER_ADDRESS = #{record.userAddress,jdbcType=VARCHAR},
 			</if>
-			<if test="record.userRank != null" >
-        USER_RANK = #{record.userRank,jdbcType=VARCHAR},
+			<if test="record.userRank != null">
+				USER_RANK = #{record.userRank,jdbcType=VARCHAR},
 			</if>
-			<if test="record.parentUserId != null" >
-        PARENT_USER_ID = #{record.parentUserId,jdbcType=VARCHAR},
+			<if test="record.parentUserId != null">
+				PARENT_USER_ID = #{record.parentUserId,jdbcType=VARCHAR},
 			</if>
 		</set>
-		<if test="_parameter != null" >
+		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
 	</update>
-	<update id="updateByExample" parameterType="map" >
-    update user
-    set UUID = #{record.uuid,jdbcType=VARCHAR},
-      USER_NAME = #{record.userName,jdbcType=VARCHAR},
-      PASSWORD = #{record.password,jdbcType=VARCHAR},
-      USER_SINGAL = #{record.userSingal,jdbcType=VARCHAR},
-      USER_BIRTHDAY = #{record.userBirthday,jdbcType=DATE},
-      USER_PHONE = #{record.userPhone,jdbcType=VARCHAR},
-      USER_STATUS = #{record.userStatus,jdbcType=VARCHAR},
-      USER_ADDRESS = #{record.userAddress,jdbcType=VARCHAR},
-      USER_RANK = #{record.userRank,jdbcType=VARCHAR},
-      PARENT_USER_ID = #{record.parentUserId,jdbcType=VARCHAR}
-		<if test="_parameter != null" >
+	<update id="updateByExample" parameterType="map">
+		update user
+		set UUID = #{record.uuid,jdbcType=VARCHAR},
+		USER_NAME = #{record.userName,jdbcType=VARCHAR},
+		PASSWORD = #{record.password,jdbcType=VARCHAR},
+		USER_SINGAL = #{record.userSingal,jdbcType=VARCHAR},
+		USER_BIRTHDAY = #{record.userBirthday,jdbcType=DATE},
+		USER_PHONE = #{record.userPhone,jdbcType=VARCHAR},
+		USER_STATUS = #{record.userStatus,jdbcType=VARCHAR},
+		USER_ADDRESS = #{record.userAddress,jdbcType=VARCHAR},
+		USER_RANK = #{record.userRank,jdbcType=VARCHAR},
+		PARENT_USER_ID = #{record.parentUserId,jdbcType=VARCHAR}
+		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
 	</update>
-	<update id="updateByPrimaryKeySelective" parameterType="com.manager.entity.User" >
-    update user
-		<set >
-			<if test="userName != null" >
-        USER_NAME = #{userName,jdbcType=VARCHAR},
+	<update id="updateByPrimaryKeySelective" parameterType="com.manager.entity.User">
+		update user
+		<set>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
 			</if>
-			<if test="password != null" >
-        PASSWORD = #{password,jdbcType=VARCHAR},
+			<if test="password != null">
+				PASSWORD = #{password,jdbcType=VARCHAR},
 			</if>
-			<if test="userSingal != null" >
-        USER_SINGAL = #{userSingal,jdbcType=VARCHAR},
+			<if test="userSingal != null">
+				USER_SINGAL = #{userSingal,jdbcType=VARCHAR},
 			</if>
-			<if test="userBirthday != null" >
-        USER_BIRTHDAY = #{userBirthday,jdbcType=DATE},
+			<if test="userBirthday != null">
+				USER_BIRTHDAY = #{userBirthday,jdbcType=DATE},
 			</if>
-			<if test="userPhone != null" >
-        USER_PHONE = #{userPhone,jdbcType=VARCHAR},
+			<if test="userPhone != null">
+				USER_PHONE = #{userPhone,jdbcType=VARCHAR},
 			</if>
-			<if test="userStatus != null" >
-        USER_STATUS = #{userStatus,jdbcType=VARCHAR},
+			<if test="userStatus != null">
+				USER_STATUS = #{userStatus,jdbcType=VARCHAR},
 			</if>
-			<if test="userAddress != null" >
-        USER_ADDRESS = #{userAddress,jdbcType=VARCHAR},
+			<if test="userAddress != null">
+				USER_ADDRESS = #{userAddress,jdbcType=VARCHAR},
 			</if>
-			<if test="userRank != null" >
-        USER_RANK = #{userRank,jdbcType=VARCHAR},
+			<if test="userRank != null">
+				USER_RANK = #{userRank,jdbcType=VARCHAR},
 			</if>
-			<if test="parentUserId != null" >
-        PARENT_USER_ID = #{parentUserId,jdbcType=VARCHAR},
+			<if test="parentUserId != null">
+				PARENT_USER_ID = #{parentUserId,jdbcType=VARCHAR},
 			</if>
 		</set>
-    where UUID = #{uuid,jdbcType=VARCHAR}
+		where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.manager.entity.User" >
-    update user
-    set USER_NAME = #{userName,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      USER_SINGAL = #{userSingal,jdbcType=VARCHAR},
-      USER_BIRTHDAY = #{userBirthday,jdbcType=DATE},
-      USER_PHONE = #{userPhone,jdbcType=VARCHAR},
-      USER_STATUS = #{userStatus,jdbcType=VARCHAR},
-      USER_ADDRESS = #{userAddress,jdbcType=VARCHAR},
-      USER_RANK = #{userRank,jdbcType=VARCHAR},
-      PARENT_USER_ID = #{parentUserId,jdbcType=VARCHAR}
-    where UUID = #{uuid,jdbcType=VARCHAR}
+	<update id="updateByPrimaryKey" parameterType="com.manager.entity.User">
+		update user
+		set USER_NAME = #{userName,jdbcType=VARCHAR},
+		PASSWORD = #{password,jdbcType=VARCHAR},
+		USER_SINGAL = #{userSingal,jdbcType=VARCHAR},
+		USER_BIRTHDAY = #{userBirthday,jdbcType=DATE},
+		USER_PHONE = #{userPhone,jdbcType=VARCHAR},
+		USER_STATUS = #{userStatus,jdbcType=VARCHAR},
+		USER_ADDRESS = #{userAddress,jdbcType=VARCHAR},
+		USER_RANK = #{userRank,jdbcType=VARCHAR},
+		PARENT_USER_ID = #{parentUserId,jdbcType=VARCHAR}
+		where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>
+	
+	<select id="getPage" resultMap="BaseResultMap">
+	</select>
+	<select id="getList" resultMap="BaseResultMap">
+	</select>
 </mapper>

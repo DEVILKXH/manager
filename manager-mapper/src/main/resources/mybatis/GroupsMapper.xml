@@ -247,4 +247,10 @@
       PARENT_GROUP_ID = #{parentGroupId,jdbcType=VARCHAR}
     where UUID = #{uuid,jdbcType=VARCHAR}
   </update>
+  <select id="getPage" resultMap="BaseResultMap">
+	</select>
+	<select id="getList" resultMap="BaseResultMap">
+	</select>
+	<select id="count" resultType="java.lang.Integer">
+	</select>
 </mapper>
