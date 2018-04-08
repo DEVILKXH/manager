@@ -51,6 +51,43 @@
 }
 ```
 
+- 库存管理模块
+```json
+{
+	"uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+
+- 销售报销管理模块
+```json
+{
+	"uuid": "(ID)",
+	"userName": "(报销人)",
+	"quitTime": "(报销时间)",
+	"quitReason": "(报销原因)",
+	"quitMoney": "(报销金额)",
+	"bankAccount": "(银行账户)"
+}
+```
+
+- 员工离职模块
+```json
+{
+	"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+
 ## 登录
 - PATH： /manager-web/doLogin.do
 - 方法： POST
@@ -1361,6 +1398,799 @@
         "userId": "",
         "type": "",
         "content": ""
+    }
+]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 库存管理模块
+
+## 新建库存管理(动态)
+- PATH: /manager-web/m/item/insertSelective.do
+- 方法: POST
+- 说明: 动态插入库存管理
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+		"itemCompany": "(厂商名称)",
+		"itemName": "(商品名)",
+		"itemNo": "(商品编号)",
+		"itemNum": "(数量)",
+		"itemType": "(类型)",
+		"itemPrice": "(价格)"
+	}
+}
+```
+
+## 新建库存管理(非动态)
+- PATH: /manager-web/m/item/insert.do
+- 方法: POST
+- 说明: 动态插入计划/日志
+- 请求内容
+```json
+{
+    "uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+		"itemCompany": "(厂商名称)",
+		"itemName": "(商品名)",
+		"itemNo": "(商品编号)",
+		"itemNum": "(数量)",
+		"itemType": "(类型)",
+		"itemPrice": "(价格)"
+	}
+}
+```
+
+## 选择单个库存管理
+- PATH: /manager-web/m/item/selectOne.do
+- 方法: POST
+- 说明: 动态插入库存管理
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+- 返回值: 
+```json
+{
+	"uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+
+## 新建库存管理(非动态)
+- PATH: /manager-web/m/item/updateSelective.do
+- 方法: POST
+- 说明: 动态插入库存管理
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+		"itemCompany": "(厂商名称)",
+		"itemName": "(商品名)",
+		"itemNo": "(商品编号)",
+		"itemNum": "(数量)",
+		"itemType": "(类型)",
+		"itemPrice": "(价格)"
+	}
+}
+```
+
+## 强制更新库存管理
+- PATH: /manager-web/m/item/update.do
+- 方法: POST
+- 说明: 动态插入库存管理
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+		"itemCompany": "(厂商名称)",
+		"itemName": "(商品名)",
+		"itemNo": "(商品编号)",
+		"itemNum": "(数量)",
+		"itemType": "(类型)",
+		"itemPrice": "(价格)"
+	}
+}
+```
+
+## 删除库存管理
+- PATH: /manager-web/m/item/delete.do
+- 方法: POST
+- 说明: 动态插入库存管理
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功"
+}
+```
+
+## 获取库存管理分页信息
+- PATH: /manager-web/m/item/getPage.do
+- 方法: GET/POST
+- 说明: 动态插入库存管理
+- 请求内容
+```json
+{
+	"page" : "",
+	"pageSize":"",
+	"uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+- 返回值: 
+```json
+{
+    "page": "",
+    "pageSize": "",
+    "start": "",
+    "end": "",
+    "count": 1,
+    "pageResultCount": "",
+    "list": [
+        {
+            "uuid": "(ID)",
+			"itemCompany": "(厂商名称)",
+			"itemName": "(商品名)",
+			"itemNo": "(商品编号)",
+			"itemNum": "(数量)",
+			"itemType": "(类型)",
+			"itemPrice": "(价格)"
+        }
+    ]
+}
+```
+
+## 获取库存管理列表
+- PATH: /manager-web/m/item/getLists.do
+- 方法: GET/POST
+- 说明: 动态插入库存管理
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"itemCompany": "(厂商名称)",
+	"itemName": "(商品名)",
+	"itemNo": "(商品编号)",
+	"itemNum": "(数量)",
+	"itemType": "(类型)",
+	"itemPrice": "(价格)"
+}
+```
+- 返回值: 
+```json
+[
+    {
+        "uuid": "(ID)",
+		"itemCompany": "(厂商名称)",
+		"itemName": "(商品名)",
+		"itemNo": "(商品编号)",
+		"itemNum": "(数量)",
+		"itemType": "(类型)",
+		"itemPrice": "(价格)"
+    },{
+        "uuid": "(ID)",
+		"itemCompany": "(厂商名称)",
+		"itemName": "(商品名)",
+		"itemNo": "(商品编号)",
+		"itemNum": "(数量)",
+		"itemType": "(类型)",
+		"itemPrice": "(价格)"
+    }
+]
+```
+
+
+
+
+
+# 销售报销管理模块
+
+## 新建销售报销(动态)
+- PATH: /manager-web/m/quit/insertSelective.do
+- 方法: POST
+- 说明: 销售报销销售报销
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"userName": "(报销人)",
+	"quitTime": "(报销时间)",
+	"quitReason": "(报销原因)",
+	"quitMoney": "(报销金额)",
+	"bankAccount": "(银行账户)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+	}
+}
+```
+
+## 新建销售报销(非动态)
+- PATH: /manager-web/m/quit/insert.do
+- 方法: POST
+- 说明: 动态插入计划/日志
+- 请求内容
+```json
+{
+    "uuid": "(ID)",
+	"userName": "(报销人)",
+	"quitTime": "(报销时间)",
+	"quitReason": "(报销原因)",
+	"quitMoney": "(报销金额)",
+	"bankAccount": "(银行账户)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+	}
+}
+```
+
+## 选择单个销售报销
+- PATH: /manager-web/m/quit/selectOne.do
+- 方法: POST
+- 说明: 动态插入销售报销
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+}
+```
+- 返回值: 
+```json
+{
+	"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+}
+```
+
+## 新建销售报销(非动态)
+- PATH: /manager-web/m/quit/updateSelective.do
+- 方法: POST
+- 说明: 动态插入销售报销
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+	}
+}
+```
+
+## 强制更新销售报销
+- PATH: /manager-web/m/quit/update.do
+- 方法: POST
+- 说明: 动态插入销售报销
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+	}
+}
+```
+
+## 删除销售报销
+- PATH: /manager-web/m/quit/delete.do
+- 方法: POST
+- 说明: 动态插入销售报销
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功"
+}
+```
+
+## 获取销售报销分页信息
+- PATH: /manager-web/m/quit/getPage.do
+- 方法: GET/POST
+- 说明: 动态插入销售报销
+- 请求内容
+```json
+{
+	"page" : "",
+	"pageSize":"",
+	"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+}
+```
+- 返回值: 
+```json
+{
+    "page": "",
+    "pageSize": "",
+    "start": "",
+    "end": "",
+    "count": 1,
+    "pageResultCount": "",
+    "list": [
+        {
+            "uuid": "(ID)",
+			"userName": "(报销人)",
+			"quitTime": "(报销时间)",
+			"quitReason": "(报销原因)",
+			"quitMoney": "(报销金额)",
+			"bankAccount": "(银行账户)"
+        }
+    ]
+}
+```
+
+## 获取销售报销列表
+- PATH: /manager-web/m/quit/getLists.do
+- 方法: GET/POST
+- 说明: 动态插入销售报销
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+}
+```
+- 返回值: 
+```json
+[
+    {
+        "uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+    },{
+        "uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+    }
+]
+```
+
+
+
+
+
+
+
+
+# 员工离职管理模块
+
+## 新建员工离职(动态)
+- PATH: /manager-web/m/quit/insertSelective.do
+- 方法: POST
+- 说明: 员工离职员工离职
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+	}
+}
+```
+
+## 新建员工离职(非动态)
+- PATH: /manager-web/m/quit/insert.do
+- 方法: POST
+- 说明: 动态插入计划/日志
+- 请求内容
+```json
+{
+    "uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+	}
+}
+```
+
+## 选择单个员工离职
+- PATH: /manager-web/m/quit/selectOne.do
+- 方法: POST
+- 说明: 动态插入员工离职
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+- 返回值: 
+```json
+{
+	"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+
+## 新建员工离职(非动态)
+- PATH: /manager-web/m/quit/updateSelective.do
+- 方法: POST
+- 说明: 动态插入员工离职
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+	}
+}
+```
+
+## 强制更新员工离职
+- PATH: /manager-web/m/quit/update.do
+- 方法: POST
+- 说明: 动态插入员工离职
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+	}
+}
+```
+
+## 删除员工离职
+- PATH: /manager-web/m/quit/delete.do
+- 方法: POST
+- 说明: 动态插入员工离职
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+		"userName": "(报销人)",
+		"quitTime": "(报销时间)",
+		"quitReason": "(报销原因)",
+		"quitMoney": "(报销金额)",
+		"bankAccount": "(银行账户)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功"
+}
+```
+
+## 获取员工离职分页信息
+- PATH: /manager-web/m/quit/getPage.do
+- 方法: GET/POST
+- 说明: 动态插入员工离职
+- 请求内容
+```json
+{
+	"page" : "",
+	"pageSize":"",
+	"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+- 返回值: 
+```json
+{
+    "page": "",
+    "pageSize": "",
+    "start": "",
+    "end": "",
+    "count": 1,
+    "pageResultCount": "",
+    "list": [
+        {
+            "uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+        }
+    ]
+}
+```
+
+## 获取员工离职列表
+- PATH: /manager-web/m/quit/getLists.do
+- 方法: GET/POST
+- 说明: 动态插入员工离职
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"quitIsAgree": "(离职同意情况)",
+	"quitIsSave": "(是否存放物料)",
+	"quitReason": "(离职原因)",
+	"quitTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+- 返回值: 
+```json
+[
+    {
+        "uuid": "(ID)",
+		"quitIsAgree": "(离职同意情况)",
+		"quitIsSave": "(是否存放物料)",
+		"quitReason": "(离职原因)",
+		"quitTime": "(离职时间)",
+		"userName": "(离职人)"
+    },{
+        "uuid": "(ID)",
+		"quitIsAgree": "(离职同意情况)",
+		"quitIsSave": "(是否存放物料)",
+		"quitReason": "(离职原因)",
+		"quitTime": "(离职时间)",
+		"userName": "(离职人)"
     }
 ]
 ```
