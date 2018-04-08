@@ -1690,7 +1690,7 @@
 # 销售报销管理模块
 
 ## 新建销售报销(动态)
-- PATH: /manager-web/m/quit/insertSelective.do
+- PATH: /manager-web/m/expanse/insertSelective.do
 - 方法: POST
 - 说明: 销售报销销售报销
 - 请求内容
@@ -1698,9 +1698,9 @@
 {
 	"uuid": "(ID)",
 	"userName": "(报销人)",
-	"quitTime": "(报销时间)",
-	"quitReason": "(报销原因)",
-	"quitMoney": "(报销金额)",
+	"expanseTime": "(报销时间)",
+	"expanseReason": "(报销原因)",
+	"expanseMoney": "(报销金额)",
 	"bankAccount": "(银行账户)"
 }
 ```
@@ -1712,16 +1712,16 @@
 	"object" : {
 		"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 	}
 }
 ```
 
 ## 新建销售报销(非动态)
-- PATH: /manager-web/m/quit/insert.do
+- PATH: /manager-web/m/expanse/insert.do
 - 方法: POST
 - 说明: 动态插入计划/日志
 - 请求内容
@@ -1729,9 +1729,9 @@
 {
     "uuid": "(ID)",
 	"userName": "(报销人)",
-	"quitTime": "(报销时间)",
-	"quitReason": "(报销原因)",
-	"quitMoney": "(报销金额)",
+	"expanseTime": "(报销时间)",
+	"expanseReason": "(报销原因)",
+	"expanseMoney": "(报销金额)",
 	"bankAccount": "(银行账户)"
 }
 ```
@@ -1743,16 +1743,16 @@
 	"object" : {
 		"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 	}
 }
 ```
 
 ## 选择单个销售报销
-- PATH: /manager-web/m/quit/selectOne.do
+- PATH: /manager-web/m/expanse/selectOne.do
 - 方法: POST
 - 说明: 动态插入销售报销
 - 请求内容
@@ -1760,9 +1760,9 @@
 {
 	"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 }
 ```
@@ -1771,15 +1771,15 @@
 {
 	"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 }
 ```
 
 ## 新建销售报销(非动态)
-- PATH: /manager-web/m/quit/updateSelective.do
+- PATH: /manager-web/m/expanse/updateSelective.do
 - 方法: POST
 - 说明: 动态插入销售报销
 - 请求内容
@@ -1787,9 +1787,9 @@
 {
 	"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 }
 ```
@@ -1801,16 +1801,16 @@
 	"object" : {
 		"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 	}
 }
 ```
 
 ## 强制更新销售报销
-- PATH: /manager-web/m/quit/update.do
+- PATH: /manager-web/m/expanse/update.do
 - 方法: POST
 - 说明: 动态插入销售报销
 - 请求内容
@@ -1818,9 +1818,9 @@
 {
 	"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 }
 ```
@@ -1832,16 +1832,16 @@
 	"object" : {
 		"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 	}
 }
 ```
 
 ## 删除销售报销
-- PATH: /manager-web/m/quit/delete.do
+- PATH: /manager-web/m/expanse/delete.do
 - 方法: POST
 - 说明: 动态插入销售报销
 - 请求内容
@@ -1849,9 +1849,9 @@
 {
 	"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 }
 ```
@@ -1864,7 +1864,7 @@
 ```
 
 ## 获取销售报销分页信息
-- PATH: /manager-web/m/quit/getPage.do
+- PATH: /manager-web/m/expanse/getPage.do
 - 方法: GET/POST
 - 说明: 动态插入销售报销
 - 请求内容
@@ -1874,9 +1874,9 @@
 	"pageSize":"",
 	"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 }
 ```
@@ -1893,9 +1893,9 @@
         {
             "uuid": "(ID)",
 			"userName": "(报销人)",
-			"quitTime": "(报销时间)",
-			"quitReason": "(报销原因)",
-			"quitMoney": "(报销金额)",
+			"expanseTime": "(报销时间)",
+			"expanseReason": "(报销原因)",
+			"expanseMoney": "(报销金额)",
 			"bankAccount": "(银行账户)"
         }
     ]
@@ -1903,7 +1903,7 @@
 ```
 
 ## 获取销售报销列表
-- PATH: /manager-web/m/quit/getLists.do
+- PATH: /manager-web/m/expanse/getLists.do
 - 方法: GET/POST
 - 说明: 动态插入销售报销
 - 请求内容
@@ -1911,9 +1911,9 @@
 {
 	"uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
 }
 ```
@@ -1923,16 +1923,16 @@
     {
         "uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
     },{
         "uuid": "(ID)",
 		"userName": "(报销人)",
-		"quitTime": "(报销时间)",
-		"quitReason": "(报销原因)",
-		"quitMoney": "(报销金额)",
+		"expanseTime": "(报销时间)",
+		"expanseReason": "(报销原因)",
+		"expanseMoney": "(报销金额)",
 		"bankAccount": "(银行账户)"
     }
 ]
