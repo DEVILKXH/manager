@@ -2537,3 +2537,30 @@
     }
 ]
 ```
+
+
+## 获取销售管理统计
+- PATH: /manager-web/m/sale/getSaleComp.do
+- 方法: GET/POST
+- 说明: 获取销售统计
+- 请求内容
+- 返回值: 
+```json
+[
+    {
+		"uuid": "ID",
+	    "userId": "用户ID"
+		"userName": "客户名称",
+	    "itemNum": "进货数量",
+	    "itemPrice": "进价",
+	    "itemType": "1"
+    },{
+        "uuid": "ID",
+	    "userId": "用户ID"
+		"userName": "客户名称",
+	    "itemNum": "进货数量",
+	    "itemPrice": "进价",
+	    "itemType": "1"
+    }
+]
+```
