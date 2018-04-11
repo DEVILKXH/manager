@@ -4,12 +4,14 @@
 	<resultMap id="BaseResultMap" type="com.manager.entity.Expanse">
 		<id column="UUID" property="uuid" jdbcType="VARCHAR" />
 		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
 		<result column="EXPANSE_REASON" property="expanseReason"
 			jdbcType="VARCHAR" />
 		<result column="EXPANSE_TIME" property="expanseTime" jdbcType="TIMESTAMP" />
 		<result column="EXPANSE_MONEY" property="expanseMoney"
 			jdbcType="VARCHAR" />
 		<result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+		<result column="DOC_STATUS" property="docStatus" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -75,81 +77,97 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		UUID, USER_NAME, EXPANSE_REASON, EXPANSE_TIME, EXPANSE_MONEY, BANK_ACCOUNT
+		UUID, USER_ID, EXPANSE_REASON, EXPANSE_TIME, EXPANSE_MONEY, BANK_ACCOUNT,DOC_STATUS
+	</sql>
+	
+	<sql id="Base_Column_List2">
+		a.UUID, a.USER_ID , a.EXPANSE_REASON, a.EXPANSE_TIME, a.EXPANSE_MONEY, a.BANK_ACCOUNT,a.DOC_STATUS
 	</sql>
 	
 	<select id="getPage" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List" />
-		from EXPANSE
+		select <include refid="Base_Column_List2" />, u.user_Name
+		from EXPANSE a
+		left join user u on u.uuid = a.USER_ID
 		<trim prefix="where"  prefixOverrides="and|or">
 			<if test="record.uuid != null">
-				and UUID = #{record.uuid}
+				and a.UUID = #{record.uuid}
 			</if>
-			<if test="record.userName != null">
-				and USER_NAME = #{record.userName}
+			<if test="record.userId!= null">
+				and a.USER_ID = #{record.userId}
 			</if>
 			<if test="record.expanseReason != null">
-				and record_REASON = #{record.expanseReason}
+				and a.record_REASON = #{record.expanseReason}
 			</if>
 			<if test="record.expanseTime != null">
-				and EXPANSE_TIME = #{record.expanseTime}
+				and a.EXPANSE_TIME = #{record.expanseTime}
 			</if>
 			<if test="record.expanseMoney != null">
-				and EXPANSE_MONEY = #{record.expanseMoney}
+				and a.EXPANSE_MONEY = #{record.expanseMoney}
 			</if>
 			<if test="record.bankAccount != null">
-				and BANK_ACCOUNT = #{record.bankAccount}
+				and a.BANK_ACCOUNT = #{record.bankAccount}
+			</if>
+			<if test="record.docStatus != null">
+				and a.doc_status = #{record.docStatus}
 			</if>
 		</trim>
 		limit #{page.start},#{page.end}
 	</select>
 	
 	<select id="getList" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List" />
-		from EXPANSE
+		select <include refid="Base_Column_List2" />, u.user_Name 
+		from EXPANSE a
+		left join user u on u.uuid = a.USER_ID
 		<trim prefix="where"  prefixOverrides="and|or">
 			<if test="record.uuid != null">
-				and UUID = #{record.uuid}
+				and a.UUID = #{record.uuid}
 			</if>
-			<if test="record.userName != null">
-				and USER_NAME = #{record.userName}
+			<if test="record.userId != null">
+				and a.USER_ID = #{record.userId}
 			</if>
 			<if test="record.expanseReason != null">
-				and record_REASON = #{record.expanseReason}
+				and a.record_REASON = #{record.expanseReason}
 			</if>
 			<if test="record.expanseTime != null">
-				and EXPANSE_TIME = #{record.expanseTime}
+				and a.EXPANSE_TIME = #{record.expanseTime}
 			</if>
 			<if test="record.expanseMoney != null">
-				and EXPANSE_MONEY = #{record.expanseMoney}
+				and a.EXPANSE_MONEY = #{record.expanseMoney}
 			</if>
 			<if test="record.bankAccount != null">
-				and BANK_ACCOUNT = #{record.bankAccount}
+				and a.BANK_ACCOUNT = #{record.bankAccount}
+			</if>
+			<if test="record.docStatus != null">
+				and a.doc_status = #{record.docStatus}
 			</if>
 		</trim>
 	</select>
 	
 	<select id="count" resultType="java.lang.Integer">
 		select count(0)
-		from EXPANSE
+		from EXPANSE a
+		left join user u on u.uuid = a.USER_ID
 		<trim prefix="where"  prefixOverrides="and|or">
 			<if test="record.uuid != null">
-				and UUID = #{record.uuid}
+				and a.UUID = #{record.uuid}
 			</if>
-			<if test="record.userName != null">
-				and USER_NAME = #{record.userName}
+			<if test="record.userId != null">
+				and a.USER_ID = #{record.userId}
 			</if>
 			<if test="record.expanseReason != null">
-				and record_REASON = #{record.expanseReason}
+				and a.record_REASON = #{record.expanseReason}
 			</if>
 			<if test="record.expanseTime != null">
-				and EXPANSE_TIME = #{record.expanseTime}
+				and a.EXPANSE_TIME = #{record.expanseTime}
 			</if>
 			<if test="record.expanseMoney != null">
-				and EXPANSE_MONEY = #{record.expanseMoney}
+				and a.EXPANSE_MONEY = #{record.expanseMoney}
 			</if>
 			<if test="record.bankAccount != null">
-				and BANK_ACCOUNT = #{record.bankAccount}
+				and a.BANK_ACCOUNT = #{record.bankAccount}
+			</if>
+			<if test="record.docStatus != null">
+				and a.doc_status = #{record.docStatus}
 			</if>
 		</trim>
 	</select>
@@ -187,12 +205,13 @@
 		</if>
 	</delete>
 	<insert id="insert" parameterType="com.manager.entity.Expanse">
-		insert into EXPANSE (UUID, USER_NAME, EXPANSE_REASON,
-		EXPANSE_TIME, EXPANSE_MONEY, BANK_ACCOUNT
+		insert into EXPANSE (UUID, USER_ID, EXPANSE_REASON,
+		EXPANSE_TIME, EXPANSE_MONEY, BANK_ACCOUNT,doc_status
 		)
-		values (#{uuid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+		values (#{uuid,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
 		#{expanseReason,jdbcType=VARCHAR},
-		#{expanseTime,jdbcType=TIMESTAMP}, #{expanseMoney,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}
+		#{expanseTime,jdbcType=TIMESTAMP}, #{expanseMoney,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR},
+		#{docStatus,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.manager.entity.Expanse">
@@ -201,8 +220,8 @@
 			<if test="uuid != null">
 				UUID,
 			</if>
-			<if test="userName != null">
-				USER_NAME,
+			<if test="userId != null">
+				USER_ID,
 			</if>
 			<if test="expanseReason != null">
 				EXPANSE_REASON,
@@ -216,13 +235,16 @@
 			<if test="bankAccount != null">
 				BANK_ACCOUNT,
 			</if>
+			<if test="docStatus != null">
+				doc_status,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="uuid != null">
 				#{uuid,jdbcType=VARCHAR},
 			</if>
-			<if test="userName != null">
-				#{userName,jdbcType=VARCHAR},
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
 			</if>
 			<if test="expanseReason != null">
 				#{expanseReason,jdbcType=VARCHAR},
@@ -235,6 +257,9 @@
 			</if>
 			<if test="bankAccount != null">
 				#{bankAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="docStatus != null">
+				#{docStatus},
 			</if>
 		</trim>
 	</insert>
@@ -251,8 +276,8 @@
 			<if test="record.uuid != null">
 				UUID = #{record.uuid,jdbcType=VARCHAR},
 			</if>
-			<if test="record.userName != null">
-				USER_NAME = #{record.userName,jdbcType=VARCHAR},
+			<if test="record.userId != null">
+				USER_ID = #{record.userId,jdbcType=VARCHAR},
 			</if>
 			<if test="record.expanseReason != null">
 				EXPANSE_REASON = #{record.expanseReason,jdbcType=VARCHAR},
@@ -266,6 +291,9 @@
 			<if test="record.bankAccount != null">
 				BANK_ACCOUNT = #{record.bankAccount,jdbcType=VARCHAR},
 			</if>
+			<if test="record.docStatus != null">
+				doc_status = #{record.docStatus},
+			</if>
 		</set>
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -274,11 +302,12 @@
 	<update id="updateByExample" parameterType="map">
 		update EXPANSE
 		set UUID = #{record.uuid,jdbcType=VARCHAR},
-		USER_NAME = #{record.userName,jdbcType=VARCHAR},
+		USER_ID = #{record.userId,jdbcType=VARCHAR},
 		EXPANSE_REASON = #{record.expanseReason,jdbcType=VARCHAR},
 		EXPANSE_TIME = #{record.expanseTime,jdbcType=TIMESTAMP},
 		EXPANSE_MONEY = #{record.expanseMoney,jdbcType=VARCHAR},
-		BANK_ACCOUNT = #{record.bankAccount,jdbcType=VARCHAR}
+		BANK_ACCOUNT = #{record.bankAccount,jdbcType=VARCHAR},
+		DOC_STATUS = #{record.docStatus}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -287,7 +316,7 @@
 		update EXPANSE
 		<set>
 			<if test="userName != null">
-				USER_NAME = #{userName,jdbcType=VARCHAR},
+				USER_ID = #{userId,jdbcType=VARCHAR},
 			</if>
 			<if test="expanseReason != null">
 				EXPANSE_REASON = #{expanseReason,jdbcType=VARCHAR},
@@ -301,16 +330,20 @@
 			<if test="bankAccount != null">
 				BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
 			</if>
+			<if test="docStatus != null">
+				DOC_STATUS = #{docStatus,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.manager.entity.Expanse">
 		update EXPANSE
-		set USER_NAME = #{userName,jdbcType=VARCHAR},
+		set USER_ID = #{userId,jdbcType=VARCHAR},
 		EXPANSE_REASON = #{expanseReason,jdbcType=VARCHAR},
 		EXPANSE_TIME = #{expanseTime,jdbcType=TIMESTAMP},
 		EXPANSE_MONEY = #{expanseMoney,jdbcType=VARCHAR},
-		BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR}
+		BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+		DOC_STATUS = #{docStatus,jdbcType=VARCHAR}
 		where UUID = #{uuid,jdbcType=VARCHAR}
 	</update>
 </mapper>

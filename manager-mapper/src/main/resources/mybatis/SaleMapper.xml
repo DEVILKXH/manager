@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.manager.entity.Sale" >
     <id column="UUID" property="uuid" jdbcType="VARCHAR" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR" />
     <result column="CUS_NAME" property="customerName" jdbcType="VARCHAR" />
     <result column="ITEM_TYPE" property="itemType" jdbcType="VARCHAR" />
@@ -184,6 +185,12 @@
         and REMARK = #{record.remark}
       </if>
 	</trim>
+  </select>
+  
+  <select id="getSaleComp" resultMap="BaseResultMap">
+  	SELECT a.user_ID,u.user_name,sum(a.item_num) as item_num,sum(a.ITEM_PRICE) as ITEM_PRICE FROM SALE a 
+	LEFT JOIN user u on a.user_id = u.uuid
+	GROUP BY a.USER_ID ORDER BY ITEM_PRICE
   </select>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.manager.entity.SaleExample" >

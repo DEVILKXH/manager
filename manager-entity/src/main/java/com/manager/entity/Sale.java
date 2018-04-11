@@ -9,6 +9,8 @@ import com.manager.base.entity.BaseEntity;
 public class Sale extends BaseEntity{
 
     private String userId;
+    
+    private String userName;
 
     private String customerId;
     
@@ -35,7 +37,15 @@ public class Sale extends BaseEntity{
         this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getCustomerId() {
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getCustomerId() {
         return customerId;
     }
 

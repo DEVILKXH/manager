@@ -14,6 +14,10 @@ public class Expanse extends BaseEntity{
     private String expanseMoney;
 
     private String bankAccount;
+    
+    private String docStatus;
+    
+    private String userId;
 
     public String getUserName() {
         return userName;
@@ -54,4 +58,21 @@ public class Expanse extends BaseEntity{
     public void setBankAccount(String bankAccount) {
         this.bankAccount = bankAccount == null ? null : bankAccount.trim();
     }
+
+	public String getDocStatus() {
+		return docStatus;
+	}
+
+	public void setDocStatus(String docStatus) {
+		this.docStatus = docStatus;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+    
 }
