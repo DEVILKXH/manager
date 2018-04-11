@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.manager.entity.Sale;
-import com.manager.entity.Sale;
 import com.manager.entity.SaleExample;
 import com.manager.entity.User;
 import com.manager.inner.dto.Page;
