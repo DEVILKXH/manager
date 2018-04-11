@@ -89,6 +89,36 @@
 }
 ```
 
+- 销售业绩管理
+```json
+{
+    "uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+}
+```
+
+- 销售登记管理
+```json
+{
+    "uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+    "itemName": "成交类型",
+    "itemNum": "成交数量",
+    "itemPrice": "成交金额",
+    "itemTime": "(成交时间)",
+    "itemType": "0",
+    "remark": "审批意见"
+}
+```
+
 ## 登录
 - PATH： /manager-web/doLogin.do
 - 方法： POST
@@ -2192,6 +2222,318 @@
 		"quitReason": "(离职原因)",
 		"quitTime": "(离职时间)",
 		"userName": "(离职人)"
+    }
+]
+```
+
+
+
+# 销售管理模块
+
+## 新建销售管理(动态)
+- PATH: /manager-web/m/sale/insertSelective.do
+- 方法: POST
+- 说明: 销售管理销售管理
+- 请求内容
+```json
+{
+	"uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+	}
+}
+```
+
+## 新建销售管理(非动态)
+- PATH: /manager-web/m/sale/insert.do
+- 方法: POST
+- 说明: 动态插入计划/日志
+- 请求内容
+```json
+{
+    "uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+	}
+}
+```
+
+## 选择单个销售管理
+- PATH: /manager-web/m/sale/selectOne.do
+- 方法: POST
+- 说明: 动态插入销售管理
+- 请求内容
+```json
+{
+	"uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+}
+```
+- 返回值: 
+```json
+{
+	"uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+}
+```
+
+## 新建销售管理(非动态)
+- PATH: /manager-web/m/sale/updateSelective.do
+- 方法: POST
+- 说明: 动态插入销售管理
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"saleIsAgree": "(离职同意情况)",
+	"saleIsSave": "(是否存放物料)",
+	"saleReason": "(离职原因)",
+	"saleTime": "(离职时间)",
+	"userName": "(离职人)"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+	}
+}
+```
+
+## 强制更新销售管理
+- PATH: /manager-web/m/sale/update.do
+- 方法: POST
+- 说明: 动态插入销售管理
+- 请求内容
+```json
+{
+	"uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功",
+	"object" : {
+		"uuid": "(ID)",
+	"saleIsAgree": "(离职同意情况)",
+	"saleIsSave": "(是否存放物料)",
+	"saleReason": "(离职原因)",
+	"saleTime": "(离职时间)",
+	"userName": "(离职人)"
+	}
+}
+```
+
+## 删除销售管理
+- PATH: /manager-web/m/sale/delete.do
+- 方法: POST
+- 说明: 动态插入销售管理
+- 请求内容
+```json
+{
+	"uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+}
+```
+- 返回值: 
+```json
+{
+	"status": "200",
+	"message": "插入成功"
+}
+```
+
+## 获取销售管理分页信息
+- PATH: /manager-web/m/sale/getPage.do
+- 方法: GET/POST
+- 说明: 动态插入销售管理
+- 请求内容
+```json
+{
+	"page" : "",
+	"pageSize":"",
+	"uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+}
+```
+- 返回值: 
+```json
+{
+    "page": "",
+    "pageSize": "",
+    "start": "",
+    "end": "",
+    "count": 1,
+    "pageResultCount": "",
+    "list": [
+        {
+            "uuid": "ID",
+    "userId": "用户ID",
+	customerId": "客户ID",
+	customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+        }
+    ]
+}
+```
+
+## 获取销售管理列表
+- PATH: /manager-web/m/sale/getLists.do
+- 方法: GET/POST
+- 说明: 动态插入销售管理
+- 请求内容
+```json
+{
+	"uuid": "(ID)",
+	"uuid": "ID",
+    "userId": "用户ID",
+	"customerId": "客户ID",
+	"customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+}
+```
+- 返回值: 
+```json
+[
+    {
+        "uuid": "(ID)",
+	"uuid": "ID",
+    "userId": "用户ID",
+	"customerId": "客户ID",
+	"customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
+    },{
+        "uuid": "(ID)",
+	"uuid": "ID",
+    "userId": "用户ID",
+	"customerId": "客户ID",
+	"customerName": "客户名称",
+    "itemName": "进货类型",
+    "itemNum": "进货数量",
+    "itemPrice": "进价",
+    "itemTime": "(进货时间)",
+    "itemType": "1",
+    "remark": "备注"
     }
 ]
 ```
