@@ -78,40 +78,41 @@
   </sql>
   
   <sql id="Base_Column_List2" >
-    a.UUID, a.USER_ID, a.CUSTOMER_ID, c.CUS_NAME, a.ITEM_TYPE, a.ITEM_NAME, a.ITEM_TIME, a.ITEM_NUM, a.ITEM_PRICE,a.REMARK
+    a.UUID, a.USER_ID,u.user_name, a.CUSTOMER_ID, c.CUS_NAME, a.ITEM_TYPE, a.ITEM_NAME, a.ITEM_TIME, a.ITEM_NUM, a.ITEM_PRICE,a.REMARK
   </sql>
   
   <select id="getPage" resultMap="BaseResultMap">
 	select <include refid="Base_Column_List2" />
 	from SALE a
 	LEFT JOIN customer c ON c.UUID = a.CUSTOMER_ID
+	left JOIN user u on u.uuid = a.user_id
 	<trim prefix="where"  prefixOverrides="and|or">
 	  <if test="record.uuid != null" >
-        and UUID = #{record.uuid}
+        and a.UUID = #{record.uuid}
       </if>
       <if test="record.userId != null" >
-        and USER_ID = #{record.userId}
+        and a.USER_ID = #{record.userId}
       </if>
       <if test="record.customerId != null" >
-        and CUSTOMER_ID = #{record.customerId}
+        and a.CUSTOMER_ID = #{record.customerId}
       </if>
       <if test="record.itemType != null" >
-        and ITEM_TYPE = #{record.itemType}
+        and a.ITEM_TYPE = #{record.itemType}
       </if>
       <if test="record.itemName != null" >
-        and ITEM_NAME = #{record.itemName}
+        and a.ITEM_NAME = #{record.itemName}
       </if>
       <if test="record.itemTime != null" >
-        and ITEM_TIME = #{record.itemTime}
+        and a.ITEM_TIME = #{record.itemTime}
       </if>
       <if test="record.itemNum != null" >
-        and ITEM_NUM = #{record.itemNum}
+        and a.ITEM_NUM = #{record.itemNum}
       </if>
       <if test="record.itemPrice != null" >
-        and ITEM_PRICE = #{record.itemPrice}
+        and a.ITEM_PRICE = #{record.itemPrice}
       </if>
       <if test="record.remark != null" >
-        and REMARK = #{record.remark}
+        and a.REMARK = #{record.remark}
       </if>
 	</trim>
 	limit #{page.start},#{page.end}
@@ -121,33 +122,34 @@
 	select <include refid="Base_Column_List2" />
 	from SALE a
 	LEFT JOIN customer c ON c.UUID = a.CUSTOMER_ID
+	left JOIN user u on u.uuid = a.user_id
 	<trim prefix="where"  prefixOverrides="and|or">
 	  <if test="record.uuid != null" >
-        and UUID = #{record.uuid}
+        and a.UUID = #{record.uuid}
       </if>
       <if test="record.userId != null" >
-        and USER_ID = #{record.userId}
+        and a.USER_ID = #{record.userId}
       </if>
       <if test="record.customerId != null" >
-        and CUSTOMER_ID = #{record.customerId}
+        and a.CUSTOMER_ID = #{record.customerId}
       </if>
       <if test="record.itemType != null" >
-        and ITEM_TYPE = #{record.itemType}
+        and a.ITEM_TYPE = #{record.itemType}
       </if>
       <if test="record.itemName != null" >
-        and ITEM_NAME = #{record.itemName}
+        and a.ITEM_NAME = #{record.itemName}
       </if>
       <if test="record.itemTime != null" >
-        and ITEM_TIME = #{record.itemTime}
+        and a.ITEM_TIME = #{record.itemTime}
       </if>
       <if test="record.itemNum != null" >
-        and ITEM_NUM = #{record.itemNum}
+        and a.ITEM_NUM = #{record.itemNum}
       </if>
       <if test="record.itemPrice != null" >
-        and ITEM_PRICE = #{record.itemPrice}
+        and a.ITEM_PRICE = #{record.itemPrice}
       </if>
       <if test="record.remark != null" >
-        and REMARK = #{record.remark}
+        and a.REMARK = #{record.remark}
       </if>
 	</trim>
   </select>
@@ -156,41 +158,57 @@
 	select count(0)
 	from SALE a
 	LEFT JOIN customer c ON c.UUID = a.CUSTOMER_ID
+	left JOIN user u on u.uuid = a.user_id
 	<trim prefix="where"  prefixOverrides="and|or">
 	  <if test="record.uuid != null" >
-        and UUID = #{record.uuid}
+        and a.UUID = #{record.uuid}
       </if>
       <if test="record.userId != null" >
-        and USER_ID = #{record.userId}
+        and a.USER_ID = #{record.userId}
       </if>
       <if test="record.customerId != null" >
-        and CUSTOMER_ID = #{record.customerId}
+        and a.CUSTOMER_ID = #{record.customerId}
       </if>
       <if test="record.itemType != null" >
-        and ITEM_TYPE = #{record.itemType}
+        and a.ITEM_TYPE = #{record.itemType}
       </if>
       <if test="record.itemName != null" >
-        and ITEM_NAME = #{record.itemName}
+        and a.ITEM_NAME = #{record.itemName}
       </if>
       <if test="record.itemTime != null" >
-        and ITEM_TIME = #{record.itemTime}
+        and a.ITEM_TIME = #{record.itemTime}
       </if>
       <if test="record.itemNum != null" >
-        and ITEM_NUM = #{record.itemNum}
+        and a.ITEM_NUM = #{record.itemNum}
       </if>
       <if test="record.itemPrice != null" >
-        and ITEM_PRICE = #{record.itemPrice}
+        and a.ITEM_PRICE = #{record.itemPrice}
       </if>
       <if test="record.remark != null" >
-        and REMARK = #{record.remark}
+        and a.REMARK = #{record.remark}
       </if>
 	</trim>
   </select>
   
   <select id="getSaleComp" resultMap="BaseResultMap">
-  	SELECT a.user_ID,u.user_name,sum(a.item_num) as item_num,sum(a.ITEM_PRICE) as ITEM_PRICE FROM SALE a 
-	LEFT JOIN user u on a.user_id = u.uuid
-	GROUP BY a.USER_ID ORDER BY ITEM_PRICE
+  	SELECT
+	date_format(a.ITEM_TIME, '%Y-%m-%d') AS ITEM_TIME,
+	a.USER_ID as USER_ID,
+	u.USER_NAME as USER_NAME,
+	sum(a.ITEM_PRICE) as ITEM_PRICE
+	FROM
+		SALE a
+	LEFT JOIN user u on u.UUID = a.USER_ID
+	where a.ITEM_TYPE = 1 
+	<if test="userId != null">
+		and a.USER_ID = #{userId}
+	</if>
+	GROUP BY
+		date_format(a.ITEM_TIME, '%Y-%m-%d'),
+		a.USER_ID
+	ORDER BY
+		ITEM_TIME,sum(ITEM_PRICE) DESC
+	LIMIT 7
   </select>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.manager.entity.SaleExample" >

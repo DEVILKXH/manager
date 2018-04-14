@@ -18,8 +18,8 @@ public class SaleServiceImpl extends BaseServiceImpl<SaleExample, Sale, SaleMapp
 	private SaleMapper saleMapper;
 	
 	@Override
-	public List<Sale> getSaleComp() {
-		return saleMapper.getSaleComp();
+	public List<Sale> getSaleComp(Sale record) {
+		return saleMapper.getSaleComp(record);
 	}
 
 }

@@ -2544,23 +2544,38 @@
 - 方法: GET/POST
 - 说明: 获取销售统计
 - 请求内容
+```json
+{
+	userId: ''
+}
+```
 - 返回值: 
 ```json
-[
-    {
-		"uuid": "ID",
-	    "userId": "用户ID"
-		"userName": "客户名称",
-	    "itemNum": "进货数量",
-	    "itemPrice": "进价",
-	    "itemType": "1"
-    },{
-        "uuid": "ID",
-	    "userId": "用户ID"
-		"userName": "客户名称",
-	    "itemNum": "进货数量",
-	    "itemPrice": "进价",
-	    "itemType": "1"
-    }
-]
+{
+    "axisData": [
+        "2018-04-11",
+        "2018-04-14"
+    ],
+    "legendData": [
+        "yangyan",
+        "yangzong"
+    ],
+    "series": [
+        {
+            "data": [
+                "2",
+                "1"
+            ],
+            "name": "yangyan",
+            "type": "line"
+        },
+        {
+            "data": [
+                "1"
+            ],
+            "name": "yangzong",
+            "type": "line"
+        }
+    ]
+}
 ```

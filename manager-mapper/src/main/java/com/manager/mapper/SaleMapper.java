@@ -7,5 +7,5 @@ import com.manager.entity.SaleExample;
 import com.manager.inner.base.mapper.BaseMapper;
 
 public interface SaleMapper extends BaseMapper<SaleExample, Sale>{
-	public List<Sale> getSaleComp();
+	public List<Sale> getSaleComp(Sale record);
 }

@@ -7,5 +7,5 @@ import com.manager.entity.SaleExample;
 import com.manager.inner.base.service.BaseService;
 
 public interface SaleService extends BaseService<SaleExample, Sale>{
-	public List<Sale> getSaleComp();
+	public List<Sale> getSaleComp(Sale record);
 }
